@@ -35,9 +35,9 @@ export class GameData extends BaseEntity {
 	@OneToOne((type) => User, (user: User) => user.gameDataEntry)
 	user: Relation<User>;
 
-	@CreateDateColumn()
+	@CreateDateColumn({select: false})
 	created_at: string;
 
-	@UpdateDateColumn()
+	@UpdateDateColumn({select: false})
 	updated_at: string;
 }

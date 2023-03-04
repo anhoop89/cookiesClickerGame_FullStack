@@ -5,6 +5,7 @@ import {User} from "./db/models/user";
 import {IPHistory} from "./db/models/ip_history";
 import {Profile} from "./db/models/profile";
 import {ILike, LessThan, Not} from "typeorm";
+import { GameData } from "./db/models/game_data";
 
 /**
  * App plugin where we construct our routes
@@ -73,9 +74,9 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	app.post<{
 		Body: IPostUsersBody,
 		Reply: IPostUsersResponse
-	}>("/users", post_users_opts, async (req, reply: FastifyReply) => {
+	}>("/users", post_users_opts, async (req: any, reply: FastifyReply) => {
 
-		const {name, email} = req.body;
+		const {name, email, userClicks, userUpgradeOne, userUpgradeTwo} = req.body;
 
 		const user = new User();
 		user.name = name;
@@ -87,10 +88,107 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 		// transactional, transitively saves user to users table as well IFF both succeed
 		await ip.save();
 
+		const newData = new GameData();
+		newData.user = user;
+		newData.num_of_clicks = userClicks;
+		newData.num_of_upgrade_one = userUpgradeOne;
+		newData.num_of_upgrade_two = userUpgradeTwo;
+		await newData.save();
+
 		//manually JSON stringify due to fastify bug with validation
 		// https://github.com/fastify/fastify/issues/4017
 		await reply.send(JSON.stringify({user, ip_address: ip.ip}));
 	});
+
+
+	// sending a username, the frontend will receive the game data related to that specific user
+	app.get("/user/:username", async (req: any, reply: FastifyReply) => {
+
+		let givenName = req.params.username;
+		let {currentUser} = {"currentUser":givenName};
+
+		// find the specific user given
+		let theUser = await app.db.user.find({
+			relations:{
+				gameDataEntry: true
+			},
+			where:{
+				name: currentUser
+			}
+		});
+		
+		// error checking to ensure a proper usename has been given
+		if(theUser[0] === undefined){
+			reply.send("Incorrect Username Given.");
+			return;
+		}
+
+		// return game data related to specific user
+		reply.send(theUser[0].gameDataEntry);
+	});
+
+
+	// soft deleting a user given a specific username
+	app.delete("/user/:username", async (req: any, reply: FastifyReply) => {
+		
+		let givenName = req.params.username;
+		let {currentUser} = {"currentUser":givenName};
+
+		let theUser = await app.db.user.find({
+			relations:{
+				gameDataEntry: true
+			},
+			where:{
+				name: currentUser
+			}
+		});
+
+		// error checking to ensure a proper usename has been given
+		if(theUser[0] === undefined){
+			reply.send("Incorrect Username Given.");
+			return;
+		}
+
+		let res = await app.db.user.softRemove(theUser);
+	
+		await reply.send("User Deleted.");
+	});
+
+
+	// put request to update game information for a specific user
+	// NOTE: the 'errors' showing up in this function do not affect the product so far.
+	//		upon testing various times, the code works as intended and no errors have been thrown
+	app.put("/user", async(req: any, reply) => {
+
+		const {name, userClicks, userUpgradeOne, userUpgradeTwo} = req.body;
+
+		let {currentUser} = {"currentUser":name};
+
+		let theUser = await app.db.user.findOne({
+			relations:{
+				gameDataEntry: true
+			},
+			where:{
+				name: currentUser
+			}
+		});
+
+		if(theUser === undefined){
+			reply.send("Incorrect Username Given.");
+			return;
+		}
+
+		// the note is talking about the errors ni the following 5 lines.
+		let updateData = theUser.gameDataEntry;
+		updateData.num_of_clicks = userClicks;
+		updateData.num_of_upgrade_one = userUpgradeOne;
+		updateData.num_of_upgrade_two = userUpgradeTwo;
+		let res = await updateData.save();
+
+		await reply.send("Game Saved!");
+	});
+
+
 
 
 	// PROFILE Route

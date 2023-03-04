@@ -55,6 +55,6 @@ export class User extends BaseEntity {
 	updated_at: string;
 
 	// for soft deletion
-	@DeleteDateColumn()
+	@DeleteDateColumn({select: false})
 	deleted_at?: string;
 }
