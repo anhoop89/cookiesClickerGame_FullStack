@@ -6,8 +6,10 @@ import {
 	Entity, JoinTable,
 	ManyToMany,
 	ManyToOne,
+	OneToOne,
 	PrimaryGeneratedColumn,
-	Relation
+	Relation,
+	UpdateDateColumn
 } from "typeorm";
 import {User} from "./user";
 
@@ -19,32 +21,23 @@ import {User} from "./user";
 @Entity()
 export class Profile extends BaseEntity {
 	@PrimaryGeneratedColumn()
-	id: number;
+	gameId: number;
 
 	@Column()
-	name: string;
+	num_of_clicks: number;
 
 	@Column()
-	picture: string;
+	num_of_upgrade_one: number;
 
-	@ManyToOne((type) => User, (user: User) => user.profiles, {
-		//adding an IPHistory will also add associated User if it is new, somewhat useless in this example
-		cascade: true,
-		// if we delete a User, also delete their IP History
-		onDelete: "CASCADE"
-	})
+	@Column()
+	num_of_upgrade_two: number;
+
+	@OneToOne((type) => User, (user: User) => user.profiles)
 	user: Relation<User>;
 
 	@CreateDateColumn()
 	created_at: string;
+
+	@UpdateDateColumn()
+	updated_at: string;
 }
-
-/*
-TINDER: you are profile1
-when you swipe-right on another profile, say profile2
-> Create a new Match row in the Match table and set its matching_profile to our user
-
-if someone else swipes right on YOUR profile, again, profile1
-> Create a new match row in the match table and set its matched_Profile to our user
-
- */

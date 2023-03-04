@@ -5,13 +5,13 @@ services:
     image: postgres:15-alpine
     restart: always
     ports:
-      - "5432:5432" 
+      - "5433:5432" 
     volumes:
       - db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_USER=doggr
-      - POSTGRES_PASSWORD=doggr
-      - POSTGRES_DB=doggr
+      - POSTGRES_USER=clickers
+      - POSTGRES_PASSWORD=clickers
+      - POSTGRES_DB=clickers
     #network_mode: host
 #  backend:
 #    container_name: backend

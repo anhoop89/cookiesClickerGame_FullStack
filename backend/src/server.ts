@@ -7,7 +7,7 @@ import Fastify, {FastifyInstance} from "fastify";
 import path from "path";
 import {getDirName} from "./lib/helpers";
 import logger from "./lib/logger";
-import {doggr_routes} from "./routes";
+import {clickers_routes} from "./routes";
 import DbPlugin from "./plugins/database";
 
 
@@ -38,7 +38,7 @@ export async function buildApp(useLogging: boolean) {
 
 		// Adds all of our Router's routes to the app
 		app.log.info("Registering routes");
-		await app.register(doggr_routes);
+		await app.register(clickers_routes);
 
 		// Connects to postgres
 		app.log.info("Connecting to Database...");
