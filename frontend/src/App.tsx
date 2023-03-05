@@ -27,7 +27,6 @@ function App() {
 
 
     return (
-
         <div>
             {/* navbar */}
             <div className="">
@@ -52,14 +51,9 @@ function App() {
                             )}
 
                         </div>
-
                         <Link to="/Play" className="items-center p-3 px-6 pt-2 text-white rounded-full bg-red-700 hover:bg-red-600"
                         >PLAY</Link>
-
-
                     </div>
-
-
                 </nav>
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -69,12 +63,11 @@ function App() {
                 </Routes>
             </div>
 
-
             <div>
                 {isAuthenticated ? (
                     <div>
                         <p>Welcome, {user?.nickname}!</p>
-                        {/* <Play user={user} /> */}
+                    
                         <button onClick={handleLogoutClick}>Logout</button>
                     </div>
                 ) : ""}
