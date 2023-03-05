@@ -1,0 +1,74 @@
+
+
+
+
+
+/* FlavorText --- */
+.item1{
+    grid-area: flavorTextArea;
+}
+
+/* Upgrade One --- */
+.item2{
+    grid-area: upgOne;
+}
+
+/* Upgrade Two --- */
+.item3{
+    grid-area: upgTwo;
+}
+
+/* Upgrade Three --- */
+.item4{
+    grid-area: upgThree;
+}
+
+
+.grid-item {
+    padding: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
+
+/* grid-container, section class, default for mobile view */
+.grid-container{
+    display: grid;
+    height: 97 vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 10px; 
+    grid-template-areas:
+        'flavorTextArea'
+        'upgOne' 
+        'upgTwo'
+        'upgThree';
+}
+
+
+/* media query for tablet size */
+@media (min-width: 576px) and (max-width: 992px){
+    .grid-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 10px; 
+        grid-template-areas:
+            'flavorTextArea flavorTextArea'
+            'upgOne         upgTwo'
+            'upgThree       upgFour';          
+    }
+}
+
+/* media query for PC size */
+@media (min-width: 993px){
+    .grid-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 10px; 
+        grid-template-areas:
+            'flavorTextArea     flavorTextArea      flavorTextArea'
+            'upgOne             upgTwo              upgThree';
+    }
+}
