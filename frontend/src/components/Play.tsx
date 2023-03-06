@@ -116,7 +116,7 @@ const timeTracking = () => {
         setSeconds((currSeconds) => currSeconds++);
     }
     useEffect(() => {
-      const interval = setInterval(increaseSec, 1000); // 1s
+      const interval = setInterval(increaseSec, 1000); // +1s
   
       return () => clearInterval(interval);
     }, []);
