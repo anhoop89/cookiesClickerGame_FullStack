@@ -84,19 +84,19 @@ const clickerGame: React.FC = () => {
 
     return (
         <div className='flex flex-col items-center pt-40 pb-40'>
-            <h1 className='bigbutton' onClick={buttonClick}><img className='theButton' src="./src/img/cookies_logo.png" /></h1>
-            <h2 className='titleCount pt-10'>Click Count: {clickCounter}</h2>
+            <div className='bigbutton' onClick={buttonClick}><img className='theButton' src="./src/img/cookies_logo.png" /></div>
+            <h1 className='titleCount pt-10'>Click Count: {clickCounter}</h1>
             <p className='rewardText'>{rewardText}</p>
             <div>
                 {/* the single clicker upgrade option (UPGRADE ONE) */}
-                <button onClick={() => purchaseUpgrade(0)}>
-                    Upgrade One: Times Purchased: {upgrades[0].count},
-                    Cost: {upgrades[0].cost}
+                <button className='mr-5 mt-10' onClick={() => purchaseUpgrade(0)}>
+                    <div> ► Upgrade One  </div>
+                    <div> Times Purchased: {upgrades[0].count}, Cost: {upgrades[0].cost}</div>
                 </button>
                 {/*  the single clicker upgrade option (UPGRADE TWO) */}
-                <button onClick={() => purchaseUpgrade(1)}>
-                    Upgrade Two: Times Purchased: {upgrades[1].count},
-                    Cost: {upgrades[1].cost}
+                <button  className='ml-5 mt-10'  onClick={() => purchaseUpgrade(1)}>
+                   <div> ► Upgrade Two  </div>
+                   <div> Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost} </div>
                 </button>
             </div>
         </div>
