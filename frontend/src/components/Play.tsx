@@ -113,7 +113,7 @@ const timeTracking = () => {
   
     // run useEffect hook everytime people play the game
     const increaseSec = () => {
-        setSeconds((currSeconds) => currSeconds + 1);
+        setSeconds((currSeconds) => currSeconds++);
     }
     useEffect(() => {
       const interval = setInterval(increaseSec, 1000); // 1s
