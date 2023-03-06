@@ -96,11 +96,51 @@ const clickerGame: React.FC = () => {
                 {/*  the single clicker upgrade option (UPGRADE TWO) */}
                 <button  className='ml-5 mt-10'  onClick={() => purchaseUpgrade(1)}>
                    <div> ► Upgrade Two  </div>
-                   <div> Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost} </div>
+                   <div className=''> Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost} </div>
                 </button>
             </div>
+            <div>
+             {timeTracking()}
+            </div>
         </div>
+      
     );
 };
+
+
+const timeTracking = () => {
+    const [totalSeconds, setSeconds] = useState<number>(0);
+  
+    // run useEffect hook everytime people play the game
+    const increaseSec = () => {
+        setSeconds((currSeconds) => currSeconds + 1);
+    }
+    useEffect(() => {
+      const interval = setInterval(increaseSec, 1000); // 1s
+  
+      return () => clearInterval(interval);
+    }, []);
+  
+    if (totalSeconds > 0 && totalSeconds % 60 === 0) {
+        alert("Please login to save your score!");
+    }
+
+    const displayTimer = (() => {
+      let hours = Math.floor(totalSeconds / 3600);
+      let minutes = Math.floor((totalSeconds % 3600) / 60);
+      let remainingSeconds = totalSeconds % 60;
+  
+      // display hours, minutes, seconds
+      let showHours = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : '';
+      let showMinutues = minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : '';
+      let showSeconds = `${remainingSeconds} second${remainingSeconds > 1 ? 's' : ''}`;
+    
+      // leave total seconds for testing
+      return `You have been playing: ${showHours} ${showMinutues} ${showSeconds} ${totalSeconds}`;
+    })();
+  
+    return <p>{displayTimer}</p>;
+  };
+
 
 export default clickerGame;
