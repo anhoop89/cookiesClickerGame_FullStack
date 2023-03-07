@@ -77,7 +77,7 @@ const clickerGame = () => {
         }
         increaseMultiplier(option);
     };
-
+   
     return (
         <div className='flex flex-col items-center pt-40 pb-40  '>
             <div className='bigbutton ' onClick={buttonClick}><img className='theButton' src="./src/img/cookies_logo.png" /></div>
@@ -117,7 +117,7 @@ const timeTracking = () => {
         const interval = setInterval(increaseSec, 1000); // +1s
         // reset 
         return () => clearInterval(interval);
-    }, [increaseSec]);
+    }, []);
 
     if (!isAuthenticated && totalSeconds > 0 && totalSeconds % 60 === 0) {
         alert("Please login to save your score!");
