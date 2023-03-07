@@ -1,24 +1,21 @@
-.scoreText {
-    font-size: 50px;
+.bigbutton {
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: inherit;
+  transition: transform .1s ease-in-out;
 }
 
-.theButton{
-    border: none;
-    cursor: pointer;
-    appearance: none;
-    background-color: inherit;
-    transition: transform .1s ease-in-out;
+.bigbutton:hover {
+  animation: rotate 1.5s linear infinite;
+  transform: scale(1.75);
 }
 
-.theButton:hover{
-    animation: rotate 2s linear infinite;
-}
-
-  @keyframes rotate {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+@keyframes rotate {
+  0%{
+    transform: rotate(0deg);
   }
+  65% {
+    transform: rotate(360deg);
+  }
+}

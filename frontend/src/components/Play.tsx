@@ -80,7 +80,7 @@ const clickerGame = () => {
    
     return (
         <div className='flex flex-col items-center pt-40 pb-40  '>
-            <div className='bigbutton ' onClick={buttonClick}><img className='theButton' src="./src/img/cookies_logo.png" /></div>
+            <div className='bigbutton' onClick={buttonClick}><img src="./src/img/cookies_logo.png" /></div>
             <h1 className='titleCount pt-10'>Click Count: {clickCounter}</h1>
             <p className='rewardText overflow-hidden line-clamp-3'>{displayRewardText}</p>
             <div>
@@ -120,7 +120,7 @@ const timeTracking = () => {
     }, []);
 
     if (!isAuthenticated && totalSeconds > 0 && totalSeconds % 60 === 0) {
-        alert("Please login to save your score!");
+        alert("Please login to have an auto-save for your score!");
     }
 
     const displayTimer = (() => {
