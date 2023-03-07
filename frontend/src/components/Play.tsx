@@ -2,6 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../CSS/play.css';
+import Reward from "react-rewards";
 
 type Upgrade = {
     cost: number,
@@ -79,7 +80,7 @@ const clickerGame = () => {
     };
    
     return (
-        <div className='flex flex-col items-center pt-40 pb-40  '>
+        <div className=' boxGameContainer flex flex-col items-center pt-40 pb-40  '>        
             <div className='bigbutton' onClick={buttonClick}><img src="./src/img/cookies_logo.png" /></div>
             <h1 className='titleCount pt-10'>Click Count: {clickCounter}</h1>
             <p className='rewardText overflow-hidden line-clamp-3'>{displayRewardText}</p>
@@ -140,7 +141,6 @@ const timeTracking = () => {
 
     return <p>{displayTimer}</p>;
 };
-
 
 export default clickerGame;
 

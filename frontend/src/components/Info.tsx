@@ -7,46 +7,79 @@ interface User {
     name: string;
     email: string;
 }
+const api = axios.create({
+    baseURL: `http://localhost:8080/`
+})
 
 function Info() {
     const { user, isAuthenticated } = useAuth0();
     const [getUsers, setUsers] = useState([]);
+    const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [findResult, setFind] = useState([]);
 
 
     // show data and hide data
     const [showData, setShowData] = useState(false);
 
+    // const getUsersButton = async () => {
+    //     const response = await axios.get('http://127.0.0.1:8080/users');
+    //     setUsers(response.data);
+    //     setShowData(true);
+    // };
     const getUsersButton = async () => {
-        const response = await axios.get('http://127.0.0.1:8080/users');
-        setUsers(response.data);
-        setShowData(true);
+        api.get('/users')
+            .then(res => {
+                console.log(res.data);
+                setUsers(res.data);
+                setShowData(true);
+            })
     };
-
 
     const postUser = async () => {
-        try {
-            const result = await axios.post('http://127.0.0.1:8080/users', {
-                name: name,
-                email: email,
-                userClicks: 99,
-                userUpgradeOne: 99,
-                userUpgradeTwo: 99
-            });
-            if (result.status >= 200 && result.status < 300) {
-                // Post request successful, do something here
-                console.log("working!");
-            } else {
-                // Post request failed, display an error message
-                alert('Failed to post data!');
-            }
-            setShowData(true);
+        let check = await api.post('/users', {
+            name: name,
+            email: email,
+            userClicks: 99,
+            userUpgradeOne: 99,
+            userUpgradeTwo: 99
+        })
+            .then(res => {
+                console.log(res.data);
+                setUsers(res.data);
+                setShowData(true);
+            })
+    }
 
-        } catch (error) {
-            console.error(error);
-        }
-    };
+    const findUser = async () => {
+          const response = await api.get(`/user/${username}`);
+          console.log(response.data);
+          console.log("finding a user!!!");
+          setFind(response.data);
+          setShowData(true);
+      };     
+      
+      
+    // testing
+
+    console.log(name);
+    console.log(email);
+    // const postUser = async () => {
+    //     await axios.post('http://127.0.0.1:8080/users', {
+    // name: name,
+    // email: email,
+    // userClicks: 99,
+    // userUpgradeOne: 99,
+    // userUpgradeTwo: 99
+    //     })
+    //     .then(response => {
+    //         console.log(response.data);
+    //     })
+    //     .catch(error => {
+    //         console.error("hahahah failed ");
+    //     });       
+    // };
 
     // hide/show data
     const hideData = () => {
@@ -54,9 +87,10 @@ function Info() {
         setUsers([]);
     }
 
-    
+
     return (
         <div className="mt-20 mb-10">
+
             <h1>Get Request!</h1> <br></br>
             {isAuthenticated && (
                 <>
@@ -74,21 +108,39 @@ function Info() {
                     </ul>
                 </>
             )}
-
             <h1>POST Request!</h1>
             <form className='container flex flex-col pt-2 mt-3' onSubmit={postUser}>
                 <label className="mb-4">
                     Name:
-                    <input className="ml-2" type="text" value={name} onChange={(event) => setName(event.target.value)} />
+                    <input className="ml-2" type="text" value={name} onChange={(addName) => setName(addName.target.value)} />
                 </label>
                 <label className="mb-4">
                     Email:
-                    <input className="ml-2" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+                    <input className="ml-2" type="email" value={email} onChange={(addEmail) => setEmail(addEmail.target.value)} />
                 </label>
                 <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Add User</button>
             </form>
+
+            <form className='container flex flex-col pt-2 mt-3' onSubmit={findUser}>
+                <label className="mb-4">
+                    Name:
+                    <input className="ml-2" type="text" value={username} onChange={(input) => setUsername(input.target.value)} />
+                </label>
+                <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Find User</button>
+            </form>
+
+            <ul style={{ textAlign: 'left' }}>
+                {findResult.map((user: any) => (
+                    <li key={user.id}>
+                        Name: {user.name} <br />&emsp; Email: {user.email}
+                    </li>
+                ))}
+            </ul>
+
         </div>
     );
 }
 export default Info;
+
+
 

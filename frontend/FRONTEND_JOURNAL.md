@@ -6,3 +6,8 @@
 5. pnpm install react-icons --save  // this is react-icon library 
 //
 6. pnpm dev   -> hit the http localhost to see the site.
+
+
+==================== Libraries ============================
+https://www.npmjs.com/package/react-rewards
+pnpm install react-rewards
