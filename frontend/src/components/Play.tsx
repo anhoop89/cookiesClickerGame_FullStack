@@ -83,15 +83,15 @@ const clickerGame = () => {
         <div className=' boxGameContainer flex flex-col items-center pt-40 pb-40  '>        
             <div className='bigbutton' onClick={buttonClick}><img src="./src/img/cookies_logo.png" /></div>
             <h1 className='titleCount pt-10'>Click Count: {clickCounter}</h1>
-            <p className='rewardText overflow-hidden line-clamp-3'>{displayRewardText}</p>
-            <div>
+            <p className='rewardText overflow-hidden  max-w-md pt-5 mx-auto'>{displayRewardText}</p>
+            <div className='mt-10'>
                 {/* the single clicker upgrade option (UPGRADE ONE) */}
-                <button className='mr-5 mt-10 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => purchaseUpgrade(0)}>
+                <button className=' mx-4 mb-3 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => purchaseUpgrade(0)}>
                     <div> ► Upgrade One  </div>
                     <div> Times Purchased: {upgrades[0].count}, Cost: {upgrades[0].cost}</div>
                 </button>
                 {/*  the single clicker upgrade option (UPGRADE TWO) */}
-                <button className='ml-5 mt-10 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => purchaseUpgrade(1)}>
+                <button className=' mx-4  mb-3  from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => purchaseUpgrade(1)}>
                     <div> ► Upgrade Two  </div>
                     <div className=''> Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost} </div>
                 </button>

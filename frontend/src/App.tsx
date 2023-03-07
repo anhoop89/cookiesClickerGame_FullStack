@@ -29,12 +29,13 @@ function App() {
     return (
         <div>
             {/* navbar */}
-            <div className="">
-                <nav className='relative p-4 bg-gradient-to-r from-red-500 to-black-500 '>
+            <div className="justify-between items-center py-4 px-6">
+                <nav className='relative p-4 bg-gradient-to-r from-red-500 to-black-500
+                                '>
                     {/* flex container */}
                     <div className="flex items-center justify-between" >
                         <div className="pt-2">
-                            <Link to="/" >  <img className="h-12" src="./src/img/logo.png" alt="cookies logo"></img></Link>
+                            <Link to="/" >  <img className=" h-12 " src="./src/img/logo.png" alt="cookies logo"></img></Link>
                         </div>
 
                         <div className="hidden md:flex space-x-6 ">
@@ -55,12 +56,14 @@ function App() {
                         >PLAY</Link>
                     </div>
                 </nav>
+                <div>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/Info" element={<Info />} />
                     <Route path="/Contact" element={<Contact />} />
                     <Route path="/Play" element={<Play />} />
                 </Routes>
+                </div>
             </div>
 
             <div>
