@@ -9,13 +9,13 @@ type Upgrade = {
     addMultiplier: number
 }
 
-const clickerGame: React.FC = () => {
+const clickerGame = () => {
 
     const [clickCounter, setClickCounter] = useState<number>(0);
     const [textCounter, setTextCounter] = useState<number>(0);
 
     const [clickMultiplier, setClickMultiplier] = useState<number>(1);
-    const [rewardText, setRewardText] = useState<string>("");
+    const [displayRewardText, setRewardText] = useState<string>("");
 
     // since we have only 2 options to upgrade
     const [upgrades, setUpgrades] = useState<Upgrade[]>([
@@ -23,12 +23,9 @@ const clickerGame: React.FC = () => {
         { cost: 100, count: 0, addMultiplier: 2 }
     ]);
 
-
     const buttonClick = () => {
-        // increment click counter every time this function is invoked
-        const oneClick = clickMultiplier;
-        setClickCounter(clickCounter + oneClick);
-
+        // increment one click counter every time this function is invoked
+        setClickCounter(clickCounter + clickMultiplier);
         // checking the 2nd counter for flavor texts to invoke the function to change
         //    the flavor text if the counter has accumulated enough
         if (textCounter >= 25) {
@@ -39,7 +36,6 @@ const clickerGame: React.FC = () => {
         // continue increasing text counter until the fact pops up
         setTextCounter(textCounter + 1);
     };
-
 
     // function activates only when 'textCounter' variable is ABOVE 25
     // this function pulls a new flavor text to deliver to the user
@@ -83,10 +79,10 @@ const clickerGame: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col items-center pt-40 pb-40 '>
+        <div className='flex flex-col items-center pt-40 pb-40  '>
             <div className='bigbutton ' onClick={buttonClick}><img className='theButton' src="./src/img/cookies_logo.png" /></div>
             <h1 className='titleCount pt-10'>Click Count: {clickCounter}</h1>
-            <p className='rewardText'>{rewardText}</p>
+            <p className='rewardText overflow-hidden line-clamp-3'>{displayRewardText}</p>
             <div>
                 {/* the single clicker upgrade option (UPGRADE ONE) */}
                 <button className='mr-5 mt-10 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => purchaseUpgrade(0)}>
@@ -94,56 +90,57 @@ const clickerGame: React.FC = () => {
                     <div> Times Purchased: {upgrades[0].count}, Cost: {upgrades[0].cost}</div>
                 </button>
                 {/*  the single clicker upgrade option (UPGRADE TWO) */}
-                <button  className='ml-5 mt-10 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r'  onClick={() => purchaseUpgrade(1)}>
-                   <div> ► Upgrade Two  </div>
-                   <div className=''> Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost} </div>
+                <button className='ml-5 mt-10 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => purchaseUpgrade(1)}>
+                    <div> ► Upgrade Two  </div>
+                    <div className=''> Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost} </div>
                 </button>
             </div>
             <div>
-             {timeTracking()}
+                {timeTracking()}
             </div>
         </div>
-      
+
     );
 };
 
 
 const timeTracking = () => {
-    const {isAuthenticated}=  useAuth0();
+    const { isAuthenticated } = useAuth0();
     const [totalSeconds, setSeconds] = useState<number>(0);
-  
+
     // run useEffect hook everytime people play the game
     const increaseSec = () => {
         setSeconds((currSeconds) => currSeconds + 1);
     }
-    
+
     useEffect(() => {
-      const interval = setInterval(increaseSec, 1000); // +1s
-  
-      return () => clearInterval(interval);
+        const interval = setInterval(increaseSec, 1000); // +1s
+        // reset 
+        return () => clearInterval(interval);
     }, [increaseSec]);
-  
+
     if (!isAuthenticated && totalSeconds > 0 && totalSeconds % 60 === 0) {
         alert("Please login to save your score!");
     }
 
     const displayTimer = (() => {
-      let hours = Math.floor(totalSeconds / 3600);
-      let minutes = Math.floor((totalSeconds % 3600) / 60);
-      let remainingSeconds = totalSeconds % 60;
-  
-      // display hours, minutes, seconds
-      // conditional operator to check a plural form
-      let showHours = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : '';
-      let showMinutues = minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : '';
-      let showSeconds = `${remainingSeconds} second${remainingSeconds > 1 ? 's' : ''}`;
-    
-      // leave total seconds for testing
-      return `You have been playing: ${showHours} ${showMinutues} ${showSeconds}`;
+        let hours = Math.floor(totalSeconds / 3600);
+        let minutes = Math.floor((totalSeconds % 3600) / 60);
+        let remainingSeconds = totalSeconds % 60;
+
+        // display hours, minutes, seconds
+        // conditional operator to check a plural form
+        let showHours = hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : '';
+        let showMinutues = minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''} ` : '';
+        let showSeconds = `${remainingSeconds} second${remainingSeconds > 1 ? 's' : ''}`;
+
+        // leave total seconds for testing
+        return `You have been playing: ${showHours} ${showMinutues} ${showSeconds}`;
     })();
-  
+
     return <p>{displayTimer}</p>;
-  };
+};
 
 
 export default clickerGame;
+
