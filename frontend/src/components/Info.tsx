@@ -53,6 +53,8 @@ function Info() {
         setShowData(false);
         setUsers([]);
     }
+
+    
     return (
         <div className="mt-20 mb-10">
             <h1>Get Request!</h1> <br></br>

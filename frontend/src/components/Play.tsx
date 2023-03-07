@@ -109,19 +109,21 @@ const clickerGame: React.FC = () => {
 
 
 const timeTracking = () => {
+    const {isAuthenticated}=  useAuth0();
     const [totalSeconds, setSeconds] = useState<number>(0);
   
     // run useEffect hook everytime people play the game
     const increaseSec = () => {
-        setSeconds((currSeconds) => currSeconds++);
+        setSeconds((currSeconds) => currSeconds + 1);
     }
+    
     useEffect(() => {
       const interval = setInterval(increaseSec, 1000); // +1s
   
       return () => clearInterval(interval);
-    }, []);
+    }, [increaseSec]);
   
-    if (totalSeconds > 0 && totalSeconds % 60 === 0) {
+    if (!isAuthenticated && totalSeconds > 0 && totalSeconds % 60 === 0) {
         alert("Please login to save your score!");
     }
 
