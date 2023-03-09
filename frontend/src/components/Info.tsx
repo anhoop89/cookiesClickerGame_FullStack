@@ -22,12 +22,11 @@ function Info() {
     const [postResult, setPost] = useState<any[]>([]);
     const [deleteResult, setDelete] = useState<any[]>([]);
 
-
-
     // show data and hide data
     const [showData, setShowData] = useState(false);
+
     const getUsersButton = async () => {
-        api.get('/users')
+        await api.get('/users')
             .then(res => {
                 console.log(res.data);
                 setUsers(res.data);
@@ -36,104 +35,61 @@ function Info() {
     };
 
     const postUser = async () => {
-        try {
-            let response = await api.post('/users', {
-                name: name,
-                email: email,
-                userClicks: 99,
-                userUpgradeOne: 99,
-                userUpgradeTwo: 99
-            })
+        await api.post('/users', {
+            name: name,
+            email: email,
+            userClicks: 99,
+            userUpgradeOne: 99,
+            userUpgradeTwo: 99
+          })
+          .then((response) => {
             setPost(response.data);
             console.log(postResult);
-        } catch (error) {
+          })
+          .catch((error) => {
             console.error(error); // Or handle the error in another way
-        }
+          });
+      };
+      
 
-    }
 
     // find user based on username. 
     const findUser = async () => {
-        try {
-            const response = await api.get(`/user/${username}`);
-            console.log()
-            setFind(response.data); 
-            // console.log shows the result 
+        await api.get(`/user/${username}`)
+          .then((response) => {
+            console.log(response.data);
+            setFind(response.data);
             console.log(findResult);
-            // ??? Why findResult.length is undefined ????
-            console.log(findResult.length);
-            console.log(typeof findResult)
-            return (
-                // ??? can't dislay it on web
-                <div>
-                {findResult.length > 0 ? (
-                  <ul>
-                    {findResult.map((item: any) => (
-                      <li key={item.id}>
-                        NameID: {item.gameId} <br />&emsp; num_of_clicks: {item.num_of_clicks}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>No results found</p>
-                )}
-              </div>
-            );
-            
-        } catch (error) {
-            console.error(error); // Or handle the error in another way
-        }
-
-        console.log(username);
-    };
-
-
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+      
 
     // find user based on username. 
-    const deleteUser = async () => {
-        try {
-            const response = await api.delete(`/user/${username}`);
-            console.log()
+    const deleteUser = () => {
+        api.delete(`/user/${username}`)
+          .then(response => {
             setDelete(response.data);
-            // console.log shows the result 
             console.log(deleteResult);
-            // ??? Why findResult.length is undefined ????
             console.log(deleteResult.length);
-            console.log(typeof deleteResult)
-
-            const getUsersButton = async () => {
-                api.get('/users')
-                    .then(res => {
-                        console.log(res.data);
-                        setUsers(res.data);
-                        setShowData(true);
-                    })
-            };
-
+            console.log(typeof deleteResult);
             
-            return (
-                // ??? can't dislay it on web
-                <div>
-                    {deleteResult.length > 0 ? (
-                        <ul>
-                            {deleteResult.map((item: any) => (
-                                <li key={item.id}>
-                                    NameID: {item.gameId} <br />&emsp; num_of_clicks: {item.num_of_clicks}
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No results found</p>
-                    )}
-                </div>
-            );
-
-        } catch (error) {
+            const getUsersButton = () => {
+              api.get('/users')
+                .then(res => {
+                  console.log(res.data);
+                  setUsers(res.data);
+                  setShowData(true);
+                })
+            };
+          })
+          .catch(error => {
             console.error(error); // Or handle the error in another way
-        }
-
-        console.log(username);
-    };
+          });
+      };
+      
     // hide/show data
     const hideData = () => {
         setShowData(false);
@@ -174,14 +130,6 @@ function Info() {
                 <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Add User</button>
             </form>
 
-            {/* <form className='container flex flex-col pt-2 mt-3' onSubmit={findUser}>
-                <label className="mb-4">
-                    Name:
-                    <input className="ml-2" type="text" value={username} onChange={(input) => setUsername(input.target.value)} />
-                </label>
-                <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Find User</button>
-            </form> */}
-
             <div className='mt-5'>
                 <label htmlFor="username">Username: </label>
                 <input type="text"
@@ -193,8 +141,8 @@ function Info() {
                 />
             </div>
             <div>
-                <button className='mt-5' onClick={findUser}>Find User</button>
-                
+                <button className='mt-5 mx-5' onClick={findUser}>Find User</button>
+                <button className='mt-5 mx-5' onClick={deleteUser}>Delete User</button>
             </div>
 
 
