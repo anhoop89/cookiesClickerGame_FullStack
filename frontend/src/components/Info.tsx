@@ -50,8 +50,6 @@ function Info() {
             console.error(error); // Or handle the error in another way
           });
       };
-      
-
 
     // find user based on username. 
     const findUser = async () => {
