@@ -63,6 +63,7 @@ function Info() {
             console.log(findResult.length);
             console.log(typeof findResult)
             return (
+                // ??? can't dislay it on web
                 <div>
                 {findResult.length > 0 ? (
                   <ul>
