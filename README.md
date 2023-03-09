@@ -1,4 +1,4 @@
-# DOGGR SETUP
+# CLICKERS SETUP
 (All commands are with respect to the root directory of the project)
 
 > Clone repository

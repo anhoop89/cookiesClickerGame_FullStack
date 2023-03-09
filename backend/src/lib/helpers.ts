@@ -15,7 +15,7 @@ export function getDirName(meta: ImportMeta) {
 }
 
 /**
- * Determines which mode to start Doggr backend in
+ * Determines which mode to start Clickers backend in
  */
 export enum RunMode {
 	LISTEN,

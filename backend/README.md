@@ -4,9 +4,9 @@ Local:
 
 Docker:
 
-> docker build -t doggr/backend .
+> docker build -t clickers/backend .
 
-> docker run -p 8080:8080 doggr/backend
+> docker run -p 8080:8080 clickers/backend
 
 Docker-Compose:
 From root (not /backend)
@@ -35,6 +35,6 @@ Adding seed process:
 
 > execute `pnpm seed`
 
-Updating your local version of Doggr after Pulling changes from the Github repo:
+Updating your local version of clickers after Pulling changes from the Github repo:
 > pnpm gitSync
   

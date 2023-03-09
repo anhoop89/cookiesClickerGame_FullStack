@@ -1,4 +1,4 @@
-name: Doggr CICD
+name: Clickers CICD
 
 on:
   push:

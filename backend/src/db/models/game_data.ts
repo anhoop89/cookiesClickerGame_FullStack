@@ -1,4 +1,4 @@
-/** @module Models/Profile */
+/** @module Models/GameData */
 import {
 	BaseEntity,
 	Column,
@@ -14,12 +14,12 @@ import {
 import {User} from "./user";
 
 /**
- * Profile model - This is for interacting with the profile table
- * Each profile corresponds to exactly 1 pet owned by a User.
- * This allows each user to have many pet profiles without needing to create more accounts
+ * GameData model - This is for interacting with the 'gamedata' table
+ * Each game data entry corresponds to exactly 1 game instance owned by a single User.
+ * This means only one user can have a single game entry account
  */
 @Entity()
-export class Profile extends BaseEntity {
+export class GameData extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	gameId: number;
 
@@ -32,12 +32,12 @@ export class Profile extends BaseEntity {
 	@Column()
 	num_of_upgrade_two: number;
 
-	@OneToOne((type) => User, (user: User) => user.profiles)
+	@OneToOne((type) => User, (user: User) => user.gameDataEntry)
 	user: Relation<User>;
 
-	@CreateDateColumn()
+	@CreateDateColumn({select: false})
 	created_at: string;
 
-	@UpdateDateColumn()
+	@UpdateDateColumn({select: false})
 	updated_at: string;
 }
