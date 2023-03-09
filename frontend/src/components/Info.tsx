@@ -52,6 +52,7 @@ function Info() {
             })
     }
 
+    // find user based on username. 
     const findUser = async () => {
         try {
             const response = await api.get(`/user/${username}`);
