@@ -13,12 +13,15 @@ const api = axios.create({
 
 function Info() {
     const { user, isAuthenticated } = useAuth0();
-    const [getUsers, setUsers] = useState([]);
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+
+    const [getUsers, setUsers] = useState([]);
     const [findResult, setFind] = useState<any[]>([]);
     const [postResult, setPost] = useState<any[]>([]);
+    const [deleteResult, setDelete] = useState<any[]>([]);
+
 
 
     // show data and hide data
@@ -85,6 +88,52 @@ function Info() {
     };
 
 
+
+    // find user based on username. 
+    const deleteUser = async () => {
+        try {
+            const response = await api.delete(`/user/${username}`);
+            console.log()
+            setDelete(response.data);
+            // console.log shows the result 
+            console.log(deleteResult);
+            // ??? Why findResult.length is undefined ????
+            console.log(deleteResult.length);
+            console.log(typeof deleteResult)
+
+            const getUsersButton = async () => {
+                api.get('/users')
+                    .then(res => {
+                        console.log(res.data);
+                        setUsers(res.data);
+                        setShowData(true);
+                    })
+            };
+
+            
+            return (
+                // ??? can't dislay it on web
+                <div>
+                    {deleteResult.length > 0 ? (
+                        <ul>
+                            {deleteResult.map((item: any) => (
+                                <li key={item.id}>
+                                    NameID: {item.gameId} <br />&emsp; num_of_clicks: {item.num_of_clicks}
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No results found</p>
+                    )}
+                </div>
+            );
+
+        } catch (error) {
+            console.error(error); // Or handle the error in another way
+        }
+
+        console.log(username);
+    };
     // hide/show data
     const hideData = () => {
         setShowData(false);

@@ -71,10 +71,8 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	 * @param {string} email - user's email address
 	 * @returns {IPostUsersResponse} user and IP Address used to create account
 	 */
-	app.post<{
-		Body: IPostUsersBody,
-		Reply: IPostUsersResponse
-	}>("/users", post_users_opts, async (req: any, reply: FastifyReply) => {
+
+	app.post("/users", async (req: any, reply: FastifyReply)=> {
 
 		const {name, email, userClicks, userUpgradeOne, userUpgradeTwo} = req.body;
 
@@ -108,23 +106,21 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 		let {currentUser} = {"currentUser":givenName};
 
 		// find the specific user given
-		let theUser = await app.db.user.find({
-			relations:{
-				gameDataEntry: true
-			},
+		let theUser = await app.db.user.find({		
 			where:{
 				name: currentUser
-			}
+			},
+			relations:['gameDataEntry','profiles']
 		});
 		
 		// error checking to ensure a proper usename has been given
-		if(theUser[0] === undefined){
+		if(theUser === undefined){
 			reply.send("Incorrect Username Given.");
 			return;
 		}
 
 		// return game data related to specific user
-		reply.send(theUser[0].gameDataEntry);
+		reply.send(theUser);
 	});
 
 
