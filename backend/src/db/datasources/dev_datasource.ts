@@ -5,10 +5,10 @@ import { DataSource } from 'typeorm';
 import { User } from "../models/user";
 import { IPHistory } from "../models/ip_history";
 import { Initialize1676281754950 } from "../migrations/1676281754950-Initialize";
-import { Profile } from "../models/profile.js";
-import { ProfilesMigration1676586883555 } from "../migrations/1676586883555-ProfilesMigration.js";
 import { GameData } from "../models/game_data.js";
 import { GameDataMigration1677898086475 } from "../migrations/1677898086475-GameDataMigration.js";
+import { Suggestions } from "../models/suggestions.js";
+import { SuggestionsMigration1678341884657 } from "../migrations/1678341884657-SuggestionsMigration.js";
 
 dotenv.config();
 
@@ -26,13 +26,13 @@ export const AppDataSource = new DataSource({
     entities: [
         User,
         IPHistory,
-        Profile,
-        GameData
+        GameData,
+        Suggestions
     ],
     migrations: [
         Initialize1676281754950,
-        ProfilesMigration1676586883555,
-        GameDataMigration1677898086475
+        GameDataMigration1677898086475,
+        SuggestionsMigration1678341884657
     ],
     // DANGER DANGER our convenience will nuke production data!
     synchronize: false

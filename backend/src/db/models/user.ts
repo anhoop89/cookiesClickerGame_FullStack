@@ -16,7 +16,6 @@ import {
 import { SoftDeleteQueryBuilder } from "typeorm/query-builder/SoftDeleteQueryBuilder";
 import { GameData } from "./game_data";
 import {IPHistory} from "./ip_history";
-import {Profile} from "./profile";
 
 /**
  *  Class representing user table
@@ -35,11 +34,6 @@ export class User extends BaseEntity {
 	// IPHistory
 	@OneToMany((type) => IPHistory, (ip: IPHistory) => ip.user)
 	ips: Relation<IPHistory[]>;
-
-	// Profile
-	@OneToOne((type) => Profile, (p: Profile) => p.user)
-	@JoinColumn()
-	profiles: Relation<Profile[]>;
 
 	
 	// GameData

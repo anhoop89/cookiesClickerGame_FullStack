@@ -3,9 +3,9 @@ import cors from "cors";
 import {FastifyInstance, FastifyReply, FastifyRequest, RouteShorthandOptions} from "fastify";
 import {User} from "./db/models/user";
 import {IPHistory} from "./db/models/ip_history";
-import {Profile} from "./db/models/profile";
 import {ILike, LessThan, Not} from "typeorm";
 import { GameData } from "./db/models/game_data";
+import { Suggestions } from "./db/models/suggestions";
 
 /**
  * App plugin where we construct our routes
@@ -191,62 +191,57 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 
 
 
-	// PROFILE Route
-	/**
-	 * Route listing all current profiles
-	 * @name get/profiles
-	 * @function
-	 */
-	app.get("/profiles", async (req, reply) => {
-		let profiles = await app.db.profile.find();
-		reply.send(profiles);
+
+	// CRUD impl for users
+	// Create new user
+
+	// Appease fastify gods
+	const post_suggestions_opts: RouteShorthandOptions = {
+		schema: {
+			body: {
+				type: 'object',
+				properties: {
+					name: {type: 'string'},
+					email: {type: 'string'},
+					comments: {type: 'string'}
+				}
+			},
+			response: {
+				200: {
+					type: 'object',
+					properties: {
+						suggestion: {type: 'object'},
+					}
+				}
+			}
+		}
+	};
+
+
+
+	// SUGGESTIONS Routes
+	app.get("/suggestions", async (request: FastifyRequest, reply: FastifyReply) => {
+		let allSuggestions = await app.db.suggestions.find();
+		reply.send(allSuggestions);
+	});
+
+	app.post<{
+		Body: IPostSuggestionsBody,
+		Reply: IPostSuggestionsResponse
+	}>("/suggestions", post_suggestions_opts, async (req: any, reply: FastifyReply) => {
+
+		const {name, email, comments} = req.body;
+
+		const newSuggestion = new Suggestions();
+		newSuggestion.name = name;
+		newSuggestion.email = email;
+		newSuggestion.comments = comments;
+		await newSuggestion.save();
+
+		await reply.send(JSON.stringify({newSuggestion}));
 	});
 
 
-	app.post("/profiles", async (req: any, reply: FastifyReply) => {
-
-		const {clicks} = req.body;
-		const {upgradeOne} = req.body;
-		const {upgradeTwo} = req.body;
-
-		const myUser = await app.db.user.findOneByOrFail({});
-
-	  	const newProfile = new Profile();
-	  	newProfile.num_of_clicks = clicks;
-		newProfile.num_of_upgrade_one = upgradeOne;
-		newProfile.num_of_upgrade_two = upgradeTwo;
-		newProfile.user = myUser;
-
-		await newProfile.save();
-
-		//manually JSON stringify due to fastify bug with validation
-		// https://github.com/fastify/fastify/issues/4017
-		await reply.send(JSON.stringify(newProfile));
-	});
-
-	app.delete("/profiles", async (req: any, reply: FastifyReply) => {
-
-		const myProfile = await app.db.profile.findOneByOrFail({});
-		let res = await myProfile.remove();
-
-		//manually JSON stringify due to fastify bug with validation
-		// https://github.com/fastify/fastify/issues/4017
-		await reply.send(JSON.stringify(res));
-	});
-
-	app.put("/profiles", async(req: any, reply) => {
-
-		const {clicks} = req.body;
-		const myProfile = await app.db.profile.findOneByOrFail({});
-
-
-		myProfile.num_of_clicks = clicks;
-		let res = await myProfile.save();
-
-		//manually JSON stringify due to fastify bug with validation
-		// https://github.com/fastify/fastify/issues/4017
-		await reply.send(JSON.stringify(res));
-	});
 
 }
 
@@ -268,4 +263,21 @@ export type IPostUsersResponse = {
 	 * IP Address user used to create account
 	 */
 	ip_address: string
+}
+
+
+interface IPostSuggestionsBody {
+	name: string,
+	email: string,
+	comments: string,
+}
+
+/**
+ * Response type for post/users
+ */
+export type IPostSuggestionsResponse = {
+	/**
+	 * User created by request
+	 */
+	suggestion: Suggestions,
 }

@@ -2,7 +2,6 @@
 import {UserSeed} from "./user_seeder";
 import {IPHistorySeed} from "./ip_history_seeder";
 import {Seeder} from "../../lib/seed_manager";
-import {ProfileSeed} from "./profile_seeder";
 import { GameDataSeed } from "./game_seeder";
 
 export type SeederOptionsType = {
@@ -16,7 +15,6 @@ const SeederOptions: any = {
 	seeds: [
 		UserSeed,
 		IPHistorySeed,
-		ProfileSeed,
 		GameDataSeed
 	]
 };
