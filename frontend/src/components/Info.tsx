@@ -18,6 +18,7 @@ function Info() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [findResult, setFind] = useState<any[]>([]);
+    const [postResult, setPost] = useState<any[]>([]);
 
 
     // show data and hide data
@@ -32,18 +33,20 @@ function Info() {
     };
 
     const postUser = async () => {
-        let check = await api.post('/users', {
-            name: name,
-            email: email,
-            userClicks: 99,
-            userUpgradeOne: 99,
-            userUpgradeTwo: 99
-        })
-            .then(res => {
-                console.log(res.data);
-                setUsers(res.data);
-                setShowData(true);
+        try {
+            let response = await api.post('/users', {
+                name: name,
+                email: email,
+                userClicks: 99,
+                userUpgradeOne: 99,
+                userUpgradeTwo: 99
             })
+            setPost(response.data);
+            console.log(postResult);
+        } catch (error) {
+            console.error(error); // Or handle the error in another way
+        }
+
     }
 
     // find user based on username. 
