@@ -82,26 +82,6 @@ function Info() {
     };
 
 
-    // testing
-
-    console.log(name);
-    console.log(email);
-    // const postUser = async () => {
-    //     await axios.post('http://127.0.0.1:8080/users', {
-    // name: name,
-    // email: email,
-    // userClicks: 99,
-    // userUpgradeOne: 99,
-    // userUpgradeTwo: 99
-    //     })
-    //     .then(response => {
-    //         console.log(response.data);
-    //     })
-    //     .catch(error => {
-    //         console.error("hahahah failed ");
-    //     });       
-    // };
-
     // hide/show data
     const hideData = () => {
         setShowData(false);
