@@ -39,11 +39,14 @@ function App() {
                         </div>
 
                         <div className="hidden md:flex space-x-6 ">
-                            <Link to="/" className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
+                            <Link to="/" 
+                                className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
                                     py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Home</Link>
-                            <Link to="/info" className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
+                            <Link to="/info"
+                                className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
                                     py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Info</Link>
-                            <Link to="/contact" className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
+                            <Link to="/contact" 
+                                className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
                                     py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Contact</Link>
                             {!isAuthenticated && !isLoading ? (
                                 <Link to="/"> <button onClick={handleLoginClick}>Log in</button> </Link>
@@ -56,17 +59,15 @@ function App() {
                         >PLAY</Link>
                     </div>
                 </nav>
-                <div>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/Info" element={<Info />} />
                     <Route path="/Contact" element={<Contact />} />
                     <Route path="/Play" element={<Play />} />
                 </Routes>
-                </div>
             </div>
 
-            <div>
+            <div className='container mx-auto px-4 mt-10  '>
                 {isAuthenticated ? (
                     <div>
                         <p>Welcome, {user?.nickname}!</p>
@@ -74,9 +75,9 @@ function App() {
                         <button onClick={handleLogoutClick}>Logout</button>
                     </div>
                 ) : ""}
-            </div>
+            
 
-            <div className="container text-left mx-auto ">
+            <div className="text-left mx-auto ">
                 {isAuthenticated ? (
                     <div className='whitespace-pre-wrap overflow-x-auto '>
                         <h2> User is logged in</h2>
@@ -84,6 +85,8 @@ function App() {
                         <pre>{JSON.stringify(user, null, 1)}</pre>
                     </div>
                 ) : ""}
+
+            </div>
 
             </div>
         </div>

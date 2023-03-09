@@ -17,7 +17,7 @@ function Info() {
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [findResult, setFind] = useState([]);
+    const [findResult, setFind] = useState<any[]>([]);
 
 
     // show data and hide data
@@ -53,14 +53,39 @@ function Info() {
     }
 
     const findUser = async () => {
-          const response = await api.get(`/user/${username}`);
-          console.log(response.data);
-          console.log("finding a user!!!");
-          setFind(response.data);
-          setShowData(true);
-      };     
-      
-      
+        try {
+            const response = await api.get(`/user/${username}`);
+            console.log()
+            setFind(response.data); 
+            // console.log shows the result 
+            console.log(findResult);
+            // ??? Why findResult.length is undefined ????
+            console.log(findResult.length);
+            console.log(typeof findResult)
+            return (
+                <div>
+                {findResult.length > 0 ? (
+                  <ul>
+                    {findResult.map((item: any) => (
+                      <li key={item.id}>
+                        NameID: {item.gameId} <br />&emsp; num_of_clicks: {item.num_of_clicks}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No results found</p>
+                )}
+              </div>
+            );
+            
+        } catch (error) {
+            console.error(error); // Or handle the error in another way
+        }
+
+        console.log(username);
+    };
+
+
     // testing
 
     console.log(name);
@@ -121,21 +146,29 @@ function Info() {
                 <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Add User</button>
             </form>
 
-            <form className='container flex flex-col pt-2 mt-3' onSubmit={findUser}>
+            {/* <form className='container flex flex-col pt-2 mt-3' onSubmit={findUser}>
                 <label className="mb-4">
                     Name:
                     <input className="ml-2" type="text" value={username} onChange={(input) => setUsername(input.target.value)} />
                 </label>
                 <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Find User</button>
-            </form>
+            </form> */}
 
-            <ul style={{ textAlign: 'left' }}>
-                {findResult.map((user: any) => (
-                    <li key={user.id}>
-                        Name: {user.name} <br />&emsp; Email: {user.email}
-                    </li>
-                ))}
-            </ul>
+            <div className='mt-5'>
+                <label htmlFor="username">Username: </label>
+                <input type="text"
+                    id="name"
+                    required
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
+                    name="username"
+                />
+            </div>
+            <div>
+                <button className='mt-5' onClick={findUser}>Find User</button>
+                
+            </div>
+
 
         </div>
     );
