@@ -22,12 +22,6 @@ function Info() {
 
     // show data and hide data
     const [showData, setShowData] = useState(false);
-
-    // const getUsersButton = async () => {
-    //     const response = await axios.get('http://127.0.0.1:8080/users');
-    //     setUsers(response.data);
-    //     setShowData(true);
-    // };
     const getUsersButton = async () => {
         api.get('/users')
             .then(res => {
