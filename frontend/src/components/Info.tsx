@@ -25,12 +25,11 @@ function Info() {
     const [postResult, setPost] = useState<any[]>([]);
     const [deleteResult, setDelete] = useState<any[]>([]);
 
-
-
     // show data and hide data
     const [showData, setShowData] = useState(false);
+
     const getUsersButton = async () => {
-        api.get('/users')
+        await api.get('/users')
             .then(res => {
                 console.log(res.data);
                 setUsers(res.data);
@@ -39,38 +38,40 @@ function Info() {
     };
 
     const postUser = async () => {
-        try {
-            let response = await api.post('/users', {
-                name: name,
-                email: email,
-                userClicks: 99,
-                userUpgradeOne: 99,
-                userUpgradeTwo: 99
-            })
+        await api.post('/users', {
+            name: name,
+            email: email,
+            userClicks: 99,
+            userUpgradeOne: 99,
+            userUpgradeTwo: 99
+          })
+          .then((response) => {
             setPost(response.data);
             console.log(postResult);
-        } catch (error) {
+          })
+          .catch((error) => {
             console.error(error); // Or handle the error in another way
-        }
-
-    }
+          });
+      };
 
     // find user based on username. 
     const findUser = async () => {
-        console.log(username);
         await api.get(`/user/${username}`)
-            .then(response => {
-                console.log(response.data);
-                setFind(response.data);
-                console.log(findResult);
-                console.log(findResult.length);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    };
-    
+          .then((response) => {
+            console.log(response.data);
+            setFind(response.data);
+            console.log(findResult);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+      
+
     // find user based on username. 
+    const deleteUser = () => {
+        api.delete(`/user/${username}`)
+          .then(response => {
     const deleteUser = () => {
         api.delete(`/user/${username}`)
           .then(response => {
@@ -147,9 +148,8 @@ function Info() {
                 />
             </div>
             <div>
-                <button className='mt-5' onClick={findUser}>Find User</button>
-                <button className='mt-5 ml-5' onClick={deleteUser}>Delete User</button>
-
+                <button className='mt-5 mx-5' onClick={findUser}>Find User</button>
+                <button className='mt-5 mx-5' onClick={deleteUser}>Delete User</button>
             </div>
 
         </div>

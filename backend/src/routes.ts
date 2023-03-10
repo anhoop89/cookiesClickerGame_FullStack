@@ -154,30 +154,36 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 
 
 	// soft deleting a user given a specific username
-	app.delete("/user/:username", async (req: any, reply: FastifyReply) => {
-		
+	app.delete("/user/:username", (req:any, reply) => {
 		let givenName = req.params.username;
-		let {currentUser} = {"currentUser":givenName};
-
-		let theUser = await app.db.user.find({
-			relations:{
-				gameDataEntry: true
+		let { currentUser } = { currentUser: givenName };
+	  
+		app.db.user
+		  .find({
+			relations: {
+			  gameDataEntry: true,
 			},
-			where:{
-				name: currentUser
+			where: {
+			  name: currentUser,
+			},
+		  })
+		  .then((theUser) => {
+			if (theUser[0] === undefined) {
+			  reply.send("Incorrect Username Given.");
+			  return;
 			}
-		});
-
-		// error checking to ensure a proper usename has been given
-		if(theUser[0] === undefined){
-			reply.send("Incorrect Username Given.");
-			return;
-		}
-
-		let res = await app.db.user.softRemove(theUser);
-	
-		await reply.send("User Deleted.");
-	});
+	  
+			return app.db.user.softRemove(theUser).then(() => {
+			  // Set the Access-Control-Allow-Origin header
+			  reply.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+			  reply.send("User Deleted.");
+			});
+		  })
+		  .catch((err) => {
+			reply.send(err);
+		  });
+	  });
+	  
 
 
 	// put request to update game information for a specific user
