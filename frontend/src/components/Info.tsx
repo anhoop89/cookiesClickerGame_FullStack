@@ -33,7 +33,10 @@ function Info() {
       console.log(res.data);
       setUsers(res.data);
       setShowData(true);
-    });
+    })
+    .catch((error) => {
+        console.error(error); 
+      });
   };
 
   const postUser = async () => {
@@ -50,7 +53,7 @@ function Info() {
         console.log(postResult);
       })
       .catch((error) => {
-        console.error(error); // Or handle the error in another way
+        console.error(error); 
       });
   };
 

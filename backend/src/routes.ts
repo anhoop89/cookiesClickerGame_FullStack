@@ -160,27 +160,27 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	  
 		app.db.user
 		  .find({
-			relations: {
+				relations: {
 			  gameDataEntry: true,
-			},
-			where: {
+				},
+				where: {
 			  name: currentUser,
-			},
+				},
 		  })
 		  .then((theUser) => {
-			if (theUser[0] === undefined) {
+				if (theUser[0] === undefined) {
 			  reply.send("Incorrect Username Given.");
 			  return;
-			}
+				}
 	  
-			return app.db.user.softRemove(theUser).then(() => {
+				return app.db.user.softRemove(theUser).then(() => {
 			  // Set the Access-Control-Allow-Origin header
 			  reply.header('Access-Control-Allow-Origin', 'http://localhost:5173');
 			  reply.send("User Deleted.");
-			});
+				});
 		  })
 		  .catch((err) => {
-			reply.send(err);
+				reply.send(err);
 		  });
 	  });
 	  
