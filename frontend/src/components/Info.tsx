@@ -28,32 +28,36 @@ function Info() {
   // show data and hide data
   const [showData, setShowData] = useState(false);
 
+  // get all the user from database
   const getUsersButton = async () => {
-    await api.get("/users").then((res) => {
-      console.log(res.data);
-      setUsers(res.data);
-      setShowData(true);
-    })
-    .catch((error) => {
-        console.error(error); 
+    await api
+      .get("/users")
+      .then((res) => {
+        console.log(res.data);
+        setUsers(res.data);
+        setShowData(true);
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 
+  // add a new user 
   const postUser = async () => {
     await api
       .post("/users", {
         name: name,
         email: email,
-        userClicks: 99,
-        userUpgradeOne: 99,
-        userUpgradeTwo: 99,
+        userClicks: 99,             //default for testing
+        userUpgradeOne: 99,         //default for testing
+        userUpgradeTwo: 99,         //default for testing
       })
       .then((response) => {
         setPost(response.data);
         console.log(postResult);
       })
       .catch((error) => {
-        console.error(error); 
+        console.error(error);
       });
   };
 
@@ -71,33 +75,29 @@ function Info() {
       });
   };
 
-  // find user based on username.
+  // Delete user based on username.
   const deleteUser = () => {
-    api.delete(`/user/${username}`).then((response) => {
-      const deleteUser = () => {
+    api
+      .delete(`/user/${username}`)
+      .then((response) => {
+        setDelete(response.data);
+        console.log(deleteResult);
         api
-          .delete(`/user/${username}`)
-          .then((response) => {
-            setDelete(response.data);
-            console.log(deleteResult);
-            api
-              .get("/users")
-              .then((res) => {
-                console.log(res.data);
-                setUsers(res.data);
-                setShowData(true);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
+          .get("/users")
+          .then((res) => {
+            console.log(res.data);
+            setUsers(res.data);
+            setShowData(true);
           })
           .catch((error) => {
             console.error(error);
           });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
-        console.log(username);
-      };
-    });
+    console.log(username);
   };
 
   // hide/show data
