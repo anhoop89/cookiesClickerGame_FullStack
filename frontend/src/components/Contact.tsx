@@ -61,6 +61,8 @@ function Contact() {
   const handleSubmitForm = (event:any) => {
     postMessage();
     event.preventDefault();
+    alert("Message Sent! Thanks for the feedback!");
+    window.location.reload();
   }
 
 
