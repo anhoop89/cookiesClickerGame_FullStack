@@ -110,13 +110,15 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	  // Check if there is already a user with the same name or email
 	  const existingUsername = await app.db.user.findOne({
   		where: {
-		  name: name
+		  name: name,
+		  deleted_at: undefined
   		}
 	  });
 	  // make sure a new user can't have the same username or email!
 	  const existingEmail= await app.db.user.findOne({
   		where: {
-  			email : email
+  			email : email,
+			deleted_at: undefined
   		}
   	});
 	
