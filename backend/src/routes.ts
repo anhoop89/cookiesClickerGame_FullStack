@@ -105,8 +105,24 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
     Body: IPostUsersBody;
     Reply: IPostUsersResponse;
   }>("/users", async (req: any, reply: FastifyReply) => {
-  	const { name, email, userClicks, userUpgradeOne, userUpgradeTwo } =
-      req.body;
+  	const { name, email, userClicks, userUpgradeOne, userUpgradeTwo } = req.body;
+
+	  // Check if there is already a user with the same name or email
+	  const existingUsername = await app.db.user.findOne({
+  		where: {
+		  name: name
+  		}
+	  });
+	  // make sure a new user can't have the same username or email!
+	  const existingEmail= await app.db.user.findOne({
+  		where: {
+  			email : email
+  		}
+  	});
+	
+	  if (existingUsername || existingEmail) {
+  		return reply.status(409).send("A new user that name or email already exists");
+	  }
 
   	const user = new User();
   	user.name = name;

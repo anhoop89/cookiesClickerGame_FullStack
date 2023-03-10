@@ -25,6 +25,7 @@ function Info() {
     const [postResult, setPost] = useState<any[]>([]);
     const [deleteResult, setDelete] = useState<any[]>([]);
 
+    const [showErr, setErr] = useState("");
     // show data and hide data
     const [showData, setShowData] = useState(false);
 
@@ -65,10 +66,14 @@ function Info() {
             userUpgradeTwo: 99,         //default for testing
         })
         .then((response) => {
+           
             setPost(response.data);
             console.log(postResult);
         }).catch((error) => {
-            console.error(error);
+            if (error.response && error.response.status === 409) 
+                setErr("A new user that name or email already exists!"); 
+            else
+                console.error(error);
         });
     };
 
@@ -145,7 +150,7 @@ function Info() {
             )}
             <br></br>
             <h1>POST Request!</h1>
-            <form className="container flex flex-col pt-2 mt-3">
+            <form className="container flex flex-col pt-2 mt-3 justify-center">
                 <label className="mb-4">
                     Name:
                     <input
@@ -164,7 +169,9 @@ function Info() {
                         onChange={(addEmail) => setEmail(addEmail.target.value)}
                     />
                 </label>
-                <button className="mt-5" onClick={handleSubmitForm}>
+
+                {showErr && <div className="px-5 py-5 text-red-600 font-bold bg-yellow-300 w-auto mx-auto block">{showErr}</div>}
+                <button className="mt-5 w-40 block mx-auto" onClick={handleSubmitForm}>
                     Add User
                 </button>
             </form>
