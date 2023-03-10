@@ -6,6 +6,7 @@ import {IPHistory} from "./db/models/ip_history";
 import {Profile} from "./db/models/profile";
 import {ILike, LessThan, Not} from "typeorm";
 import { GameData } from "./db/models/game_data";
+import { request } from "http";
 
 /**
  * App plugin where we construct our routes
@@ -15,13 +16,42 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 
 	// Middleware
 	// TODO: Refactor this in favor of fastify-cors
+
+	// Enable CORS for all routes
 	app.use(cors());
 
+	//https://expressjs.com/en/resources/middleware/cors.html
+	// Handle CORS preflight requests
+	app.options('/*', async (req: FastifyRequest, reply: FastifyReply) => {
+		reply
+			.header('Access-Control-Allow-Origin', '*')
+			.header(
+				'Access-Control-Allow-Methods',
+				'GET, POST, PUT, DELETE, OPTIONS'
+			)
+			.header(
+				'Access-Control-Allow-Headers',
+				'Content-Type, Authorization, X-Requested-With'
+			)
+			.send("preflight requests");
+	});
 	/**
 	 * Route replying to /test path for test-testing
 	 * @name get/test
 	 * @function
 	 */
+
+	app.options('/users', async (req:any, res) => {
+		// Set response headers to allow cross-origin requests
+		res.header('Access-Control-Allow-Origin', '*');
+		res.header('Access-Control-Allow-Methods', 'GET, POST');
+		res.header('Access-Control-Allow-Headers', 'Content-Type');
+	
+		// Send empty response with 200 status code
+		res.status(200).send();
+	  });
+	
+	
 	app.get("/test", async (request: FastifyRequest, reply: FastifyReply) => {
 		reply.send("GET Test");
 	});
@@ -97,7 +127,6 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 		// https://github.com/fastify/fastify/issues/4017
 		await reply.send(JSON.stringify({user, ip_address: ip.ip}));
 	});
-
 
 	// sending a username, the frontend will receive the game data related to that specific user
 	app.get("/user/:username", async (req: any, reply: FastifyReply) => {

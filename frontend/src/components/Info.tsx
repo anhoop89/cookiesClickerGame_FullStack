@@ -8,7 +8,10 @@ interface User {
     email: string;
 }
 const api = axios.create({
-    baseURL: `http://localhost:8080/`
+    baseURL: `http://localhost:8080/`,
+    headers: {
+		"Content-type": "application/json"
+	}
 })
 
 function Info() {
@@ -54,86 +57,42 @@ function Info() {
 
     // find user based on username. 
     const findUser = async () => {
-        try {
-            const response = await api.get(`/user/${username}`);
-            console.log()
-            setFind(response.data); 
-            // console.log shows the result 
-            console.log(findResult);
-            // ??? Why findResult.length is undefined ????
-            console.log(findResult.length);
-            console.log(typeof findResult)
-            return (
-                // ??? can't dislay it on web
-                <div>
-                {findResult.length > 0 ? (
-                  <ul>
-                    {findResult.map((item: any) => (
-                      <li key={item.id}>
-                        NameID: {item.gameId} <br />&emsp; num_of_clicks: {item.num_of_clicks}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>No results found</p>
-                )}
-              </div>
-            );
-            
-        } catch (error) {
-            console.error(error); // Or handle the error in another way
-        }
-
         console.log(username);
+        await api.get(`/user/${username}`)
+            .then(response => {
+                console.log(response.data);
+                setFind(response.data);
+                console.log(findResult);
+                console.log(findResult.length);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     };
-
-
-
+    
     // find user based on username. 
-    const deleteUser = async () => {
-        try {
-            const response = await api.delete(`/user/${username}`);
-            console.log()
+    const deleteUser = () => {
+        api.delete(`/user/${username}`)
+          .then(response => {
             setDelete(response.data);
-            // console.log shows the result 
-            console.log(deleteResult);
-            // ??? Why findResult.length is undefined ????
-            console.log(deleteResult.length);
-            console.log(typeof deleteResult)
-
-            const getUsersButton = async () => {
-                api.get('/users')
-                    .then(res => {
-                        console.log(res.data);
-                        setUsers(res.data);
-                        setShowData(true);
-                    })
-            };
-
-            
-            return (
-                // ??? can't dislay it on web
-                <div>
-                    {deleteResult.length > 0 ? (
-                        <ul>
-                            {deleteResult.map((item: any) => (
-                                <li key={item.id}>
-                                    NameID: {item.gameId} <br />&emsp; num_of_clicks: {item.num_of_clicks}
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No results found</p>
-                    )}
-                </div>
-            );
-
-        } catch (error) {
-            console.error(error); // Or handle the error in another way
-        }
-
+            console.log(deleteResult);     
+            api.get('/users')
+              .then(res => {
+                console.log(res.data);
+                setUsers(res.data);
+                setShowData(true);
+              })
+              .catch(error => {
+                console.error(error);
+              });
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      
         console.log(username);
-    };
+      };
+      
     // hide/show data
     const hideData = () => {
         setShowData(false);
@@ -161,8 +120,9 @@ function Info() {
                     </ul>
                 </>
             )}
+            <br></br>
             <h1>POST Request!</h1>
-            <form className='container flex flex-col pt-2 mt-3' onSubmit={postUser}>
+            <div className='container flex flex-col pt-2 mt-3' >
                 <label className="mb-4">
                     Name:
                     <input className="ml-2" type="text" value={name} onChange={(addName) => setName(addName.target.value)} />
@@ -171,32 +131,26 @@ function Info() {
                     Email:
                     <input className="ml-2" type="email" value={email} onChange={(addEmail) => setEmail(addEmail.target.value)} />
                 </label>
-                <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Add User</button>
-            </form>
+            </div>
+            <button className='mt-5' onClick={postUser}>Add User</button>
 
-            {/* <form className='container flex flex-col pt-2 mt-3' onSubmit={findUser}>
-                <label className="mb-4">
-                    Name:
-                    <input className="ml-2" type="text" value={username} onChange={(input) => setUsername(input.target.value)} />
-                </label>
-                <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Find User</button>
-            </form> */}
-
+            <br></br><br></br>
+            <h1>Find/Delete Request!</h1>
             <div className='mt-5'>
-                <label htmlFor="username">Username: </label>
+                <label htmlFor="findUser">Username: </label>
                 <input type="text"
                     id="name"
                     required
                     value={username}
                     onChange={e => setUsername(e.target.value)}
-                    name="username"
+                    name="find-username"
                 />
             </div>
             <div>
                 <button className='mt-5' onClick={findUser}>Find User</button>
-                
-            </div>
+                <button className='mt-5 ml-5' onClick={deleteUser}>Delete User</button>
 
+            </div>
 
         </div>
     );

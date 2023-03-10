@@ -67,6 +67,7 @@
     "@swc/cli": "^0.1.60",
     "@swc/core": "^1.3.32",
     "@types/cors": "^2.8.13",
+    "@types/fastify-cors": "^2.1.0",
     "@types/node": "^18.11.18",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.50.0",
