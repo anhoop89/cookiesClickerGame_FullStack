@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { HiOutlineMail } from 'react-icons/hi';
+import '../CSS/contact.css';
 
 interface Suggestion { 
   name: string;
@@ -69,7 +70,7 @@ function Contact() {
   return (
     <div className="container form mt-10 mx-auto"> 
     
-    <h1> Contact / Feedback Form</h1>
+    <h1 className="contactFont"> Contact / Feedback Form</h1>
 
     <form className="text-left mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
