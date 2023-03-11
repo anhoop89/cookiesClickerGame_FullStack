@@ -28,9 +28,7 @@ export class Initialize1676281754950 implements MigrationInterface {
                                  "created_at" TIMESTAMP              NOT NULL DEFAULT now(),
                                  "updated_at" TIMESTAMP              NOT NULL DEFAULT now(),
 								 "deleted_at" TIMESTAMP,
-								 "profilesGameId" integer,
 								 "gameDataEntryGameId" integer,
-								 CONSTRAINT "REL_26c42afe9d62a2b64fd7039ea9" UNIQUE ("profilesGameId"),
 								 CONSTRAINT "REL_7621bbe9c312f8c467d8fb5fb1" UNIQUE ("gameDataEntryGameId"),  
                                  CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id")
                              )`);

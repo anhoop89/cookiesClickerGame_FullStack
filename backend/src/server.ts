@@ -9,7 +9,7 @@ import {getDirName} from "./lib/helpers";
 import logger from "./lib/logger";
 import {clickers_routes} from "./routes";
 import DbPlugin from "./plugins/database";
-
+import fastifyCors from 'cors';
 
 
 /**
@@ -39,6 +39,7 @@ export async function buildApp(useLogging: boolean) {
 		// Adds all of our Router's routes to the app
 		app.log.info("Registering routes");
 		await app.register(clickers_routes);
+	
 
 		// Connects to postgres
 		app.log.info("Connecting to Database...");
