@@ -31,9 +31,14 @@ function Info() {
 
     // get all the user from database
     const getUsersButton = async () => {
+<<<<<<< Updated upstream
         await api
             .get("/users")
             .then((res) => {
+=======
+        await api.get('/users')
+            .then(res => {
+>>>>>>> Stashed changes
                 console.log(res.data);
                 setUsers(res.data);
                 setShowData(true);
@@ -111,6 +116,7 @@ function Info() {
                         setUsers(res.data);
                         setShowData(true);
                     })
+<<<<<<< Updated upstream
                     .catch((error) => {
                         console.error(error);
                     });
@@ -118,6 +124,31 @@ function Info() {
             .catch((error) => {
                 console.error(error);
             });
+=======
+            };
+
+
+            return (
+                // ??? can't dislay it on web
+                <div>
+                    {getUsers.length > 0 ? (
+                        <ul>
+                            {getUsers.map((item: any) => (
+                                <li key={item.id}>
+                                    NameID: {item.gameId} <br />&emsp; num_of_clicks: {item.num_of_clicks}
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <p>No results found</p>
+                    )}
+                </div>
+            );
+
+        } catch (error) {
+            console.error(error); // Or handle the error in another way
+        }
+>>>>>>> Stashed changes
 
         console.log(username);
     };
@@ -175,6 +206,7 @@ function Info() {
                     Add User
                 </button>
             </form>
+<<<<<<< Updated upstream
             <br></br>
             <br></br>
             <h1>Find/Delete Request!</h1>
@@ -182,13 +214,31 @@ function Info() {
                 <label htmlFor="findUser">Username: </label>
                 <input
                     type="text"
+=======
+
+            {/* <form className='container flex flex-col pt-2 mt-3' onSubmit={findUser}>
+                <label className="mb-4">
+                    Name:
+                    <input className="ml-2" type="text" value={username} onChange={(input) => setUsername(input.target.value)} />
+                </label>
+                <button className="bg-blue-500 text-white hover:bg-blue-700" type='submit'>Find User</button>
+            </form> */}
+
+         
+            <div>
+                <div className='mt-5'>
+                <label htmlFor="username">Username: </label>
+                <input type="text"
+>>>>>>> Stashed changes
                     id="name"
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     name="find-username"
                 />
+                <button className='mt-5 '  onClick={findUser}>Find User</button>
             </div>
+<<<<<<< Updated upstream
             <div>
                 <button className="mt-5 mx-5" onClick={findUser}>
                     Find User
@@ -196,6 +246,9 @@ function Info() {
                 <button className="mt-5 mx-5" onClick={deleteUser}>
                     Delete User
                 </button>
+=======
+                
+>>>>>>> Stashed changes
             </div>
         </div>
     );
