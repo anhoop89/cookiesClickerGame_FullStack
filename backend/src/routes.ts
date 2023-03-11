@@ -118,7 +118,7 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	  const existingEmail= await app.db.user.findOne({
   		where: {
   			email : email,
-			deleted_at: undefined
+  			deleted_at: undefined
   		}
   	});
 	
