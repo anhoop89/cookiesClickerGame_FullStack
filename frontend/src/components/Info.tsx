@@ -5,11 +5,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-interface User {
-    id: number;
+interface UserData {
     name: string;
     email: string;
+    userClicks: number;
+    userUpgradeOne: boolean;
+    userUpgradeTwo: boolean;
 }
+
+
 const api = axios.create({
     baseURL: `http://localhost:8080/`,
     headers: {
@@ -24,7 +28,7 @@ function Info() {
     const [email, setEmail] = useState("");
 
     const [getUsers, setUsers] = useState([]);
-    const [findResult, setFind] = useState<any[]>([]);
+    const [findResult, setFind] = useState<UserData | null>(null);
     const [postResult, setPost] = useState<any[]>([]);
     const [deleteResult, setDelete] = useState<any[]>([]);
 
@@ -34,8 +38,9 @@ function Info() {
 
     // get all the user from database
     const getUsersButton = async () => {
-        await api.get('/users')
-            .then(res => {
+        await api
+            .get("/users")
+            .then((res) => {
                 console.log(res.data);
                 setUsers(res.data);
                 setShowData(true);
@@ -45,46 +50,46 @@ function Info() {
             });
     };
 
-    // add a new user 
+    // add a new user
     const postUser = async () => {
-        if (name.trim() === '' || email.trim() === '') {
-            alert('Please fill in the form before submitting!');
+        if (name.trim() === "" || email.trim() === "") {
+            alert("Please fill in the form before submitting!");
             return;
         }
 
-        const  emailfilter=/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i;
+        const emailfilter =
+            /^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i;
         const checkEmailForm = emailfilter.test(email);
         if (!checkEmailForm) {
-            alert('Please enter a valid email');
+            alert("Please enter a valid email");
             return;
         }
 
-        await api.post("/users", 
-        {
-            name: name,
-            email: email,
-            userClicks: 99,             //default for testing
-            userUpgradeOne: 99,         //default for testing
-            userUpgradeTwo: 99,         //default for testing
-        })
-        .then((response) => {
-           
-            setPost(response.data);
-            setErr("");
-            console.log(response.data);
-        }).catch((error) => {
-            if (error.response && error.response.status === 409) 
-                setErr("A new user that name or email already exists!"); 
-            else
-                console.error(error);
-        });
+        await api
+            .post("/users", {
+                name: name,
+                email: email,
+                userClicks: 99, //default for testing
+                userUpgradeOne: 99, //default for testing
+                userUpgradeTwo: 99, //default for testing
+            })
+            .then((response) => {
+                setPost(response.data);
+                setErr("");
+                console.log(response.data);
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 409)
+                    setErr("A new user that name or email already exists!");
+                else console.error(error);
+            });
     };
 
     // stop reloading the page when submitting the form
-    const handleSubmitForm = (event:any) => {
+    const handleSubmitForm = (event: any) => {
         postUser();
         event.preventDefault();
-    }
+    };
 
     // find user based on username.
     const findUser = async () => {
@@ -93,7 +98,8 @@ function Info() {
             .then((response) => {
                 console.log(response.data);
                 setFind(response.data);
-                console.log(findResult);
+                response.data.length === 1 ? console.log("we found a result here: \n" + JSON.stringify(response.data)) : console.log("NOT FOUND!");
+                setShowData(true);
             })
             .catch((error) => {
                 console.error(error);
@@ -106,22 +112,11 @@ function Info() {
             .delete(`/user/${username}`)
             .then((response) => {
                 setDelete(response.data);
-                console.log(deleteResult);
-                api
-                    .get("/users")
-                    .then((res) => {
-                        console.log(res.data);
-                        setUsers(res.data);
-                        setShowData(true);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
+                console.log(response.data);
             })
             .catch((error) => {
                 console.error(error);
             });
-
         console.log(username);
     };
 
@@ -173,7 +168,13 @@ function Info() {
                     />
                 </label>
 
-                {showErr ? <div className="px-5 py-5 text-red-600 font-bold bg-yellow-300 w-auto mx-auto block">{showErr}</div> : ""}
+                {showErr ? (
+                    <div className="px-5 py-5 text-red-600 font-bold bg-yellow-300 w-auto mx-auto block">
+                        {showErr}
+                    </div>
+                ) : (
+                    ""
+                )}
                 <button className="mt-5 w-40 block mx-auto" onClick={handleSubmitForm}>
                     Add User
                 </button>
@@ -196,6 +197,8 @@ function Info() {
                 <button className="mt-5 mx-5" onClick={findUser}>
                     Find User
                 </button>
+
+
                 <button className="mt-5 mx-5" onClick={deleteUser}>
                     Delete User
                 </button>
