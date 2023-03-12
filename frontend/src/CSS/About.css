@@ -1,0 +1,18 @@
+.readFont {
+    color: rgb(255, 255, 255);
+    text-shadow: 0px 0px 6px hsl(310, 88%, 56%);
+    font-family: 'Pacifico', cursive;
+  }
+
+.mainHeader{
+    text-decoration: underline;
+}
+
+.headerTwo{
+    font-size: 30px;
+}
+
+.descriptorText{
+    font-size:  24px;
+}
+

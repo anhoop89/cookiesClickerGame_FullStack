@@ -17,13 +17,16 @@ const api = axios.create({
 
 function Settings() {
     const { user, isAuthenticated } = useAuth0();
-    const [username, setUsername] = useState("");
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    let username = "";
+    let email = "";
 
-    const [getUsers, setUsers] = useState([]);
     const [findResult, setFind] = useState<any[]>([]);
+    const [deleteResult, setDelete] = useState<any[]>([]);
 
+    if(user?.email_verified === true){
+        username = user.nickname;
+        email = user.email;
+    }
 
     const findUser = async () => {
         await api
@@ -38,29 +41,64 @@ function Settings() {
             });
     };
 
-    return (
+    const deleteUser = () => {
+        api
+            .delete(`/user/${username}`)
+            .then((response) => {
+                setDelete(response.data);
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        console.log(username);
+    };
 
-        <div className="mt-20 mb-10">
-            <h1>Who am I?</h1>
-            <div className="mt-5">
-                <label htmlFor="findUser">Username: </label>
-                <input
-                    type="text"
-                    id="name"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    name="find-username"
-                />
-            </div>
-            <div>
-                <button className="mt-5 mx-5" onClick={findUser}>
-                    Who am I?
-                </button>
-            </div>
-        </div>
+    // making a check to see if user has logged into an account or not
+    // if they have, the settings page displaying information will appear
+    if(user?.email_verified === true){
+        return (
+            <div className="mt-20 mb-10">
+                <h1 className="readFont">Who am I?</h1>
 
-    );
+                <div className="readFont text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
+                    <h2 className="block mb-3">
+                    User Name: 
+                    </h2> 
+                    <p className=" block"> 
+                        {username}
+                    </p>
+                </div>
+
+                <div className="readFont text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
+                    <h2 className="block mb-3">
+                    Email: 
+                    </h2> 
+                    <p className=" block"> 
+                        {email}
+                    </p>
+                </div>
+
+                <div>
+                        <button className="mt-5 mx-5" onClick={deleteUser}>
+                            Delete Account!
+                        </button>
+                </div>
+
+
+            </div>
+
+        );
+    }
+    // if the user has not logged in properly, they will only see a message
+    //      telling them they need to login
+    else{
+        return(
+            <div className="mt-20 mb-10">
+                <h1 className="readFont">Please log in to continue</h1>
+            </div>
+        );
+    }
 }
 
 export default Settings;
