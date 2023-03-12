@@ -123,7 +123,8 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
   	});
 	
 	  if (existingUsername || existingEmail) {
-  		return reply.status(409).send("A new user that name or email already exists");
+  		reply.status(409).send("A new user that name or email already exists");
+  		return;
 	  }
 
   	const user = new User();
