@@ -70,7 +70,8 @@ function Info() {
         .then((response) => {
            
             setPost(response.data);
-            console.log(postResult);
+            setErr("");
+            console.log(response.data);
         }).catch((error) => {
             if (error.response && error.response.status === 409) 
                 setErr("A new user that name or email already exists!"); 
@@ -83,8 +84,7 @@ function Info() {
     const handleSubmitForm = (event:any) => {
         postUser();
         event.preventDefault();
-       
-      }
+    }
 
     // find user based on username.
     const findUser = async () => {
@@ -173,7 +173,7 @@ function Info() {
                     />
                 </label>
 
-                {showErr && <div className="px-5 py-5 text-red-600 font-bold bg-yellow-300 w-auto mx-auto block">{showErr}</div>}
+                {showErr ? <div className="px-5 py-5 text-red-600 font-bold bg-yellow-300 w-auto mx-auto block">{showErr}</div> : ""}
                 <button className="mt-5 w-40 block mx-auto" onClick={handleSubmitForm}>
                     Add User
                 </button>

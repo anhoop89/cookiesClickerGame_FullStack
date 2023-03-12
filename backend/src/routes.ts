@@ -105,27 +105,28 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
     Body: IPostUsersBody;
     Reply: IPostUsersResponse;
   }>("/users", async (req: any, reply: FastifyReply) => {
-  	const { name, email, userClicks, userUpgradeOne, userUpgradeTwo } = req.body;
+  	const { name, email, userClicks, userUpgradeOne, userUpgradeTwo } =
+      req.body;
 
-	  // Check if there is already a user with the same name or email
-	  const existingUsername = await app.db.user.findOne({
+  	// Check if there is already a user with the same name or email
+  	const existingUsername = await app.db.user.findOne({
   		where: {
-		  name: name,
-		  deleted_at: undefined
-  		}
-	  });
-	  // make sure a new user can't have the same username or email!
-	  const existingEmail= await app.db.user.findOne({
-  		where: {
-  			email : email,
-  			deleted_at: undefined
-  		}
+  			name: name,
+  			deleted_at: undefined,
+  		},
   	});
-	
-	  if (existingUsername || existingEmail) {
-  		reply.status(409).send("A new user that name or email already exists");
+  	// make sure a new user can't have the same username or email!
+  	const existingEmail = await app.db.user.findOne({
+  		where: {
+  			email: email,
+  			deleted_at: undefined,
+  		},
+  	});
+
+  	if (existingUsername || existingEmail) {
+  		await reply.status(409).send("A new user that name or email already exists");
   		return;
-	  }
+  	}
 
   	const user = new User();
   	user.name = name;
@@ -146,7 +147,7 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 
   	//manually JSON stringify due to fastify bug with validation
   	// https://github.com/fastify/fastify/issues/4017
-  	await reply.send(JSON.stringify({ user, ip_address: ip.ip }));
+  	await reply.status(200).send(JSON.stringify({ user, ip_address: ip.ip }));
   });
 
 	// sending a username, the frontend will receive the game data related to that specific user
@@ -175,7 +176,7 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	// soft deleting a user given a specific username
 	app.delete("/user/:username", (req: any, reply) => {
 		let givenName = req.params.username;
-		let { currentUser } = { "currentUser": givenName };
+		let { currentUser } = { currentUser: givenName };
 
 		app.db.user
 			.find({
