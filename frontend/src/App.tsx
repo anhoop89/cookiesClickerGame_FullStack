@@ -4,6 +4,8 @@ import Home from './components/Home';
 import Info from './components/Info';
 import Contact from './components/Contact';
 import Play from './components/Play';
+import Settings from './components/Settings';
+import About from './components/About';
 
 
 import { useAuth0 } from '@auth0/auth0-react';
@@ -45,6 +47,12 @@ function App() {
                             <Link to="/info"
                                 className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
                                     py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Info</Link>
+                            <Link to="/settings"
+                                className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
+                                    py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Settings</Link>
+                            <Link to="/about"
+                                className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
+                                    py-2 px-4 border border-blue-500 hover:border-transparent rounded'>About</Link>                           
                             <Link to="/contact" 
                                 className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
                                     py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Contact</Link>
@@ -62,6 +70,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/Info" element={<Info />} />
+                    <Route path="/About" element={<About />} />
+                    <Route path="/Settings" element={<Settings />} />
                     <Route path="/Contact" element={<Contact />} />
                     <Route path="/Play" element={<Play />} />
                 </Routes>
