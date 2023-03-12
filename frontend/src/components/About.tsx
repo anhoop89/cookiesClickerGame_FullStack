@@ -1,8 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { HiOutlineMail } from 'react-icons/hi';
-import '../CSS/contact.css';
+import '../CSS/About.css';
 
 interface Suggestion { 
   name: string;
@@ -20,119 +19,63 @@ const api = axios.create({
 
 function About() {
   const { user, isAuthenticated } = useAuth0();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [suggestion, setSuggestion] = useState("");
 
-  const [postResult, setPost] = useState<any[]>([]);
-
-  const [showErr, setErr] = useState("");
-
-  const postMessage = async () => {
-    if (name.trim() === '' || email.trim() === '' || suggestion.trim() === ''){
-      alert('Please fill in the form before sending message!');
-      return;
-    }
-
-    const  emailfilter=/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,4}|\d+)$/i;
-    const checkEmailForm = emailfilter.test(email);
-    if (!checkEmailForm) {
-        alert('Please enter a valid email');
-        return;
-    }
-
-    await api.post("/suggestions",
-    {
-      name: name,
-      email: email,
-      comments: suggestion,
-    })
-    .then((response) => {
-      setPost(response.data);
-      console.log(postResult);
-    }).catch((error) => {
-      if (error.response && error.response.status === 409)
-        setErr("Oops! Something went wrong!");
-      else
-        console.error(error);
-    });
-
-  };
-
-  const handleSubmitForm = (event:any) => {
-    postMessage();
-    event.preventDefault();
-    alert("Message Sent! Thanks for the feedback!");
-    window.location.reload();
-  }
 
 
   return (
     <div className="container form mt-10 mx-auto"> 
-    
-    <h1 className="contactFont"> Contact / Feedback Form</h1>
+      <h1 className="readFont mainHeader"> About Us</h1>
 
-    <form className="text-left mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <br></br>
 
-      <div className="mb-4 ">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-          Name:
-        </label>
-        <input
-          className="shadow text-white-700 appearance-none border rounded w-full py-2 px-3 
-          .leading-tight focus:outline-none focus:shadow-outline-blue"
-          id="name"
-          type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(addName) => setName(addName.target.value)}
-        />
+      <div className="headerTwo text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
+          <label className="contactFont block mb-3">
+            Class:
+          </label>
+          <p className="contactFont descriptorText block">
+              This project was created for <br></br>
+              CS 465P Full Stack Web Development <br></br>
+              with Instructor Casey Bailey at <br></br>
+              Portland State University <br></br>
+              for Winter 2023
+          </p>
       </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-          Email:
-        </label>
-        <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-            <HiOutlineMail className="h-5 w-5 text-white-700" />
-          </span>
-          <input
-            className="shadow text-white-700 appearance-none border rounded w-full py-2 pl-10 
-            pr-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="email"
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(addEmail) => setEmail(addEmail.target.value)}
-          />
-        </div>
+    <br></br>
+
+    <div className="headerTwo text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
+          <label className="contactFont block mb-3">
+            Anh Ho:
+          </label>
+          {/* maybe add an image, we'll see */}
+          <p className="contactFont descriptorText block"> 
+            Some important and unimportant information about this student <br></br>
+            Some important and unimportant information about this student <br></br>
+            Some important and unimportant information about this student <br></br>
+            Some important and unimportant information about this student <br></br>
+            Some important and unimportant information about this student <br></br>
+            Some important and unimportant information about this student <br></br>
+          </p>
       </div>
 
-      <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2" htmlFor="message">
-          Message:
-        </label>
-        <textarea
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-white-700 
-          leading-tight focus:outline-none focus:shadow-outline"
-          id="message"
-          rows={6}
-          placeholder="Enter your message"
-          value={suggestion}
-          onChange={(addSuggestion) => setSuggestion(addSuggestion.target.value)}
-        />
-      </div>
-      <div className="flex items-center justify-center">
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded 
-          focus:outline-none focus:shadow-outline"
-          onClick={handleSubmitForm}
-        >
-          Send Message
-        </button>
-      </div>
-    </form>
+    <br></br>
+
+    <div className="headerTwo text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
+        <label className="contactFont block mb-3">
+          Nicholas Nguyen:
+        </label> 
+        {/* maybe add an image, we'll see */}
+        <p className="contactFont descriptorText block"> 
+          Some important and unimportant information about this student <br></br>
+          Some important and unimportant information about this student <br></br>
+          Some important and unimportant information about this student <br></br>
+          Some important and unimportant information about this student <br></br>
+          Some important and unimportant information about this student <br></br>
+          Some important and unimportant information about this student <br></br>
+        </p>
+    </div>
+
+
     </div>
   );
 }
