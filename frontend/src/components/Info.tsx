@@ -1,3 +1,6 @@
+// testing purpose first
+
+
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -79,9 +82,10 @@ function Info() {
     // stop reloading the page when submitting the form
     const handleSubmitForm = (event:any) => {
         postUser();
-        //event.preventDefault();
+        event.preventDefault();
        
       }
+
     // find user based on username.
     const findUser = async () => {
         await api
@@ -187,7 +191,6 @@ function Info() {
                     onChange={(e) => setUsername(e.target.value)}
                     name="find-username"
                 />
-                <button className='mt-5 '  onClick={findUser}>Find User</button>
             </div>
             <div>
                 <button className="mt-5 mx-5" onClick={findUser}>
