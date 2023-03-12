@@ -118,12 +118,13 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	  const existingEmail= await app.db.user.findOne({
   		where: {
   			email : email,
-			deleted_at: undefined
+  			deleted_at: undefined
   		}
   	});
 	
 	  if (existingUsername || existingEmail) {
-  		return reply.status(409).send("A new user that name or email already exists");
+  		reply.status(409).send("A new user that name or email already exists");
+  		return;
 	  }
 
   	const user = new User();
@@ -145,7 +146,7 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 
   	//manually JSON stringify due to fastify bug with validation
   	// https://github.com/fastify/fastify/issues/4017
-  	await reply.send(JSON.stringify({ user, ip_address: ip.ip }));
+  	await reply.status(200).send(JSON.stringify({ user, ip_address: ip.ip }));
   });
 
 	// sending a username, the frontend will receive the game data related to that specific user
@@ -174,7 +175,7 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	// soft deleting a user given a specific username
 	app.delete("/user/:username", (req: any, reply) => {
 		let givenName = req.params.username;
-		let { currentUser } = { "currentUser": givenName };
+		let { currentUser } = { currentUser: givenName };
 
 		app.db.user
 			.find({
