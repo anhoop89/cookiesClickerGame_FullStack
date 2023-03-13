@@ -115,6 +115,7 @@ const clickerGame = () => {
             };
 
             updateUser();
+            setIsSaving(true);
         }
 
         //testing purpose
@@ -123,7 +124,7 @@ const clickerGame = () => {
             " up2: " +  upgrades[1]?.count
         );
 
-        setIsSaving(true);
+       
     }
 
     // FAILED: load database into the game.
