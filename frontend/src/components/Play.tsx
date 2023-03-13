@@ -142,5 +142,11 @@ const timeTracking = () => {
     return <p>{displayTimer}</p>;
 };
 
+const saveButton = () => {
+    // save button 
+    // make sure user logged in 
+    // put request to update data
+}
+
 export default clickerGame;
 

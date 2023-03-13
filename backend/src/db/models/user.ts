@@ -39,7 +39,7 @@ export class User extends BaseEntity {
 	// GameData
 	@OneToOne((type) => GameData, (g: GameData) => g.user)
 	@JoinColumn()
-	gameDataEntry: Relation<GameData[]>;
+	gameDataEntry: Relation<GameData>;
 	
 
 	@CreateDateColumn()

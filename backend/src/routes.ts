@@ -229,12 +229,11 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 		}
 
 		// the note is talking about the errors ni the following 5 lines.
-		// let updateData = theUser.gameDataEntry;
-		// updateData.num_of_clicks = userClicks;
-		// updateData.num_of_upgrade_one = userUpgradeOne;
-		// updateData.num_of_upgrade_two = userUpgradeTwo;
-		// let res = await updateData.save();
-
+		let updateData = theUser.gameDataEntry;
+		updateData.num_of_clicks = userClicks;
+		updateData.num_of_upgrade_one = userUpgradeOne;
+		updateData.num_of_upgrade_two = userUpgradeTwo;
+		let res = await updateData.save();
 		await reply.send("Game Saved!");
 	});
 
