@@ -121,11 +121,14 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
   			deleted_at: undefined
   		}
   	});
-	
-	  if (existingUsername || existingEmail) {
-  		reply.status(409).send("A new user that name or email already exists");
+
+  	// auth0 will handle an user picking an exisiting username or email 
+  	// so we don't have to worry about that case. 
+  	// reply.send("testing username:   " + existingUsername);
+  	if (existingUsername !== null || existingEmail !== null) {		
+  		reply.status(200).send("The user already exists in the database!");
   		return;
-	  }
+  	}
 
   	const user = new User();
   	user.name = name;
