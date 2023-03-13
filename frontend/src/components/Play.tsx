@@ -28,6 +28,7 @@ const clickerGame = () => {
 
     const { user} = useAuth0();
 
+    const [getUsers, setUsers] = useState([]);
     const [showUpdate, setUpdateUser] = useState<any[]>([]);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
@@ -124,7 +125,30 @@ const clickerGame = () => {
 
         setIsSaving(true);
     }
-   
+
+    // FAILED: load database into the game.
+    useEffect(() => {
+        console.log("testing in useEffect: " + user?.nickname);
+        if (user && user?.email_verified === true) {
+          const loadData = async () => {
+            await api
+              .get(`/user/${user?.nickname}`)
+              .then((response) => {
+                // testing with num of click first.
+                const num_of_clicks = response?.data?.gameDataEntry?.num_of_clicks ?? 0; 
+                setClickCounter(num_of_clicks);
+                console.log(response.data);
+                console.log("Num_of_clicks:  " + num_of_clicks);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          };
+      
+        loadData();
+        }
+      }, []);
+
     return (
         <div className=' boxGameContainer flex flex-col items-center pt-40 pb-40  '>        
             <div className='bigbutton' onClick={buttonClick}><img src="./src/img/cookies_logo.png" /></div>
