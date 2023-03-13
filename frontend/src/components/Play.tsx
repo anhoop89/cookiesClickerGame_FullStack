@@ -18,8 +18,8 @@ const api = axios.create({
 });
 
 
-const clickerGame = () => {
-
+//const clickerGame = () => {
+function clickerGame() {
     const [clickCounter, setClickCounter] = useState<number>(0);
     const [textCounter, setTextCounter] = useState<number>(0);
 
@@ -31,6 +31,7 @@ const clickerGame = () => {
     const [getUsers, setUsers] = useState([]);
     const [showUpdate, setUpdateUser] = useState<any[]>([]);
     const [isSaving, setIsSaving] = useState<boolean>(false);
+
 
     // since we have only 2 options to upgrade
     const [upgrades, setUpgrades] = useState<Upgrade[]>([
@@ -127,6 +128,7 @@ const clickerGame = () => {
        
     }
 
+
     // FAILED: load database into the game.
     useEffect(() => {
         console.log("testing in useEffect: " + user?.nickname);
@@ -136,10 +138,10 @@ const clickerGame = () => {
               .get(`/user/${user?.nickname}`)
               .then((response) => {
                 // testing with num of click first.
-                const num_of_clicks = response?.data?.gameDataEntry?.num_of_clicks ?? 0; 
+                //console.log("---HEY HERE---", response.data[0].gameDataEntry.num_of_clicks);
+                const num_of_clicks = response?.data[0]?.gameDataEntry?.num_of_clicks ?? 0;
                 setClickCounter(num_of_clicks);
                 console.log(response.data);
-                console.log("Num_of_clicks:  " + num_of_clicks);
               })
               .catch((error) => {
                 console.error(error);
@@ -151,6 +153,11 @@ const clickerGame = () => {
 
         setIsSaving(false);
       }, []);
+
+
+
+
+
 
     return (
       <div className=" boxGameContainer flex flex-col items-center pt-40 pb-40  ">
