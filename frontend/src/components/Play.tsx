@@ -10,6 +10,14 @@ type Upgrade = {
     addMultiplier: number
 }
 
+const api = axios.create({
+    baseURL: `http://localhost:8080/`,
+    headers: {
+        "Content-type": "application/json",
+    },
+});
+
+
 const clickerGame = () => {
 
     const [clickCounter, setClickCounter] = useState<number>(0);
@@ -17,6 +25,10 @@ const clickerGame = () => {
 
     const [clickMultiplier, setClickMultiplier] = useState<number>(1);
     const [displayRewardText, setRewardText] = useState<string>("");
+
+    const { user, isAuthenticated, logout } = useAuth0();
+
+    const [isSaving, setIsSaving] = useState<boolean>(false);
 
     // since we have only 2 options to upgrade
     const [upgrades, setUpgrades] = useState<Upgrade[]>([
@@ -36,6 +48,7 @@ const clickerGame = () => {
         }
         // continue increasing text counter until the fact pops up
         setTextCounter(textCounter + 1);
+        setIsSaving(false);
     };
 
     // function activates only when 'textCounter' variable is ABOVE 25
@@ -78,6 +91,39 @@ const clickerGame = () => {
         }
         increaseMultiplier(option);
     };
+
+    // save the score into the database based on username
+    const [showUpdate, setUpdateUser] = useState<any[]>([]);
+    const saveButton = () => {
+        if(user && user?.email_verified === true){
+            const updateUser = async () => {
+                await api
+                .put(`/user`, {
+                    name: user?.nickname, // use the user nickname as the name to update
+                    userClicks: clickCounter,
+                    userUpgradeOne: upgrades[0]?.count,
+                    userUpgradeTwo: upgrades[1]?.count,
+                })
+                .then((response) => {
+                    console.log(response.data);
+                    setUpdateUser(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+            };
+
+            updateUser();
+        }
+
+        //testing purpose
+        console.log("clicks: " + clickCounter +
+            " up1: " +  upgrades[0]?.count +
+            " up2: " +  upgrades[1]?.count
+        );
+
+        setIsSaving(true);
+    }
    
     return (
         <div className=' boxGameContainer flex flex-col items-center pt-40 pb-40  '>        
@@ -99,6 +145,10 @@ const clickerGame = () => {
             <div>
                 {timeTracking()}
             </div>
+
+            <button className=' mx-5 mt-7 mb-3 bg-pink-400 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => saveButton()}> 
+                {isSaving ? <div> ☼ SAVED the score!  </div> : <div> ☼ SAVE the score!  </div>}
+            </button>
         </div>
 
     );
@@ -142,11 +192,6 @@ const timeTracking = () => {
     return <p>{displayTimer}</p>;
 };
 
-const saveButton = () => {
-    // save button 
-    // make sure user logged in 
-    // put request to update data
-}
 
 export default clickerGame;
 
