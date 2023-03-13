@@ -118,13 +118,17 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	  const existingEmail= await app.db.user.findOne({
   		where: {
   			email : email,
-			deleted_at: undefined
+  			deleted_at: undefined
   		}
   	});
-	
-	  if (existingUsername || existingEmail) {
-  		return reply.status(409).send("A new user that name or email already exists");
-	  }
+
+  	// auth0 will handle an user picking an exisiting username or email 
+  	// so we don't have to worry about that case. 
+  	// reply.send("testing username:   " + existingUsername);
+  	if (existingUsername !== null || existingEmail !== null) {		
+  		reply.status(200).send("The user already exists in the database!");
+  		return;
+  	}
 
   	const user = new User();
   	user.name = name;
@@ -145,7 +149,7 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 
   	//manually JSON stringify due to fastify bug with validation
   	// https://github.com/fastify/fastify/issues/4017
-  	await reply.send(JSON.stringify({ user, ip_address: ip.ip }));
+  	await reply.status(200).send(JSON.stringify({ user, ip_address: ip.ip }));
   });
 
 	// sending a username, the frontend will receive the game data related to that specific user
@@ -174,7 +178,7 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 	// soft deleting a user given a specific username
 	app.delete("/user/:username", (req: any, reply) => {
 		let givenName = req.params.username;
-		let { currentUser } = { "currentUser": givenName };
+		let { currentUser } = { currentUser: givenName };
 
 		app.db.user
 			.find({
@@ -225,12 +229,11 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 		}
 
 		// the note is talking about the errors ni the following 5 lines.
-		// let updateData = theUser.gameDataEntry;
-		// updateData.num_of_clicks = userClicks;
-		// updateData.num_of_upgrade_one = userUpgradeOne;
-		// updateData.num_of_upgrade_two = userUpgradeTwo;
-		// let res = await updateData.save();
-
+		let updateData = theUser.gameDataEntry;
+		updateData.num_of_clicks = userClicks;
+		updateData.num_of_upgrade_one = userUpgradeOne;
+		updateData.num_of_upgrade_two = userUpgradeTwo;
+		let res = await updateData.save();
 		await reply.send("Game Saved!");
 	});
 

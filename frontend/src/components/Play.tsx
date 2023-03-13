@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../CSS/play.css';
-import Reward from "react-rewards";
+import getRewards from "react-rewards";
 
 type Upgrade = {
     cost: number,
@@ -10,13 +10,28 @@ type Upgrade = {
     addMultiplier: number
 }
 
-const clickerGame = () => {
+const api = axios.create({
+    baseURL: `http://localhost:8080/`,
+    headers: {
+        "Content-type": "application/json",
+    },
+});
 
+
+//const clickerGame = () => {
+function clickerGame() {
     const [clickCounter, setClickCounter] = useState<number>(0);
     const [textCounter, setTextCounter] = useState<number>(0);
 
     const [clickMultiplier, setClickMultiplier] = useState<number>(1);
     const [displayRewardText, setRewardText] = useState<string>("");
+
+    const { user, isAuthenticated} = useAuth0();
+
+    const [getUsers, setUsers] = useState([]);
+    const [showUpdate, setUpdateUser] = useState<any[]>([]);
+    const [isSaving, setIsSaving] = useState<boolean>(false);
+
 
     // since we have only 2 options to upgrade
     const [upgrades, setUpgrades] = useState<Upgrade[]>([
@@ -36,6 +51,7 @@ const clickerGame = () => {
         }
         // continue increasing text counter until the fact pops up
         setTextCounter(textCounter + 1);
+        setIsSaving(false);
     };
 
     // function activates only when 'textCounter' variable is ABOVE 25
@@ -78,29 +94,113 @@ const clickerGame = () => {
         }
         increaseMultiplier(option);
     };
-   
-    return (
-        <div className=' boxGameContainer flex flex-col items-center pt-40 pb-40  '>        
-            <div className='bigbutton' onClick={buttonClick}><img src="./src/img/cookies_logo.png" /></div>
-            <h1 className='titleCount pt-10'>Click Count: {clickCounter}</h1>
-            <p className='rewardText overflow-hidden  max-w-md pt-5 mx-auto'>{displayRewardText}</p>
-            <div className='mt-10'>
-                {/* the single clicker upgrade option (UPGRADE ONE) */}
-                <button className=' mx-4 mb-3 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => purchaseUpgrade(0)}>
-                    <div> ► Upgrade One  </div>
-                    <div> Times Purchased: {upgrades[0].count}, Cost: {upgrades[0].cost}</div>
-                </button>
-                {/*  the single clicker upgrade option (UPGRADE TWO) */}
-                <button className=' mx-4  mb-3  from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => purchaseUpgrade(1)}>
-                    <div> ► Upgrade Two  </div>
-                    <div className=''> Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost} </div>
-                </button>
-            </div>
-            <div>
-                {timeTracking()}
-            </div>
-        </div>
 
+    // save the score into the database based on username
+    const saveButton = () => {
+        if(user && user?.email_verified === true){
+            const updateUser = async () => {
+                await api
+                .put(`/user`, {
+                    name: user?.nickname, // use the user nickname as the name to update
+                    userClicks: clickCounter,
+                    userUpgradeOne: upgrades[0]?.count,
+                    userUpgradeTwo: upgrades[1]?.count,
+                })
+                .then((response) => {
+                    console.log(response.data);
+                    setUpdateUser(response.data);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+            };
+
+            updateUser();
+            setIsSaving(true);
+        }
+
+        //testing purpose
+        console.log("clicks: " + clickCounter +
+            " up1: " +  upgrades[0]?.count +
+            " up2: " +  upgrades[1]?.count
+        );
+
+       
+    }
+
+
+    // FAILED: load database into the game.
+    useEffect(() => {
+        console.log("testing in useEffect: " + user?.nickname);
+        if (user && user?.email_verified === true) {
+          const loadData = async () => {
+            await api
+              .get(`/user/${user?.nickname}`)
+              .then((response) => {
+                // testing with num of click first.
+                //console.log("---HEY HERE---", response.data[0].gameDataEntry.num_of_clicks);
+                const num_of_clicks = response?.data[0]?.gameDataEntry?.num_of_clicks ?? 0;
+                setClickCounter(num_of_clicks);
+                console.log(response.data);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          };
+      
+        loadData();
+        }
+
+        setIsSaving(false);
+      }, []);
+
+
+
+
+
+
+    return (
+      <div className=" boxGameContainer flex flex-col items-center pt-40 pb-40  ">
+        <div className="bigbutton" onClick={buttonClick}>
+          <img src="./src/img/cookies_logo.png" />
+        </div>
+        <h1 className="titleCount pt-10">Click Count: {clickCounter}</h1>
+        <p className="rewardText overflow-hidden  max-w-md pt-5 mx-auto">
+          {displayRewardText}
+        </p>
+        <div className="mt-10">
+          {/* the single clicker upgrade option (UPGRADE ONE) */}
+          <button
+            className=" mx-4 mb-3 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
+            onClick={() => purchaseUpgrade(0)}
+          >
+            <div> ► Upgrade One </div>
+            <div>
+              {" "}
+              Times Purchased: {upgrades[0].count}, Cost: {upgrades[0].cost}
+            </div>
+          </button>
+          {/*  the single clicker upgrade option (UPGRADE TWO) */}
+          <button
+            className=" mx-4  mb-3  from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
+            onClick={() => purchaseUpgrade(1)}
+          >
+            <div> ► Upgrade Two </div>
+            <div className="">
+              {" "}
+              Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost}{" "}
+            </div>
+          </button>
+        </div>
+        <div>{timeTracking()}</div>
+
+        <button className=' mx-5 mt-7 mb-3 bg-pink-400 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r' onClick={() => saveButton()}> 
+                {isSaving && isAuthenticated? <div> ☼ SAVED the score!  </div> :
+                     (isAuthenticated ? <div> ☼ SAVE the score!  </div> :
+                         <div> ☼ Please login to SAVE the score! </div> )}
+            </button>
+       
+      </div>
     );
 };
 
@@ -141,6 +241,7 @@ const timeTracking = () => {
 
     return <p>{displayTimer}</p>;
 };
+
 
 export default clickerGame;
 

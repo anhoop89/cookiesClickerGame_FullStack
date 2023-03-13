@@ -1,5 +1,6 @@
 import './CSS/App.css'
 import { Link, Route, Routes } from 'react-router-dom';
+
 import Home from './components/Home';
 import Info from './components/Info';
 import Contact from './components/Contact';
@@ -9,17 +10,63 @@ import About from './components/About';
 
 
 import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect, useState } from 'react';
+import axios from "axios";
+
+const api = axios.create({
+    baseURL: `http://localhost:8080/`,
+    headers: {
+        "Content-type": "application/json",
+    },
+});
 
 function App() {
 
     const { loginWithPopup, loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
-
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [showErr, setErr] = useState("");
+    const [postResult, setPost] = useState<any[]>([]);
 
 
     const handleLoginClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        loginWithPopup();
+        loginWithPopup();      
     };
+
+    useEffect(() => {    
+        console.log("verified : " + user?.email_verified);
+        if (user && user?.email_verified === true){
+            const postUser = async () => {
+                await api
+                    .post("/users", {
+                        name: user.nickname,
+                        email: user.email,
+                        userClicks: 0,
+                        userUpgradeOne: 0,
+                        userUpgradeTwo: 0,
+                    })
+                    .then((response) => {
+                        setPost(response.data);
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        console.log( "noted testing: " + error.response + error.response.status);
+                        if (error.response && error.response.status === 409)
+                            console.log("A new user that name or email already exists!");
+                        else {
+                            console.error(error);
+                            setErr(error.response.status);
+                        }
+                    });
+            };
+            postUser();
+        } 
+        if (user?.email_verified === false) {
+            alert("please verify your email! Thanks")
+        }
+    }, [user]);    
+      
 
     const handleLogoutClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
