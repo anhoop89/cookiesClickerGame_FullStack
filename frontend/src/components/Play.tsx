@@ -26,8 +26,9 @@ const clickerGame = () => {
     const [clickMultiplier, setClickMultiplier] = useState<number>(1);
     const [displayRewardText, setRewardText] = useState<string>("");
 
-    const { user, isAuthenticated, logout } = useAuth0();
+    const { user} = useAuth0();
 
+    const [showUpdate, setUpdateUser] = useState<any[]>([]);
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
     // since we have only 2 options to upgrade
@@ -93,7 +94,6 @@ const clickerGame = () => {
     };
 
     // save the score into the database based on username
-    const [showUpdate, setUpdateUser] = useState<any[]>([]);
     const saveButton = () => {
         if(user && user?.email_verified === true){
             const updateUser = async () => {
