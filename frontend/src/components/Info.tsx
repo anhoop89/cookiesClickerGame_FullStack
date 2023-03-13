@@ -79,9 +79,10 @@ function Info() {
                 console.log(response.data);
             })
             .catch((error) => {
-                if (error.response && error.response.status === 409)
-                    setErr("A new user that name or email already exists!");
-                else console.error(error);
+                // doesnt have to worry about this since auth0 already handles this
+                // if (error.response && error.response.status === 409)
+                //     setErr("A new user that name or email already exists!");
+                console.error(error);
             });
     };
 

@@ -2,6 +2,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import {useNavigate} from "react-router-dom";
+
 interface User {
     id: number;
     name: string;
@@ -16,9 +18,10 @@ const api = axios.create({
 
 
 function Settings() {
-    const { user, isAuthenticated } = useAuth0();
-    let username = "";
-    let email = "";
+    const { user, isAuthenticated, logout } = useAuth0();
+    const navigate = useNavigate();
+    let username: string = "";
+    let email: string = "";
 
     const [findResult, setFind] = useState<any[]>([]);
     const [deleteResult, setDelete] = useState<any[]>([]);
@@ -42,17 +45,25 @@ function Settings() {
     };
 
     const deleteUser = () => {
+        
         api
             .delete(`/user/${username}`)
             .then((response) => {
                 setDelete(response.data);
                 console.log(response.data);
+                logout();
+                alert("Your account has been deleted!")
+                setTimeout(() => {
+                    navigate("/");
+                }, 4000);               
             })
             .catch((error) => {
                 console.error(error);
             });
         console.log(username);
     };
+    
+    
 
     // making a check to see if user has logged into an account or not
     // if they have, the settings page displaying information will appear
