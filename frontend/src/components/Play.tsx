@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../CSS/play.css';
 import getRewards from "react-rewards";
 
+
 type Upgrade = {
     cost: number,
     count: number,
@@ -17,6 +18,13 @@ const api = axios.create({
     },
 });
 
+function pow(base: number, exponent: number): number {
+    let result = 1;
+    for (let i = 0; i < exponent; i++) {
+      result *= base;
+    }
+    return result;
+}
 
 //const clickerGame = () => {
 function clickerGame() {
@@ -129,7 +137,7 @@ function clickerGame() {
     }
 
 
-    // FAILED: load database into the game.
+ 
     useEffect(() => {
         console.log("testing in useEffect: " + user?.nickname);
         if (user && user?.email_verified === true) {
@@ -141,6 +149,16 @@ function clickerGame() {
                 //console.log("---HEY HERE---", response.data[0].gameDataEntry.num_of_clicks);
                 const num_of_clicks = response?.data[0]?.gameDataEntry?.num_of_clicks ?? 0;
                 setClickCounter(num_of_clicks);
+                const updateCountOne = response?.data[0]?.gameDataEntry?.num_of_upgrade_one;
+                const updateCountTwo = response?.data[0]?.gameDataEntry?.num_of_upgrade_two;
+                setClickMultiplier(updateCountOne * 1 +  updateCountTwo * 2);
+                const updateCostOne = Math.round(25 * pow(1.75, updateCountOne));
+                const updateCostTwo = Math.round(100 * pow(1.75, updateCountOne));
+                setUpgrades([
+                    { cost: updateCostOne, count: updateCountOne, addMultiplier: 1 },
+                    { cost: updateCostTwo, count: updateCountTwo, addMultiplier: 2 }
+                  ]);
+            
                 console.log(response.data);
               })
               .catch((error) => {
