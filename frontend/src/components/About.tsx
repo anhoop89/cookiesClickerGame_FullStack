@@ -22,9 +22,7 @@ function About() {
   return (
     <div className="container form mt-10 mx-auto">
       <h1 className="readFont mainHeader"> About Us</h1>
-
       <br></br>
-
       <div className="headerTwo text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
         <label className="contactFont block mb-3">Class:</label>
         <p className="contactFont descriptorText block">
