@@ -93,7 +93,6 @@ function clickerGame() {
   // 2 options: 0 - upgrade ONE | 1 - upgrade TWO
   const purchaseUpgrade = (option: number) => {
     // checking with the cost before upgrading.
-
     if (clickCounter < upgrades[option].cost) {
       alert("Not enough clicks!!");
       return;
