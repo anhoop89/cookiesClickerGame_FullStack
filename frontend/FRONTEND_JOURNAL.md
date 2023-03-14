@@ -1,7 +1,8 @@
 ================== HOW TO RUN THE FRONTEND ===============
 
-1. pnpm install
-2. pnpm dev   -> hit the http localhost to see the site.
+1. Make sure path at "./COOKIESCLICKER/frontend". if not, cd ./frontend
+2. pnpm install
+3. pnpm dev   -> hit the http localhost to see the site.
 
 
 ==================== Libraries ============================
