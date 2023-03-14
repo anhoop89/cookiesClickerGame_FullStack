@@ -124,16 +124,6 @@ function clickerGame() {
       updateUser();
       setIsSaving(true);
     }
-
-    //testing purpose
-    console.log(
-      "clicks: " +
-        clickCounter +
-        " up1: " +
-        upgrades[0]?.count +
-        " up2: " +
-        upgrades[1]?.count
-    );
   };
 
   useEffect(() => {
