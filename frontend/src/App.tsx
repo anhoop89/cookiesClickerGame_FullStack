@@ -1,5 +1,5 @@
 import './CSS/App.css'
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Home from './components/Home';
 import Info from './components/Info';
@@ -20,6 +20,7 @@ const api = axios.create({
     },
 });
 
+
 function App() {
 
     const { loginWithPopup, loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
@@ -27,11 +28,12 @@ function App() {
     const [email, setEmail] = useState("");
     const [showErr, setErr] = useState("");
     const [postResult, setPost] = useState<any[]>([]);
+    const navigate = useNavigate();
 
-
-    const handleLoginClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleLoginClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        loginWithPopup();      
+        await loginWithPopup();   
+        navigate("/");
     };
 
     useEffect(() => {    
@@ -133,7 +135,7 @@ function App() {
                     </div>
                 ) : ""}
             
-
+{/* 
             <div className="text-left mx-auto ">
                 {isAuthenticated ? (
                     <div className='whitespace-pre-wrap overflow-x-auto '>
@@ -143,7 +145,7 @@ function App() {
                     </div>
                 ) : ""}
 
-            </div>
+            </div> */}
 
             </div>
         </div>

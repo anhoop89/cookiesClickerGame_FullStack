@@ -131,12 +131,8 @@ function clickerGame() {
         console.log("clicks: " + clickCounter +
             " up1: " +  upgrades[0]?.count +
             " up2: " +  upgrades[1]?.count
-        );
-
-       
+        );       
     }
-
-
  
     useEffect(() => {
         console.log("testing in useEffect: " + user?.nickname);
@@ -171,11 +167,6 @@ function clickerGame() {
 
         setIsSaving(false);
       }, []);
-
-
-
-
-
 
     return (
       <div className=" boxGameContainer flex flex-col items-center pt-40 pb-40  ">
