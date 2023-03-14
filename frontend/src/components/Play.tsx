@@ -133,7 +133,7 @@ function clickerGame() {
     }
  
     useEffect(() => {
-        console.log("testing in useEffect: " + user?.nickname);
+        // if the user is valid, pull their game data into the game on the site.
         if (user && user?.email_verified === true) {
           const loadData = async () => {
             await api
