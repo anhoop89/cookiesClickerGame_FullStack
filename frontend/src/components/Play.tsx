@@ -2,8 +2,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../CSS/play.css';
-import getRewards from "react-rewards";
-
 
 type Upgrade = {
     cost: number,
@@ -141,8 +139,6 @@ function clickerGame() {
             await api
               .get(`/user/${user?.nickname}`)
               .then((response) => {
-                // testing with num of click first.
-                //console.log("---HEY HERE---", response.data[0].gameDataEntry.num_of_clicks);
                 const num_of_clicks = response?.data[0]?.gameDataEntry?.num_of_clicks ?? 0;
                 setClickCounter(num_of_clicks);
                 const updateCountOne = response?.data[0]?.gameDataEntry?.num_of_upgrade_one;

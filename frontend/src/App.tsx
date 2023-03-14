@@ -2,12 +2,11 @@ import './CSS/App.css'
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Home from './components/Home';
-import Info from './components/Info';
 import Contact from './components/Contact';
 import Play from './components/Play';
 import Settings from './components/Settings';
 import About from './components/About';
-
+// import Info from './components/Info';
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';

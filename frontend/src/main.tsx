@@ -16,7 +16,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             clientId= '3p2fQA9DF5ml0KwVJGmpJcPdYKG2MdKp'
             authorizationParams={{redirect_uri: window.location.origin}}
             >
-                
             <App />
             {/* <Navbar /> */}
             </Auth0Provider>
