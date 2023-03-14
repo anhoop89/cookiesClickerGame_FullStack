@@ -11,3 +11,4 @@
 ==================== Libraries ============================
 https://www.npmjs.com/package/react-rewards
 pnpm install react-rewards
+pnpm install dotenv for authCheck.tsx
