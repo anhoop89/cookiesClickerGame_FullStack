@@ -2,10 +2,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../CSS/play.css";
-import { useAuth0 } from "@auth0/auth0-react";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "../CSS/play.css";
 
 type Upgrade = {
   cost: number;
@@ -19,19 +15,9 @@ const api = axios.create({
   headers: {
     "Content-type": "application/json",
   },
-  baseURL: `http://localhost:8080/`,
-  headers: {
-    "Content-type": "application/json",
-  },
 });
 
-function pow(base: number, exponent: number): number {
-  let result = 1;
-  for (let i = 0; i < exponent; i++) {
-    result *= base;
-  }
-  return result;
-}
+
 function pow(base: number, exponent: number): number {
   let result = 1;
   for (let i = 0; i < exponent; i++) {
@@ -52,11 +38,7 @@ function clickerGame() {
   const [displayRewardText, setRewardText] = useState<string>("");
 
   const { user, isAuthenticated } = useAuth0();
-  const { user, isAuthenticated } = useAuth0();
 
-  const [getUsers, setUsers] = useState([]);
-  const [showUpdate, setUpdateUser] = useState<any[]>([]);
-  const [isSaving, setIsSaving] = useState<boolean>(false);
   const [getUsers, setUsers] = useState([]);
   const [showUpdate, setUpdateUser] = useState<any[]>([]);
   const [isSaving, setIsSaving] = useState<boolean>(false);
@@ -111,20 +93,6 @@ function clickerGame() {
     }
   }
 
-
-  // function activates only when 'textCounter' variable is ABOVE 25
-  // this function pulls a new flavor text to deliver to the user
-  const getNewFunFact = async () => {
-    axios
-      .get("https://catfact.ninja/fact")
-      .then((response) => {
-        let aFact: any = response.data.fact;
-        return setRewardText("You got a fun fact . . ." + "\n" + aFact);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
   // function activates only when 'textCounter' variable is ABOVE 25
   // this function pulls a new flavor text to deliver to the user
   const getNewFunFact = async () => {
@@ -139,13 +107,7 @@ function clickerGame() {
       });
   };
 
-  // function activates when user purchases a clicker upgrade two args are passed in.
-  //  The cost of the multiplier and how much of an increase the multiplier gets
-  const increaseMultiplier = (option: number) => {
-    const multiplierCost = upgrades[option].cost;
-    const multiplier = upgrades[option].addMultiplier;
-    setClickMultiplier(clickMultiplier + multiplier);
-    setClickCounter(clickCounter - multiplierCost);
+
   // function activates when user purchases a clicker upgrade two args are passed in.
   //  The cost of the multiplier and how much of an increase the multiplier gets
   const increaseMultiplier = (option: number) => {
@@ -154,10 +116,6 @@ function clickerGame() {
     setClickMultiplier(clickMultiplier + multiplier);
     setClickCounter(clickCounter - multiplierCost);
 
-    // copy data from upgrades
-    const updatedUpgrades = [...upgrades];
-    updatedUpgrades[option].count += 1;
-    updatedUpgrades[option].cost = Math.round(multiplierCost * 1.75);
     // copy data from upgrades
     const updatedUpgrades = [...upgrades];
     updatedUpgrades[option].count += 1;
@@ -202,26 +160,6 @@ function clickerGame() {
     increaseAutoClick(option);
   }
 
-
-  // save the score into the database based on username
-  const saveButton = () => {
-    if (user && user?.email_verified === true) {
-      const updateUser = async () => {
-        await api
-          .put(`/user`, {
-            name: user?.nickname, // use the user nickname as the name to update
-            userClicks: clickCounter,
-            userUpgradeOne: upgrades[0]?.count,
-            userUpgradeTwo: upgrades[1]?.count,
-          })
-          .then((response) => {
-            console.log(response.data);
-            setUpdateUser(response.data);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      };
   // save the score into the database based on username
   const saveButton = () => {
     if (user && user?.email_verified === true) {
@@ -282,8 +220,6 @@ function clickerGame() {
 
     setIsSaving(false);
   }, []);
-    setIsSaving(false);
-  }, []);
 
   return (
     <div className=" boxGameContainer flex flex-col items-center pt-40 pb-40  ">
@@ -335,32 +271,12 @@ function clickerGame() {
     </div>
   );
 }
-      <button
-        className=" mx-5 mt-7 mb-3 bg-pink-400 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
-        onClick={() => saveButton()}
-      >
-        {isSaving && isAuthenticated ? (
-          <div> ☼ SAVED the score! </div>
-        ) : isAuthenticated ? (
-          <div> ☼ SAVE the score! </div>
-        ) : (
-          <div> ☼ Please login to SAVE the score! </div>
-        )}
-      </button>
-    </div>
-  );
-}
+
 
 const timeTracking = () => {
   const { isAuthenticated } = useAuth0();
   const [totalSeconds, setSeconds] = useState<number>(0);
-  const { isAuthenticated } = useAuth0();
-  const [totalSeconds, setSeconds] = useState<number>(0);
 
-  // run useEffect hook everytime people play the game
-  const increaseSec = () => {
-    setSeconds((currSeconds) => currSeconds + 1);
-  };
   // run useEffect hook everytime people play the game
   const increaseSec = () => {
     setSeconds((currSeconds) => currSeconds + 1);
@@ -371,23 +287,11 @@ const timeTracking = () => {
     // reset
     return () => clearInterval(interval);
   }, []);
-  useEffect(() => {
-    const interval = setInterval(increaseSec, 1000); // +1s
-    // reset
-    return () => clearInterval(interval);
-  }, []);
 
   if (!isAuthenticated && totalSeconds > 0 && totalSeconds % 60 === 0) {
     alert("Please login to have an auto-save for your score!");
   }
-  if (!isAuthenticated && totalSeconds > 0 && totalSeconds % 60 === 0) {
-    alert("Please login to have an auto-save for your score!");
-  }
 
-  const displayTimer = (() => {
-    let hours = Math.floor(totalSeconds / 3600);
-    let minutes = Math.floor((totalSeconds % 3600) / 60);
-    let remainingSeconds = totalSeconds % 60;
   const displayTimer = (() => {
     let hours = Math.floor(totalSeconds / 3600);
     let minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -401,23 +305,11 @@ const timeTracking = () => {
     let showSeconds = `${remainingSeconds} second${
       remainingSeconds > 1 ? "s" : ""
     }`;
-    // display hours, minutes, seconds
-    // conditional operator to check a plural form
-    let showHours = hours > 0 ? `${hours} hour${hours > 1 ? "s" : ""} ` : "";
-    let showMinutues =
-      minutes > 0 ? `${minutes} minute${minutes > 1 ? "s" : ""} ` : "";
-    let showSeconds = `${remainingSeconds} second${
-      remainingSeconds > 1 ? "s" : ""
-    }`;
 
     // leave total seconds for testing
     return `You have been playing: ${showHours} ${showMinutues} ${showSeconds}`;
   })();
-    // leave total seconds for testing
-    return `You have been playing: ${showHours} ${showMinutues} ${showSeconds}`;
-  })();
 
-  return <p>{displayTimer}</p>;
   return <p>{displayTimer}</p>;
 };
 

@@ -2,9 +2,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../CSS/About.css";
-import "../CSS/About.css";
-
-interface Suggestion {
 interface Suggestion {
   name: string;
   email: string;
@@ -15,7 +12,6 @@ const api = axios.create({
   baseURL: `http://localhost:8080/`,
   headers: {
     "Content-type": "application/json",
-    "Content-type": "application/json",
   },
 });
 
@@ -23,7 +19,7 @@ function About() {
   const { user, isAuthenticated } = useAuth0();
 
   return (
-    <div className="container form mt-10 mx-auto">
+
     <div className="container form mt-10 mx-auto">
       <h1 className="readFont mainHeader"> About Us</h1>
       <br></br>
