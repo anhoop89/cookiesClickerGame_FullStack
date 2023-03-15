@@ -4,3 +4,5 @@
 /backend/buildTypeorm/
 /backend/build/
 /frontend/auth0/
+/frontend/node_modules/
+/node_modules/
