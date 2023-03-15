@@ -3,6 +3,7 @@ import "../CSS/home.css";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   return (
     <div className="mt-20 mb-10">
@@ -20,5 +21,6 @@ export default function Home() {
         )}
       </div>
     </div>
+  );
   );
 }
