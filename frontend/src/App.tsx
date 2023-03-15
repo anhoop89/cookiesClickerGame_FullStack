@@ -1,13 +1,12 @@
 import './CSS/App.css'
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Home from './components/Home';
-import Info from './components/Info';
 import Contact from './components/Contact';
 import Play from './components/Play';
 import Settings from './components/Settings';
 import About from './components/About';
-
+// import Info from './components/Info';
 
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
@@ -20,6 +19,7 @@ const api = axios.create({
     },
 });
 
+
 function App() {
 
     const { loginWithPopup, loginWithRedirect, logout, user, isAuthenticated, isLoading } = useAuth0();
@@ -27,11 +27,12 @@ function App() {
     const [email, setEmail] = useState("");
     const [showErr, setErr] = useState("");
     const [postResult, setPost] = useState<any[]>([]);
+    const navigate = useNavigate();
 
-
-    const handleLoginClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleLoginClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        loginWithPopup();      
+        await loginWithPopup();   
+        navigate("/");
     };
 
     useEffect(() => {    
@@ -91,9 +92,10 @@ function App() {
                             <Link to="/" 
                                 className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
                                     py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Home</Link>
-                            <Link to="/info"
+                            {/* testing tab */}
+                            {/* <Link to="/info"
                                 className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
-                                    py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Info</Link>
+                                    py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Info</Link> */}
                             <Link to="/settings"
                                 className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white 
                                     py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Settings</Link>
@@ -116,7 +118,8 @@ function App() {
                 </nav>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/Info" element={<Info />} />
+                    {/* testing tab */}
+                    {/* <Route path="/Info" element={<Info />} /> */}
                     <Route path="/About" element={<About />} />
                     <Route path="/Settings" element={<Settings />} />
                     <Route path="/Contact" element={<Contact />} />
@@ -127,27 +130,17 @@ function App() {
             <div className='container mx-auto px-4 mt-10  '>
                 {isAuthenticated ? (
                     <div>
-                        <p>Welcome, {user?.nickname}!</p>
+                        <p className="readFont">Logged in as: {user?.nickname}</p>
                     
                         <button onClick={handleLogoutClick}>Logout</button>
                     </div>
                 ) : ""}
             
-
-            <div className="text-left mx-auto ">
-                {isAuthenticated ? (
-                    <div className='whitespace-pre-wrap overflow-x-auto '>
-                        <h2> User is logged in</h2>
-                        <h3>User Details:</h3>
-                        <pre>{JSON.stringify(user, null, 1)}</pre>
-                    </div>
-                ) : ""}
-
-            </div>
-
             </div>
         </div>
     )
 }
 
 export default App; 
+
+
