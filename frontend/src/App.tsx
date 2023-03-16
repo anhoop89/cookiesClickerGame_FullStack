@@ -130,7 +130,7 @@ function App() {
             <div className='container mx-auto px-4 mt-10  '>
                 {isAuthenticated ? (
                     <div>
-                        <p>Welcome, {user?.nickname}!</p>
+                        <p className="readFont">Logged in as: {user?.nickname}</p>
                     
                         <button onClick={handleLogoutClick}>Logout</button>
                     </div>

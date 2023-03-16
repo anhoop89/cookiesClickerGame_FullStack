@@ -7,6 +7,7 @@ type Upgrade = {
   cost: number;
   count: number;
   addMultiplier: number;
+  addAutoClick: number;
 };
 
 const api = axios.create({
@@ -15,6 +16,7 @@ const api = axios.create({
     "Content-type": "application/json",
   },
 });
+
 
 function pow(base: number, exponent: number): number {
   let result = 1;
@@ -27,9 +29,12 @@ function pow(base: number, exponent: number): number {
 //const clickerGame = () => {
 function clickerGame() {
   const [clickCounter, setClickCounter] = useState<number>(0);
+  const [clickMultiplier, setClickMultiplier] = useState<number>(1);
   const [textCounter, setTextCounter] = useState<number>(0);
 
-  const [clickMultiplier, setClickMultiplier] = useState<number>(1);
+  const [autoClickBool, setAutoBool] = useState<boolean>(false);
+  const [autoClickNum, setAutoClicks] = useState<number>(0);
+
   const [displayRewardText, setRewardText] = useState<string>("");
 
   const { user, isAuthenticated } = useAuth0();
@@ -40,8 +45,8 @@ function clickerGame() {
 
   // since we have only 2 options to upgrade
   const [upgrades, setUpgrades] = useState<Upgrade[]>([
-    { cost: 25, count: 0, addMultiplier: 1 },
-    { cost: 100, count: 0, addMultiplier: 2 },
+    { cost: 10, count: 0, addMultiplier: 1, addAutoClick: 0},
+    { cost: 20, count: 0, addMultiplier: 0, addAutoClick: 1},
   ]);
 
   const buttonClick = () => {
@@ -59,6 +64,35 @@ function clickerGame() {
     setIsSaving(false);
   };
 
+  // auto clicker purchases will increase the frequency of when the game will auto click
+  const autoClicker = () =>{
+
+    let bigButton = document.getElementById("theButton")
+    let frequency = autoClickNum;
+    console.log(frequency);
+
+    if(autoClickNum > 0){
+      let interval = window.setInterval(() => {
+        bigButton?.click();
+      }, 5000/frequency);
+    }
+  }
+
+  // function to allow regular button clicks to activate auto clicker
+  // with a check to prevent auto clicker from being called multiple times
+  const onButtonClick = () =>{
+    buttonClick();
+
+    if(autoClickBool === true){
+      return;
+    }
+    else{
+      autoClicker();
+      setAutoBool(true);
+      return;
+    }
+  }
+
   // function activates only when 'textCounter' variable is ABOVE 25
   // this function pulls a new flavor text to deliver to the user
   const getNewFunFact = async () => {
@@ -72,6 +106,7 @@ function clickerGame() {
         console.error(error);
       });
   };
+
 
   // function activates when user purchases a clicker upgrade two args are passed in.
   //  The cost of the multiplier and how much of an increase the multiplier gets
@@ -90,6 +125,21 @@ function clickerGame() {
     setUpgrades(updatedUpgrades);
   };
 
+  const increaseAutoClick = (option: number) => {
+    const autoClickCost = upgrades[option].cost;
+    const autoclicks = upgrades[option].addAutoClick;
+    console.log("increasing auto click", autoclicks);
+    setAutoClicks(autoClickNum + autoclicks);
+    setClickCounter(clickCounter - autoClickCost);
+
+    // copy data from upgrades
+    const updatedUpgrades = [...upgrades];
+    updatedUpgrades[option].count += 1;
+    updatedUpgrades[option].cost = Math.round(autoClickCost * 1.75);
+
+    setUpgrades(updatedUpgrades);
+  }
+
   // 2 options: 0 - upgrade ONE | 1 - upgrade TWO
   const purchaseUpgrade = (option: number) => {
     // checking with the cost before upgrading.
@@ -99,6 +149,16 @@ function clickerGame() {
     }
     increaseMultiplier(option);
   };
+
+
+  const purchaseAutoClick = (option: number) => {
+    // checking with the cost before upgrading.
+    if (clickCounter < upgrades[option].cost) {
+      alert("Not enough clicks!!");
+      return;
+    }
+    increaseAutoClick(option);
+  }
 
   // save the score into the database based on username
   const saveButton = () => {
@@ -139,12 +199,13 @@ function clickerGame() {
               response?.data[0]?.gameDataEntry?.num_of_upgrade_one;
             const updateCountTwo =
               response?.data[0]?.gameDataEntry?.num_of_upgrade_two;
-            setClickMultiplier(updateCountOne * 1 + updateCountTwo * 2);
-            const updateCostOne = Math.round(25 * pow(1.75, updateCountOne));
-            const updateCostTwo = Math.round(100 * pow(1.75, updateCountOne));
+            setClickMultiplier(updateCountOne * 1);
+            setAutoClicks(updateCountTwo * 1);
+            const updateCostOne = Math.round(10 * pow(1.75, updateCountOne));
+            const updateCostTwo = Math.round(20 * pow(1.75, updateCountOne));
             setUpgrades([
-              { cost: updateCostOne, count: updateCountOne, addMultiplier: 1 },
-              { cost: updateCostTwo, count: updateCountTwo, addMultiplier: 2 },
+              { cost: updateCostOne, count: updateCountOne, addMultiplier: 1, addAutoClick: 0 },
+              { cost: updateCostTwo, count: updateCountTwo, addMultiplier: 0, addAutoClick: 1 },
             ]);
 
             console.log(response.data);
@@ -162,7 +223,7 @@ function clickerGame() {
 
   return (
     <div className=" boxGameContainer flex flex-col items-center pt-40 pb-40  ">
-      <div className="bigbutton" onClick={buttonClick}>
+      <div className="bigbutton" onClick={onButtonClick} id="theButton">
         <img src="./src/img/cookies_logo.png" />
       </div>
       <h1 className="titleCount pt-10">Click Count: {clickCounter}</h1>
@@ -172,7 +233,7 @@ function clickerGame() {
       <div className="mt-10">
         {/* the single clicker upgrade option (UPGRADE ONE) */}
         <button
-          className=" mx-4 mb-3 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
+          className="upgradeButton mx-4 mb-3 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
           onClick={() => purchaseUpgrade(0)}
         >
           <div> ► Upgrade One </div>
@@ -183,8 +244,8 @@ function clickerGame() {
         </button>
         {/*  the single clicker upgrade option (UPGRADE TWO) */}
         <button
-          className=" mx-4  mb-3  from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
-          onClick={() => purchaseUpgrade(1)}
+          className="upgradeButton mx-4  mb-3  from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
+          onClick={() => purchaseAutoClick(1)}
         >
           <div> ► Upgrade Two </div>
           <div className="">
@@ -210,6 +271,7 @@ function clickerGame() {
     </div>
   );
 }
+
 
 const timeTracking = () => {
   const { isAuthenticated } = useAuth0();
