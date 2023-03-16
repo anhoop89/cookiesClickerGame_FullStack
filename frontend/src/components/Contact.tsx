@@ -66,7 +66,7 @@ function Contact() {
 
   return (
     <div className="container form mt-10 mx-auto">
-      <h1 className="contactFont"> Contact / Feedback Form</h1>
+      <h1 className="contactFont mb-10"> Contact / Feedback Form</h1>
 
       <form className="text-left mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4 ">
