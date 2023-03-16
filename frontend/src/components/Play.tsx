@@ -57,11 +57,14 @@ function clickerGame() {
     if (textCounter >= 25) {
       getNewFunFact();
       setTextCounter(0);
-      return;
     }
     // continue increasing text counter until the fact pops up
-    setTextCounter(textCounter + 1);
-    setIsSaving(false);
+    else{
+      setTextCounter(textCounter + 1);
+    }
+//    setIsSaving(false);
+
+  return;
   };
 
   // auto clicker purchases will increase the frequency of when the game will auto click
@@ -88,7 +91,13 @@ function clickerGame() {
     }
     else{
       autoClicker();
-      setAutoBool(true);
+        if(autoClickNum > 0){
+          setAutoBool(true);
+        }
+        else{
+          // do nothing
+        }
+
       return;
     }
   }
@@ -138,6 +147,7 @@ function clickerGame() {
     updatedUpgrades[option].cost = Math.round(autoClickCost * 1.75);
 
     setUpgrades(updatedUpgrades);
+
   }
 
   // 2 options: 0 - upgrade ONE | 1 - upgrade TWO
@@ -217,6 +227,40 @@ function clickerGame() {
 
       loadData();
     }
+
+
+    else{
+      const loadData = async () => {
+        await api
+          .get(`/user/${user?.nickname}`)
+          .then((response) => {
+            const num_of_clicks =
+              response?.data[0]?.gameDataEntry?.num_of_clicks ?? 0;
+            setClickCounter(num_of_clicks);
+            const updateCountOne =
+              response?.data[0]?.gameDataEntry?.num_of_upgrade_one;
+            const updateCountTwo =
+              response?.data[0]?.gameDataEntry?.num_of_upgrade_two;
+            setClickMultiplier(updateCountOne * 1);
+            setAutoClicks(updateCountTwo * 1);
+            const updateCostOne = Math.round(10 * pow(1.75, updateCountOne));
+            const updateCostTwo = Math.round(20 * pow(1.75, updateCountOne));
+            setUpgrades([
+              { cost: updateCostOne, count: updateCountOne, addMultiplier: 1, addAutoClick: 0 },
+              { cost: updateCostTwo, count: updateCountTwo, addMultiplier: 0, addAutoClick: 1 },
+            ]);
+
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+
+      loadData();
+    }
+
+
 
     setIsSaving(false);
   }, []);
