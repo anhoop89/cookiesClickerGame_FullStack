@@ -62,7 +62,7 @@ function clickerGame() {
     else{
       setTextCounter(textCounter + 1);
     }
-//    setIsSaving(false);
+    setIsSaving(false);
 
   return;
   };
@@ -209,8 +209,8 @@ function clickerGame() {
               response?.data[0]?.gameDataEntry?.num_of_upgrade_one;
             const updateCountTwo =
               response?.data[0]?.gameDataEntry?.num_of_upgrade_two;
-            setClickMultiplier(updateCountOne * 1);
-            setAutoClicks(updateCountTwo * 1);
+            setClickMultiplier(updateCountOne + 1);
+            setAutoClicks(updateCountTwo);
             const updateCostOne = Math.round(10 * pow(1.75, updateCountOne));
             const updateCostTwo = Math.round(20 * pow(1.75, updateCountOne));
             setUpgrades([
@@ -228,33 +228,22 @@ function clickerGame() {
       loadData();
     }
 
-
+    // needed for user's who are not logged in and authorized
+    // need to set default starting values to 0
     else{
       const loadData = async () => {
-        await api
-          .get(`/user/${user?.nickname}`)
-          .then((response) => {
-            const num_of_clicks =
-              response?.data[0]?.gameDataEntry?.num_of_clicks ?? 0;
+            const num_of_clicks = 0;
             setClickCounter(num_of_clicks);
-            const updateCountOne =
-              response?.data[0]?.gameDataEntry?.num_of_upgrade_one;
-            const updateCountTwo =
-              response?.data[0]?.gameDataEntry?.num_of_upgrade_two;
-            setClickMultiplier(updateCountOne * 1);
-            setAutoClicks(updateCountTwo * 1);
+            const updateCountOne = 0;
+            const updateCountTwo = 0;
+            setClickMultiplier(updateCountOne + 1);
+            setAutoClicks(updateCountTwo);
             const updateCostOne = Math.round(10 * pow(1.75, updateCountOne));
             const updateCostTwo = Math.round(20 * pow(1.75, updateCountOne));
             setUpgrades([
               { cost: updateCostOne, count: updateCountOne, addMultiplier: 1, addAutoClick: 0 },
               { cost: updateCostTwo, count: updateCountTwo, addMultiplier: 0, addAutoClick: 1 },
             ]);
-
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error(error);
-          });
       };
 
       loadData();
