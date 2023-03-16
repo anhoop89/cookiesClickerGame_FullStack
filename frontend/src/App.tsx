@@ -103,28 +103,28 @@ function App() {
                         </button>
                         <ul className={`menu-list ${isOpen ? "active" : ""}`}>
                             <li>
-                                <Link to="/about" className="block mt-4 md:inline-block
-                                     md:mt-0 text-white hover:text-gray-400 mr-6">
+                                <Link to="/" className="block mt-4 md:inline-block
+                                     md:mt-0 mr-6">
                                     Home</Link>
                             </li>
                             <li>
                                 <Link to="/Settings" className="block mt-4 md:inline-block
-                                     md:mt-0 text-white hover:text-gray-400 mr-6">Settings</Link>
+                                     md:mt-0 mr-6">Settings</Link>
                             </li>
                             <li>
                                 <Link to="/Contact" className="block mt-4 md:inline-block md:mt-0
-                                      text-white hover:text-gray-400 mr-6"> About
+                                      mr-6"> About
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/Play" className="block mt-4 md:inline-block
-                                     md:mt-0 text-white hover:text-gray-400 mr-6">Contact</Link>
+                                     md:mt-0 mr-6">Contact</Link>
                             </li>
-                            <li>
+                            <li className='avoidLi'>
                                 {!isAuthenticated && !isLoading ? (
                                     <Link to="/"> <button onClick={handleLoginClick}>Log in</button> </Link>
                                 ) : (<Link to="/"> <button onClick={handleLogoutClick}
-                                className="text-white font-bold py-2 px-4 rounded text-sm sm:text-base"
+                                className="py-2 px-4 "
                                 > Log Out</button></Link>
                                 )}
                             </li>

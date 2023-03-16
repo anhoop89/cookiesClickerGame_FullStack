@@ -213,9 +213,10 @@ function clickerGame() {
           .catch((error) => {
             console.error(error);
           });
+      loadData();
       };
 
-      loadData();
+     
     }
 
     setIsSaving(false);
