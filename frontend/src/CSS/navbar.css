@@ -38,7 +38,7 @@
 .menu-list a:hover {
     transition: ease 1s;
     /* background: lightgoldenrodyellow; */
-    color: rgb(164, 28, 228);
+    color: red;
 }
 
 .menu-list a::after {
@@ -68,7 +68,7 @@
     cursor: pointer;
     padding: 10px 10px;
     background: scroll;
-    border: 2px outset rgb(184, 165, 165);
+    border: 2px outset rgb(184, 168, 165);
     border-radius: 20px;
 }
 
@@ -156,10 +156,3 @@
 
 }
 
-@media(max-width: 600px){
-    .navbar {
-        margin: 0;
-        padding-left: 100%;
-        padding-right: 100px;
-    }
-}

@@ -1,5 +1,5 @@
 import './CSS/App.css'
-//import './CSS/navbar.css'
+import './CSS/navbar.css'
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Home from './components/Home';
@@ -10,7 +10,7 @@ import About from './components/About';
 // import Info from './components/Info';
 
 import { useAuth0 } from '@auth0/auth0-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef   } from 'react';
 import axios from "axios";
 
 
@@ -84,6 +84,22 @@ function App() {
     };
 
 
+    const dispearMenu = useRef("");
+
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (dispearMenu.current && !(dispearMenu.current as any).contains(event.target)) {
+          // Handle outside click of the menu
+          setIsOpen(false);
+        }
+      };
+    
+      document.addEventListener('mousedown', handleClickOutside);
+      // remove listener event
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [dispearMenu]);
 
     return (
         <div>
@@ -91,7 +107,7 @@ function App() {
             <div >
 
                 <nav className='navbar flex flex-wrap items-center justify-between px-6 py-4 bg-gradient-to-r from-red-500 to-black-500'>
-                    <div className="flex items-center justify-between">
+                    <div ref={dispearMenu} className="flex items-center justify-between" >
                         <div >
                             <Link to="/" className="flex items-center mr-10">
                                 <img className="h-12" src="./src/img/logo.png" alt="cookies logo"></img>
