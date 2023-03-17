@@ -27,7 +27,7 @@
     height: 100%;
     padding: 0 20px;
     display: flex;
-    align-items: center;
+    align-items: center;   
 }
 
 .loginout-button:hover {
@@ -62,8 +62,8 @@
 .menu-list a:hover {
     transition: ease .5s;
     /* background: lightgoldenrodyellow; */
-    color: rgb(229, 255, 0);
-    text-shadow: 0px 0px 10px hsl(0, 0%, 0%);
+    color: rgb(238, 255, 0);
+    text-shadow: 0px 0px 10px hsl(288, 93%, 58%);
 }
 
 .menu-list a::after {
@@ -71,11 +71,11 @@
     position: absolute;
     width: 0;
     height: 3px;
-    background: rgba(255, 230, 0, 0.397);
+    background: rgba(235, 214, 27, 0.753);
     bottom: -3px;
     left: 0;
     transition: ease 1s;
-    box-shadow: 0px 0px 10px rgba(122, 6, 6, 0.3);
+    box-shadow: 0px 0px 10px rgba(223, 61, 223, 0.473);
 }
 
 .menu-list a:hover:after {

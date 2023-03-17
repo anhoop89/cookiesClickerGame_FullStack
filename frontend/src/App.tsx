@@ -131,9 +131,9 @@ function App() {
                                 <Link to="/Settings" className="block mt-4 md:inline-block 
                                     md:mt-5 mr-5">Settings</Link>
                             </li>
-                            <li className='navbar__logout mr-5'>
+                            <li className='mr-5'>
                                 {!isAuthenticated && !isLoading ? (
-                                    <Link to="/" className='loginout-button'> <button onClick={handleLoginClick} className="py-2 px-4 "
+                                    <Link to="/" className='loginout-button '> <button onClick={handleLoginClick} className="py-2 px-4 "
                                     ><nav>Log</nav>In</button> </Link>
                                 ) : (<Link to="/" className='loginout-button'> <button onClick={handleLogoutClick}
                                     className="py-2 px-4 "

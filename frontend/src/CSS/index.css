@@ -6,7 +6,7 @@
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 25px;
-    font-weight: 400;
+    font-weight: 325;
 
     color-scheme: light dark;
     /* color: rgba(223, 113, 223, 0.87); */
@@ -45,7 +45,7 @@ button {
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background-color: #1a1a1a !important;
     cursor: pointer;
     transition: border-color 0.25s;
 }
