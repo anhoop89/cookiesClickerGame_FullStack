@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface User {
     id: number;
@@ -26,7 +26,7 @@ function Settings() {
     const [findResult, setFind] = useState<any[]>([]);
     const [deleteResult, setDelete] = useState<any[]>([]);
 
-    if(user?.email_verified === true){
+    if (user?.email_verified === true) {
         username = user.nickname;
         email = user.email;
     }
@@ -45,7 +45,7 @@ function Settings() {
     };
 
     const deleteUser = () => {
-        
+
         api
             .delete(`/user/${username}`)
             .then((response) => {
@@ -55,45 +55,46 @@ function Settings() {
                 alert("Your account has been deleted!")
                 setTimeout(() => {
                     navigate("/");
-                }, 4000);               
+                }, 4000);
             })
             .catch((error) => {
                 console.error(error);
             });
         console.log(username);
     };
-    
-    
+
+
 
     // making a check to see if user has logged into an account or not
     // if they have, the settings page displaying information will appear
-    if(user?.email_verified === true){
+    if (user?.email_verified === true) {
         return (
-            <div className="mt-20 mb-10">
-                <h1 className="readFont">Who am I?</h1>
+            <div className="container mt-20 mb-10 ">
+                <br></br>
+                <h1 className="readFont pt-20">Who am I?</h1>
 
                 <div className="readFont text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
                     <h2 className="block mb-3">
-                    User Name: 
-                    </h2> 
-                    <p className=" block"> 
+                        User Name:
+                    </h2>
+                    <p className=" block">
                         {username}
                     </p>
                 </div>
 
                 <div className="readFont text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
                     <h2 className="block mb-3">
-                    Email: 
-                    </h2> 
-                    <p className=" block"> 
+                        Email:
+                    </h2>
+                    <p className=" block">
                         {email}
                     </p>
                 </div>
 
                 <div>
-                        <button className="mt-5 mx-5" onClick={deleteUser}>
-                            Delete Account!
-                        </button>
+                    <button className="mt-5 mx-5" onClick={deleteUser}>
+                        Delete Account!
+                    </button>
                 </div>
 
 
@@ -103,8 +104,8 @@ function Settings() {
     }
     // if the user has not logged in properly, they will only see a message
     //      telling them they need to login
-    else{
-        return(
+    else {
+        return (
             <div className="mt-20 mb-10">
                 <h1 className="readFont">Please log in to continue</h1>
             </div>

@@ -1,5 +1,10 @@
 .readFont {
     color: rgb(255, 255, 255);
     text-shadow: 0px 0px 6px hsl(310, 88%, 56%);
-    font-family: 'Pacifico', cursive;
+    font-family: 'Pacifico', cursive; 
   }
+
+.contactContainer {
+  backdrop-filter: blur(10px) !important;
+  color: red !;
+}
