@@ -68,12 +68,12 @@ button:focus-visible {
         color: #747bff;
     }
     button {
-        color:#074061;
-        background-color: #e5ebec;
+        color:#ffffffe8;
+        background-color: #b9bcbd50;
     }
     button:hover {
         color:#e6ebee;
-        background-color: #3d2a44;
+        background-color: #3d2a44c5;
         border-color: #646cff;
         transition: border-color 0.5s;
     }
