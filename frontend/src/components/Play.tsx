@@ -62,14 +62,7 @@ function clickerGame() {
     else{
       setTextCounter(textCounter + 1);
     }
-    else{
-      setTextCounter(textCounter + 1);
-    }
-    setIsSaving(false);
-
-  return;
-
-  return;
+   return;
   };
 
   // auto clicker purchases will increase the frequency of when the game will auto click
