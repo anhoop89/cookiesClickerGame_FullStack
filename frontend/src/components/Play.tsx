@@ -248,9 +248,6 @@ function clickerGame() {
 
       loadData();
     }
-
-
-
     setIsSaving(false);
   }, []);
 

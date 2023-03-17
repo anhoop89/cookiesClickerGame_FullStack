@@ -123,18 +123,19 @@ function App() {
                                      md:mt-0 mr-6">
                                     Home</Link>
                             </li>
+                          
                             <li>
-                                <Link to="/Settings" className="block mt-4 md:inline-block
-                                     md:mt-0 mr-6">Settings</Link>
-                            </li>
-                            <li>
-                                <Link to="/Contact" className="block mt-4 md:inline-block md:mt-0
+                                <Link to="/About" className="block mt-4 md:inline-block md:mt-0
                                       mr-6"> About
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/Play" className="block mt-4 md:inline-block
+                                <Link to="/Contact" className="block mt-4 md:inline-block
                                      md:mt-0 mr-6">Contact</Link>
+                            </li>
+                            <li>
+                                <Link to="/Settings" className="block mt-4 md:inline-block
+                                     md:mt-0 mr-6">Settings</Link>
                             </li>
                             <li className='avoidLi'>
                                 {!isAuthenticated && !isLoading ? (
