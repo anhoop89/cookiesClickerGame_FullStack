@@ -1,5 +1,26 @@
 .contactFont {
-    color: rgb(255, 255, 255);
-    text-shadow: 0px 0px 6px hsl(310, 88%, 56%);
-    font-family: 'Pacifico', cursive;
-  }
+  color: rgb(255, 255, 255);
+  text-shadow: 0px 0px 6px hsl(310, 88%, 56%);
+  font-family: 'Pacifico', cursive;
+}
+
+.formCustome {
+  text-align: center;
+  justify-content: center;
+  border: 2px solid #fafafab0;
+  box-shadow: 0px 10px 15px rgba(200, 9, 238, 0.233) !important;
+  border-radius: 25px;
+  font-family: monospace;
+  backdrop-filter: blur(10px);
+  color: rgb(22, 21, 21);
+}
+
+.formCustome .form-control {
+  border: 1px solid #3d405b;
+  box-shadow: 0 10px 20px rgba(14, 13, 13, 0.1);
+  border-radius: 20px;
+}
+
+.formCustome .form-control:hover {
+  box-shadow: 0 0 5px 1px #4ecfe6;
+}

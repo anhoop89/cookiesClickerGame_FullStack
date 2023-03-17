@@ -65,17 +65,17 @@ function Contact() {
   };
 
   return (
-    <div className="container form mt-40 mx-auto">
+    <div className="container mt-40 mx-auto">
       <h1 className="contactFont mb-10"> Contact / Feedback Form</h1>
 
-      <form className="text-left mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <div className="mb-4 ">
+      <form className=" formCustome text-left mx-auto shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
-            Name:
+            <nav className="text-white">Name: </nav> 
           </label>
           <input
-            className="shadow text-white-700 appearance-none border rounded w-full py-2 px-3 
-          .leading-tight focus:outline-none focus:shadow-outline-blue"
+            className="form-control shadow text-gray-700 appearance-none border rounded w-full py-2 px-3 
+           leading-tight focus:outline-none focus:shadow-outline-blue"
             id="name"
             type="text"
             placeholder="Enter your name"
@@ -86,14 +86,14 @@ function Contact() {
 
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
-            Email:
+          <nav className="text-white">Email: </nav> 
           </label>
           <div className="relative">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3">
               <HiOutlineMail className="h-5 w-5 text-white-700" />
             </span>
             <input
-              className="shadow text-white-700 appearance-none border rounded w-full py-2 pl-10 
+              className="form-control shadow text-white-700 appearance-none border rounded w-full py-2 pl-10 
             pr-3 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
@@ -109,10 +109,10 @@ function Contact() {
             className="block text-gray-700 font-bold mb-2"
             htmlFor="message"
           >
-            Message:
+            <nav className="text-white">Message: </nav> 
           </label>
           <textarea
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-white-700 
+            className="form-control shadow appearance-none border rounded w-full py-2 px-3 text-white-700 
           leading-tight focus:outline-none focus:shadow-outline"
             id="message"
             rows={6}
