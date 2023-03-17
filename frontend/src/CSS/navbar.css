@@ -1,0 +1,165 @@
+/* setting up navbar menu and hamburger */
+.navbar {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 8%;
+    z-index: 1000;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 1.5em;
+    transition: .3s;
+}
+
+.menu-list {
+    display: flex;
+    list-style-type: none;
+    opacity: 70%;
+}
+
+.menu-list:hover {
+    opacity: 90%;
+}
+
+/* using relative here to let a:hover::after for absolute */
+/* .menu-list li {
+    position: relative;
+} */
+
+.menu-list a {
+    font-weight: 600;
+    padding: 10px 20px;
+    color: #ffffff;
+}
+
+.menu-list a:hover {
+    transition: ease 1s;
+    /* background: lightgoldenrodyellow; */
+    color: rgb(164, 28, 228);
+}
+
+.menu-list a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background: rgb(255, 0, 43);
+    bottom: -3px;
+    left: 0;
+    transition: ease 1s;
+}
+
+.menu-list a:hover:after {
+    width: 100%;
+    transition: ease .40s;
+
+}
+
+/* hambuger menu*/
+/*menu-list btn styling*/
+.menu-btn {
+    position: absolute;
+    margin-right: 25px;
+    right: 0;
+    display: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    background: scroll;
+    border: 2px outset rgb(184, 165, 165);
+    border-radius: 20px;
+}
+
+.menu-btn:hover {
+    transform: rotate(0.5turn) translate(10%, -5%);
+}
+
+
+@media only screen and (min-width: 948px) {
+    .menu-btn{
+        display: none !important;
+    }
+    .navbar.sticky {
+        padding: 10px 50px;
+    }
+    .menu-list a {
+        padding-right: 5px;
+    }
+
+}
+
+@media (max-width: 947px) {
+    .menu-btn {
+        display: block;
+        z-index: 999;
+    }
+
+    .menu-btn.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-btn.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-btn.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .navbar .menu-list {
+        position: absolute;
+        flex-direction: column;
+        padding: 40px 0 40px 100px;
+        margin-top: 90px;
+        opacity: 100%;
+        text-align: left;
+        width: 100%;
+        right: -100%;
+        top: 0;
+        gap: 0;
+        backdrop-filter: blur(10px);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: all .40s ease-in-out;
+        box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+
+    .navbar .menu-list a {
+        display: block;
+    }
+
+    .navbar .menu-list a:hover {
+        background: rgb(255, 224, 191);
+        border-radius: 50px;
+    }
+
+    .menu-list.active {
+        right: 0;
+    }
+
+    .menu-list li {
+        display: block;
+    }
+
+    .menu-list a:hover {
+        background-color: black;
+    }
+
+    .menu-list li a {
+        display: inline-block;
+        margin: 20px 0;
+        font-size: 25px;
+    }
+
+}
+
+@media(max-width: 600px){
+    .navbar {
+        margin: 0;
+        padding-left: 100%;
+        padding-right: 100px;
+    }
+}
