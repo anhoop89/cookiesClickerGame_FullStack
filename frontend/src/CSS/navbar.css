@@ -40,7 +40,7 @@
 
 .menu-list a:hover {
     transition: ease 1s;
-    background: lightgoldenrodyellow;
+    /* background: lightgoldenrodyellow; */
     color: red;
 }
 
