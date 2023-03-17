@@ -1,5 +1,5 @@
 import './CSS/App.css'
-import './CSS/navbar.css'
+//import './CSS/navbar.css'
 import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import Home from './components/Home';
