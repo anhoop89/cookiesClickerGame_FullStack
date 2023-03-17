@@ -68,7 +68,7 @@ function Contact() {
     <div className="container mt-40 mx-auto">
       <h1 className="contactFont mb-10"> Contact / Feedback Form</h1>
 
-      <form className=" formCustome text-left mx-auto shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form className=" formCustom text-left mx-auto shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="name">
             <nav className="text-white">Name: </nav> 
