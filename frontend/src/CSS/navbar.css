@@ -11,13 +11,16 @@
     left: 0;
     right: 0;
     font-size: 1.5em;
-    transition: .3s;
+   transition: .3s;
+
+  justify-content: space-between;
 }
 
 .menu-list {
     display: flex;
     list-style-type: none;
     opacity: 70%;
+    justify-content: center;
 }
 
 .menu-list:hover {
@@ -37,7 +40,7 @@
 
 .menu-list a:hover {
     transition: ease 1s;
-    /* background: lightgoldenrodyellow; */
+    background: lightgoldenrodyellow;
     color: red;
 }
 
