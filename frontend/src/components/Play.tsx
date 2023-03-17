@@ -62,7 +62,12 @@ function clickerGame() {
     else{
       setTextCounter(textCounter + 1);
     }
+    else{
+      setTextCounter(textCounter + 1);
+    }
     setIsSaving(false);
+
+  return;
 
   return;
   };
@@ -91,6 +96,13 @@ function clickerGame() {
     }
     else{
       autoClicker();
+        if(autoClickNum > 0){
+          setAutoBool(true);
+        }
+        else{
+          // do nothing
+        }
+
         if(autoClickNum > 0){
           setAutoBool(true);
         }
@@ -147,6 +159,7 @@ function clickerGame() {
     updatedUpgrades[option].cost = Math.round(autoClickCost * 1.75);
 
     setUpgrades(updatedUpgrades);
+
 
   }
 
@@ -209,6 +222,8 @@ function clickerGame() {
               response?.data[0]?.gameDataEntry?.num_of_upgrade_one;
             const updateCountTwo =
               response?.data[0]?.gameDataEntry?.num_of_upgrade_two;
+            setClickMultiplier(updateCountOne + 1);
+            setAutoClicks(updateCountTwo);
             setClickMultiplier(updateCountOne + 1);
             setAutoClicks(updateCountTwo);
             const updateCostOne = Math.round(10 * pow(1.75, updateCountOne));
