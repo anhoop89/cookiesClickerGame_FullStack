@@ -223,10 +223,9 @@ function clickerGame() {
           .catch((error) => {
             console.error(error);
           });
-      loadData();
       };
 
-     
+      loadData();
     }
 
     // needed for user's who are not logged in and authorized
@@ -249,6 +248,9 @@ function clickerGame() {
 
       loadData();
     }
+
+
+
     setIsSaving(false);
   }, []);
 
