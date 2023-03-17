@@ -38,6 +38,13 @@
 
 
 .upgradeButton{
-  background-color: black;
+  background-color: rgb(27, 27, 27);
+  color: rgb(190, 41, 196);
 }
+
+
+.upgradeButton:hover{
+  color: rgb(12, 11, 12);
+}
+
 
