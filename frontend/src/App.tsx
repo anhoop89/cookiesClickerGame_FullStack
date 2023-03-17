@@ -100,10 +100,11 @@ function App() {
     return (
         <div>
             {/* navbar */}
-            <div >
-                <nav className='navbar flex flex-wrap items-center justify-between px-6 py-4 bg-gradient-to-r from-red-500 to-black-500'>
+            <div className='resizeContainer' >
+                <nav className='navbar flex flex-wrap items-center justify-between px-2 shadow-lg'>
                     <div ref={dispearMenu} className="flex items-center justify-between w-full" >
-                        <div className="flex items-center mr-auto" >
+                        
+                        <div className="flex  items-center mr-auto" >
                             <Link to="/" className="flex items-center mr-10">
                                 <img className="h-12" src="./src/img/logo.png" alt="cookies logo"></img>
                             </Link>
@@ -115,33 +116,34 @@ function App() {
                         <ul className={`menu-list ${isOpen ? "active" : ""} flex-grow flex justify-end`}>
                             <li>
                                 <Link to="/" className="block mt-4 md:inline-block
-                                     md:mt-0 mr-6">
-                                    Home</Link>
+                                    md:mt-5 mr-5">Home</Link>
                             </li>                          
                             <li>
-                                <Link to="/About" className="block mt-4 md:inline-block md:mt-0
-                                      mr-6"> About
+                                <Link to="/About" className="block mt-4 md:inline-block 
+                                    md:mt-5 mr-5"> About
                                 </Link>
                             </li>
                             <li>
                                 <Link to="/Contact" className="block mt-4 md:inline-block
-                                     md:mt-0 mr-6">Contact</Link>
+                                     md:mt-5 md:mr-5 lg:mr-7">Contact</Link>
                             </li>
                             <li>
-                                <Link to="/Settings" className="block mt-4 md:inline-block md:mt-0 mr-6">Settings</Link>
+                                <Link to="/Settings" className="block mt-4 md:inline-block 
+                                    md:mt-5 mr-5">Settings</Link>
                             </li>
-                            <li className='avoidLi'>
+                            <li className='navbar__logout mr-5'>
                                 {!isAuthenticated && !isLoading ? (
-                                    <Link to="/"> <button className='py-3 px-5' onClick={handleLoginClick}>Log in</button> </Link>
-                                ) : (<Link to="/"> <button onClick={handleLogoutClick}
-                                className="py-2 px-4 "
-                                > Log Out</button></Link>
+                                    <Link to="/" className='loginout-button'> <button onClick={handleLoginClick} className="py-2 px-4 "
+                                    ><nav>Log</nav>In</button> </Link>
+                                ) : (<Link to="/" className='loginout-button'> <button onClick={handleLogoutClick}
+                                    className="py-2 px-4 "
+                                    ><nav>Log</nav>Out</button></Link>
                                 )}
                             </li>
                         </ul>
-                        <div className="mr-20">
-                            <Link to="/Play" className=" py-3 px-5
-                             text-white rounded-full bg-red-700 hover:bg-red-600">Play</Link>
+                        <div className="mr-20 play-button">
+                            <Link to="/Play" className=" playButton py-5 px-4 rounded-full
+                             text-white hover:text- bg-red-700">Play</Link>
                         </div>
                     </div>
                 </nav>
@@ -156,18 +158,14 @@ function App() {
                 </Routes>
             </div>
 
-            <div className='container mx-auto px-4 mt-10  '>
+            <div className='container mx-auto px-4 mt-10  mb-40'>
                 {isAuthenticated ? (
-                    <div>
-                        <p className="readFont">Logged in as: {user?.nickname}</p>
-                        <button onClick={handleLogoutClick}>Logout</button>
+                    <div >
+                        <p className="readFont mb-5">Logged in as: {user?.nickname}</p>
+                        <button  onClick={handleLogoutClick}>Logout</button>
                     </div>
                 ) : ""}
             </div>
-            <nav className="navbar">
-                <div className="navbar-container">
-                </div>
-            </nav>
         </div>
     )
 }

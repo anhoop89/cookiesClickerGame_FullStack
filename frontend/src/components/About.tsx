@@ -20,7 +20,7 @@ function About() {
 
   return (
 
-    <div className="container pt-40 mt-20 mx-auto">
+    <div className="container pt-20 mt-20 mx-auto">
       <h1 className="readFont mainHeader"> About Us</h1>
       <br></br>
       <div className="headerTwo text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
@@ -32,81 +32,57 @@ function About() {
           Portland State University <br></br>
           for Winter 2023
         </p>
-        <label className="contactFont block mb-3">Class:</label>
-        <p className="contactFont descriptorText block">
-          This project was created for <br></br>
-          CS 465P Full Stack Web Development <br></br>
-          with Instructor Casey Bailey at <br></br>
-          Portland State University <br></br>
-          for Winter 2023
-        </p>
       </div>
 
       <br></br>
       <br></br>
 
       <div className="headerTwo text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
-        <label className="contactFont block mb-3">Anh Ho:</label>
-        {/* maybe add an image, we'll see */}
-        <p className="contactFont descriptorText block">
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-        </p>
-      <div className="headerTwo text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
-        <label className="contactFont block mb-3">Anh Ho:</label>
-        {/* maybe add an image, we'll see */}
-        <p className="contactFont descriptorText block">
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-          Some important and unimportant information about this student{" "}
-          <br></br>
-        </p>
-      </div>
 
-      <br></br>
-      <br></br>
+        <div className="flex flex-col md:flex-row mb-10">
+          <div className="md:w-1/2 flex justify-center">
+            <img className="rounded-full h-60 w-60 object-cover shadow-2xl" src="./src/img/ava.png" alt="Anh Ho" />
+          </div>
+          <div className="md:w-1/2 px-4 py-2 contactFont descriptorText ">
+            <h2 className="text-3xl mb-2"> <strong> Anh Ho (he/him) </strong></h2>
+            <p className="text-lg mb-4 px-5">
+              I am working toward a Bachelor's Degree in Computer Science at Portland State University.
+              I love solving technical problems.
+              Moreover, what fascinates me the most is testing applications and fixing problems. I am
+              enthusiastic to break down the problems into smaller pieces and work my way up using and
+              applying necessary tools to tackle challenges. I am hoping to collaborate with people who
+              share my vision and work to create new technologies to improve the lives of all community members.
+            </p>
+          </div>
+        </div> <br></br>
 
-      <div className="headerTwo text-center mx-auto rounded px-8 pt-6 pb-8 mb-4">
-        <label className="contactFont block mb-3">Nicholas Nguyen (he/him):</label>
-        <img className="readImg" src="./src/img/nicholas.png"></img>
-        <p className="contactFont descriptorText block">
-          Portland State University Student pursuing a Bachelor of Science for CS.
-          <br></br>
-          I am currently looking for a summer internship to anywhere for anything CS related.
-          <br></br>
-          My expected graduation date is this upcoming Fall/Winter Term of 2023.
-          <br></br>
-          I have experience working with C++, Python, Javascript, and Kotlin.
-          <br></br>
-          In my free time I enjoy cooking, playing board games, and exercising.
-          <br></br>
-          More information can be found at 
-          <br></br>
-          <a className="urlFont" href="https://mochimunchur.github.io/CS410-FinalProject">https://mochimunchur.github.io/CS410-FinalProject</a>
-          <br></br> 
-          or 
-          <br></br>
-          <a className="urlFont" href="https://github.com/MochiMunchur">https://github.com/MochiMunchur</a>
-        </p>
-      </div>
+
+        <div className="flex flex-col md:flex-row">
+          <div className="md:w-1/2 flex justify-center">
+            <img className="rounded-full h-60 w-60 object-cover shadow-2xl" src="./src/img/nicholas.png" alt="Nicholas Nguyen" />
+          </div>
+          <div className="md:w-1/2 px-4 py-2 contactFont descriptorText ">
+            <h2 className="text-3xl mb-2"> <strong> Nicholas Nguyen (he/him) </strong></h2>
+            <p className="text-lg mb-4 px-5">
+
+              Portland State University Student pursuing a Bachelor of Science for CS.
+
+              I am currently looking for a summer internship to anywhere for anything CS related.
+
+              My expected graduation date is this upcoming Fall/Winter Term of 2023.
+
+              I have experience working with C++, Python, Javascript, and Kotlin.
+
+              In my free time I enjoy cooking, playing board games, and exercising.
+            </p>
+            <p className="text-lg mb-4">More information can be found at</p>
+            <a className="text-lg font-bold bg-white text-blue-600" href="https://mochimunchur.github.io/CS410-FinalProject">https://mochimunchur.github.io/CS410-FinalProject</a>
+            <br />
+            <p className="text-lg mb-4">or</p>
+            <a className="text-lg font-bold bg-white text-blue-600" href="https://github.com/MochiMunchur">https://github.com/MochiMunchur</a>
+          </div>
+        </div>
+
       </div>
     </div>
   );

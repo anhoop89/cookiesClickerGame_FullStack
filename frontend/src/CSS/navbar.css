@@ -1,3 +1,4 @@
+
 /* setting up navbar menu and hamburger */
 .navbar {
     position: fixed;
@@ -5,17 +6,33 @@
     flex-direction: row;
     align-items: center;
     padding: 5px 8%;
+    padding-top: 8px;
+    padding-bottom: 7px;
     z-index: 1000;
     width: 100%;
     top: 0;
     left: 0;
     right: 0;
     font-size: 1.5em;
-   transition: .3s;
+    transition: .3s;
+    justify-content: space-between;
 
-  justify-content: space-between;
+    /* add photo for navbar */
+    background-image: url('../img/banner.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
+.loginout-button {
+    height: 100%;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+}
+
+.loginout-button:hover {
+    color: rgb(82, 229, 240) !important;
+}
 .menu-list {
     display: flex;
     list-style-type: none;
@@ -23,6 +40,10 @@
     justify-content: center;
 }
 
+.menu-list li{
+    font-size: 30px; /* default font size */
+  }
+  
 .menu-list:hover {
     opacity: 90%;
 }
@@ -39,9 +60,10 @@
 }
 
 .menu-list a:hover {
-    transition: ease 1s;
+    transition: ease .5s;
     /* background: lightgoldenrodyellow; */
-    color: red;
+    color: rgb(229, 255, 0);
+    text-shadow: 0px 0px 10px hsl(0, 0%, 0%);
 }
 
 .menu-list a::after {
@@ -49,10 +71,11 @@
     position: absolute;
     width: 0;
     height: 3px;
-    background: rgb(255, 0, 43);
+    background: rgba(255, 230, 0, 0.397);
     bottom: -3px;
     left: 0;
     transition: ease 1s;
+    box-shadow: 0px 0px 10px rgba(122, 6, 6, 0.3);
 }
 
 .menu-list a:hover:after {
@@ -79,20 +102,44 @@
     transform: rotate(0.5turn) translate(10%, -5%);
 }
 
+.play-button {
+  animation: pulse 2s infinite;
+}
 
+.playButton:hover {
+    border: 2px solid #f70d0d;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    background-color: #000000;
+    color: rgb(255, 0, 255);
+    text-shadow: 0px 0px 6px hsl(180, 82%, 67%);
+    
+    font-size: 1.2em;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(0.75);
+  }
+  60% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.75);
+  }
+}
 @media only screen and (min-width: 948px) {
     .menu-btn{
         display: none !important;
-    }
-    .navbar.sticky {
-        padding: 10px 50px;
     }
     .menu-list a {
         padding-right: 5px;
     }
 
 }
-
+@media (min-width: 947px) and (max-width: 1200px) {
+    .play-button  {
+        margin-right: 10px !important;
+      }
+}
 @media (max-width: 947px) {
     .menu-btn {
         display: block;
@@ -111,6 +158,10 @@
         transform: translateY(-8px) rotate(-45deg);
     }
 
+    .navbar {
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
     .navbar .menu-list {
         position: absolute;
         flex-direction: column;

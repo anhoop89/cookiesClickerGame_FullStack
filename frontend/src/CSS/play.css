@@ -1,6 +1,5 @@
-.boxGameContainer {
-  
-  box-shadow: 0 8px 32px 0 hsla(236, 63%, 33%, 0.37);
+.boxGameContainer {  
+  box-shadow: 0 8px 50px 0 hsla(236, 63%, 33%, 0.37);
   backdrop-filter: blur(5px);
   /* text style in the box */
   color: white;
