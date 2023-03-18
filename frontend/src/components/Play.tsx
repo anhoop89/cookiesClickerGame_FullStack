@@ -83,19 +83,17 @@ function clickerGame() {
   // with a check to prevent auto clicker from being called multiple times
   const onButtonClick = () =>{
     buttonClick();
+    setIsSaving(false);
 
+    // if autoClick has already been activated, return and prevent it from being re-run
     if(autoClickBool === true){
       return;
     }
+    // else, run autoClick if the number of purchases on autoclick is 1 or more, and then
+    //    set autoClickBool to true to show that it is running. If num of purchases for auto
+    //    click is still at 0, do nothing until the next button click check
     else{
       autoClicker();
-        if(autoClickNum > 0){
-          setAutoBool(true);
-        }
-        else{
-          // do nothing
-        }
-
         if(autoClickNum > 0){
           setAutoBool(true);
         }
@@ -139,10 +137,11 @@ function clickerGame() {
     setUpgrades(updatedUpgrades);
   };
 
+
+  // increase auto clicker. function activates when user purchases auto clicker upgrade.
   const increaseAutoClick = (option: number) => {
     const autoClickCost = upgrades[option].cost;
     const autoclicks = upgrades[option].addAutoClick;
-    console.log("increasing auto click", autoclicks);
     setAutoClicks(autoClickNum + autoclicks);
     setClickCounter(clickCounter - autoClickCost);
 
@@ -152,8 +151,6 @@ function clickerGame() {
     updatedUpgrades[option].cost = Math.round(autoClickCost * 1.75);
 
     setUpgrades(updatedUpgrades);
-
-
   }
 
   // 2 options: 0 - upgrade ONE | 1 - upgrade TWO
@@ -166,7 +163,7 @@ function clickerGame() {
     increaseMultiplier(option);
   };
 
-
+  // helper function to determine an auto click has been purchased and not a regular upgrade
   const purchaseAutoClick = (option: number) => {
     // checking with the cost before upgrading.
     if (clickCounter < upgrades[option].cost) {
@@ -274,7 +271,7 @@ function clickerGame() {
           className="upgradeButton mx-4 mb-3 from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
           onClick={() => purchaseUpgrade(0)}
         >
-          <div> ► Upgrade One </div>
+          <div> ► Upgrade Click Power </div>
           <div>
             {" "}
             Times Purchased: {upgrades[0].count}, Cost: {upgrades[0].cost}
@@ -285,7 +282,7 @@ function clickerGame() {
           className="upgradeButton mx-4  mb-3  from-pink-500 via-red-500 to-yellow-500 hover:bg-gradient-to-r"
           onClick={() => purchaseAutoClick(1)}
         >
-          <div> ► Upgrade Two </div>
+          <div> ► Upgrade Auto Clicker </div>
           <div className="">
             {" "}
             Times Purchased: {upgrades[1].count}, Cost: {upgrades[1].cost}{" "}
@@ -299,9 +296,9 @@ function clickerGame() {
         onClick={() => saveButton()}
       >
         {isSaving && isAuthenticated ? (
-          <div> ☼ SAVED the score! </div>
+          <div> ☼ Your score has been SAVED! </div>
         ) : isAuthenticated ? (
-          <div> ☼ SAVE the score! </div>
+          <div> ☼ Click to save progress! </div>
         ) : (
           <div> ☼ Please login to SAVE the score! </div>
         )}
