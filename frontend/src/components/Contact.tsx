@@ -74,7 +74,7 @@ function Contact() {
             <nav className="text-white">Name: </nav> 
           </label>
           <input
-            className="form-control shadow text-gray-700 appearance-none border rounded w-full py-2 px-3 
+            className="form-control shadow appearance-none border rounded w-full py-2 px-3 
            leading-tight focus:outline-none focus:shadow-outline-blue"
             id="name"
             type="text"
@@ -93,7 +93,7 @@ function Contact() {
               <HiOutlineMail className="h-5 w-5 text-white-700" />
             </span>
             <input
-              className="form-control shadow text-white-700 appearance-none border rounded w-full py-2 pl-10 
+              className="form-control shadow appearance-none border rounded w-full py-2 pl-10 
             pr-3 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
@@ -112,7 +112,7 @@ function Contact() {
             <nav className="text-white">Message: </nav> 
           </label>
           <textarea
-            className="form-control shadow appearance-none border rounded w-full py-2 px-3 text-white-700 
+            className="form-control shadow appearance-none border rounded w-full py-2 px-3
           leading-tight focus:outline-none focus:shadow-outline"
             id="message"
             rows={6}

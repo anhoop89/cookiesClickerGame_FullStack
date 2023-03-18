@@ -24,3 +24,10 @@
 .formCustom .form-control:hover {
   box-shadow: 0 0 5px 1px #4ecfe6;
 }
+
+
+@media (prefers-color-scheme: dark ) {
+  .formCustom {
+    color: rgb(255, 255, 255) !important;
+  }
+}
