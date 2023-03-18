@@ -20,9 +20,11 @@
     "migration:create": "pnpm buildJS && typeorm migration:create",
     "migration:generate": "pnpm buildJS && typeorm migration:generate -d buildTypeorm/db/datasources/dev_datasource.js",
     "migration:revert": "pnpm buildJS && typeorm migration:revert -d buildTypeorm/db/datasources/dev_datasource.js",
-    "seed": "vite-node src/index.ts -- -seed",
+    "seed": "pnpm typeorm:updateDatasource && vite-node src/index.ts -- -seed",
     "generateDocs": "pnpm jsdoc -r -d docs/ -c jsdoc.json src/",
-    "gitSync": "pnpm typeorm:drop && pnpm migration:run && pnpm seed"
+    "gitSync": "pnpm typeorm:drop && pnpm migration:run && pnpm seed",
+    "seedCI": "vite-node src/index.ts -- -seed",
+    "testCI": "vitest run --passWithNoTests"
   },
   "scriptsComments": {
     "dev": "Starts the development server using vite-plugin-node for rapid iteration.",
@@ -40,7 +42,7 @@
     "migration:create": "Creates new migration for manual entry, used like > pnpm migration:create ./src/db/migrations/MyNewMigrationName.  Run typeorm:updateDatasource after this to update the datasource file.",
     "migrations:generate": "Auto-generates a new migration based on any entity changes you made to your JS files, used like > pnpm migration:generate ./src/db/migrations/IpHistoryAddMethod  Run typeorm:updateDatasource after this to update the datasource file.",
     "migration:revert": "Undoes the most recent migration, can be called multiple times in a row",
-    "seed": "Starts Clickers in seed mode (Create default database entries), used like > pnpm seed",
+    "seed": "Starts Doggr in seed mode (Create default database entries), used like > pnpm seed",
     "generateDocs": "Auto generates a doc site from JSDoc comments in your code after building",
     "gitSync": "Run this immediately after 'git pull' to update your local database to match the new commit"
   },
