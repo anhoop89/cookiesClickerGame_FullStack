@@ -1,45 +1,46 @@
 version: '3'
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:15-alpine
-    restart: always
-    ports:
-      - "5433:5432" 
-    volumes:
-      - db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=clickers
-      - POSTGRES_PASSWORD=clickers
-      - POSTGRES_DB=clickers
   backend:
-    container_name: backend
-    build: ./backend/
-    restart: always
-    ports:
-      - "8080:8080"
-    environment:
-      - VITE_DB_HOST=postgres
-      - VITE_IP_ADDR=0.0.0.0
-      - VITE_PORT=8080
-      - VITE_LOGS_DIR=logs/
-      - VITE_DB_HOST=127.0.0.1
-      - VITE_DB_PORT=5433
-      - VITE_DB_USER=clickers
-      - VITE_DB_PASS=clickers
-      - VITE_DB_NAME=clickers
-    depends_on:
-      - postgres
+      container_name: backend
+      build: ./backend/
+      restart: always
+      ports:
+        - "8080:8080"
+      environment:
+        - VITE_DB_HOST=postgres
+        - VITE_IP_ADDR=0.0.0.0
+        - VITE_PORT=8080
+        - VITE_LOGS_DIR=logs/
+        - VITE_DB_HOST=127.0.0.1
+        - VITE_DB_PORT=5433
+        - VITE_DB_USER=clickers
+        - VITE_DB_PASS=clickers
+        - VITE_DB_NAME=clickers
+      depends_on:
+        - postgres
+  postgres:
+      container_name: postgres
+      image: postgres:15-alpine
+      restart: always
+      ports:
+        - "5433:5432" 
+      volumes:
+        - db:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=clickers
+        - POSTGRES_PASSWORD=clickers
+        - POSTGRES_DB=clickers
 
-  frontend:
-    container_name: frontend
-    build: ./frontend/
-    restart: always
-    ports:
-      - "88:80" # We need to map here for convenience, so we don't conflict with a potential possible local server
-    environment:
-      - VITE_BACKEND_IP=backend
-      - VITE_BACKEND_PORT=8080
+
+  # frontend:
+  #   container_name: frontend
+  #   build: ./frontend/
+  #   restart: always
+  #   ports:
+  #     - "88:80" # We need to map here for convenience, so we don't conflict with a potential possible local server
+  #   environment:
+  #     - VITE_BACKEND_IP=backend
+  #     - VITE_BACKEND_PORT=8080
 
 
   # minio:

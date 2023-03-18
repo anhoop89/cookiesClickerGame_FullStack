@@ -28,6 +28,7 @@ ENV VITE_DB_USER=clickers
 ENV VITE_DB_PASS=clickers
 ENV VITE_DB_NAME=clickers
 
+
 # copy project definition/dependencies files, for better reuse of layers
 COPY --chown=nodejs:nodejs package*.json ./
 
@@ -39,12 +40,8 @@ COPY --chown=nodejs:nodejs . .
 
 # build/pack binaries from sources
 RUN pnpm build
-
 RUN pnpm migration:run
-
 RUN pnpm seed
-
-RUN pnpm dev
 
 # exposed port
 EXPOSE 8080
