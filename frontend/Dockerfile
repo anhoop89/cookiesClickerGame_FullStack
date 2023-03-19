@@ -2,6 +2,7 @@
 FROM node:18-slim as build-stage
 
 RUN apt-get update && apt-get upgrade -y && apt-get autoclean -y && apt-get autoremove -y
+
 RUN npm install -g pnpm
 
 WORKDIR /app
