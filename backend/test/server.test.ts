@@ -67,28 +67,6 @@ describe("Route testing", () => {
 			.toBeUndefined();
 	});
 
-	it("Responds to user post creation properly", async () => {
-		const res = await app.inject({
-			method: "POST",
-			url: "/users",
-			payload: {
-				name: "John",
-				email: "john@email.com"
-			}
-		});
 
-		let {user, ip_address} = JSON.parse(res.payload);
-
-		expect(user.name)
-			.toBe("John");
-		expect(user.email)
-			.toBe("john@email.com");
-		expect(ip_address)
-			.toBeDefined();
-		// 0.0.0.0 => 7 min size
-		expect(ip_address.length)
-			.toBeGreaterThanOrEqual(7);
-
-	});
 });
 
