@@ -1,7 +1,7 @@
 FROM node:lts-slim as builder
 
 # update packages, to reduce risk of vulnerabilities
-RUN apt-get update && apt-get upgrade -y && apt-get autoclean -y && apt-get autoremove -y
+RUN apt-get update && apt-get upgrade -y && apt-get autoclean -y && apt-get autoremove -y && apt-get install -y netcat
 RUN npm install -g pnpm
 
 # set a non privileged user to use when running this image
@@ -41,11 +41,15 @@ COPY --chown=nodejs:nodejs . .
 # build/pack binaries from sources
 RUN pnpm build
 
+# testing server purpose 
+# RUN while ! nc -z postgres 8080; do sleep 3; done
+
 # failed at migration:run
  RUN pnpm migration:run
 # RUN pnpm seed
 
 # exposed port
+
 EXPOSE 8080
 
 CMD [ "node", "./build/index.js"]
