@@ -32,15 +32,15 @@ services:
         - POSTGRES_DB=clickers
 
 
-  # frontend:
-  #   container_name: frontend
-  #   build: ./frontend/
-  #   restart: always
-  #   ports:
-  #     - "88:80" # We need to map here for convenience, so we don't conflict with a potential possible local server
-  #   environment:
-  #     - VITE_BACKEND_IP=backend
-  #     - VITE_BACKEND_PORT=8080
+  frontend:
+    container_name: frontend
+    build: ./frontend/
+    restart: always
+    ports:
+      - "88:80" # We need to map here for convenience, so we don't conflict with a potential possible local server
+    environment:
+      - VITE_BACKEND_IP=backend
+      - VITE_BACKEND_PORT=8080
 
 
   # minio:
