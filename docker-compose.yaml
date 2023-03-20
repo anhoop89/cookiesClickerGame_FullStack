@@ -57,43 +57,43 @@ services:
 
 
 
-  # backend:
-  #     container_name: backend
-  #     build: ./backend/
-  #     restart: always
-  #     ports:
-  #       - "8080:8080"
-  #     environment:
-  #       - VITE_DB_HOST=postgres
-  #       - VITE_IP_ADDR=0.0.0.0
-  #       - VITE_PORT=8080
-  #       - VITE_LOGS_DIR=logs/
-  #       - VITE_DB_PORT=5432
-  #       - VITE_DB_USER=clickers
-  #       - VITE_DB_PASS=clickers
-  #       - VITE_DB_NAME=clickers
-  #     depends_on:
-  #       postgres:
-  #         condition: service_healthy
+  backend:
+      container_name: backend
+      build: ./backend/
+      restart: always
+      ports:
+        - "8080:8080"
+      environment:
+        - VITE_DB_HOST=postgres
+        - VITE_IP_ADDR=0.0.0.0
+        - VITE_PORT=8080
+        - VITE_LOGS_DIR=logs/
+        - VITE_DB_PORT=5432
+        - VITE_DB_USER=clickers
+        - VITE_DB_PASS=clickers
+        - VITE_DB_NAME=clickers
+      depends_on:
+        postgres:
+          condition: service_healthy
 
 
-  # postgres:  
-  #     container_name: postgres
-  #     image: postgres:15-alpine
-  #     restart: always
-  #     ports:
-  #       - "5432:5432" 
-  #     volumes:
-  #       - db:/var/lib/postgresql/data
-  #     environment:
-  #       - POSTGRES_USER=clickers
-  #       - POSTGRES_PASSWORD=clickers
-  #       - POSTGRES_DB=clickers
-  #     healthcheck:
-  #       test: ["CMD-SHELL", "pg_isready -U clickers"]
-  #       interval: 10s
-  #       timeout: 5s
-  #       retries: 5
+  postgres:  
+      container_name: postgres
+      image: postgres:15-alpine
+      restart: always
+      ports:
+        - "5432:5432" 
+      volumes:
+        - db:/var/lib/postgresql/data
+      environment:
+        - POSTGRES_USER=clickers
+        - POSTGRES_PASSWORD=clickers
+        - POSTGRES_DB=clickers
+      healthcheck:
+        test: ["CMD-SHELL", "pg_isready -U clickers"]
+        interval: 10s
+        timeout: 5s
+        retries: 5
 
   frontend:
     container_name: frontend
@@ -107,22 +107,22 @@ services:
       - VITE_BACKEND_PORT=8080
 
 
-  # minio:
-  #   container_name: minio
-  #   image: docker.io/bitnami/minio:latest
-  #   ports:
-  #     - "9000:9000"
-  #     - "9001:9001"
-  #   environment:
-  #     - MINIO_DEFAULT_BUCKETS=hola:public
-  #     - MINIO_ROOT_USER=clickers
-  #     - MINIO_ROOT_PASSWORD=clickersPass
-  #     - MINIO_SERVER_ACCESS_KEY=clickers
-  #     - MINIO_SERVER_SECRET_KEY=clickersPass
-  #   volumes:
-  #     - minio_data:/data
-# volumes:
-#   # minio_data:
-#   #   driver: local
-#   db:
-#     driver: local
+  minio:
+    container_name: minio
+    image: docker.io/bitnami/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_DEFAULT_BUCKETS=hola:public
+      - MINIO_ROOT_USER=clickers
+      - MINIO_ROOT_PASSWORD=clickersPass
+      - MINIO_SERVER_ACCESS_KEY=clickers
+      - MINIO_SERVER_SECRET_KEY=clickersPass
+    volumes:
+      - minio_data:/data
+volumes:
+  minio_data:
+    driver: local
+  db:
+    driver: local

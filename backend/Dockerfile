@@ -39,17 +39,17 @@ COPY --chown=nodejs:nodejs . .
 
 # build/pack binaries from sources
 RUN pnpm build
-RUN pnpm buildJS
-RUN pnpm install typeorm
+# RUN pnpm buildJS
+# RUN pnpm install typeorm
 # testing server purpose 
-RUN while ! nc -z postgres 5432; do sleep 3; done
+# RUN while ! nc -z postgres 5432; do sleep 3; done
 
 # failed at migration:run
-RUN pnpm migration:run
-RUN pnpm seed
-
+# RUN pnpm migration:run
+# RUN pnpm seed
+ADD start.sh /start.sh
 # exposed port
 
 EXPOSE 8080
 
-CMD ["node", "./build/index.js"]
+CMD ["node", "./build/index.js", "/start.sh"]
