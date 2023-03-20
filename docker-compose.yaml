@@ -27,6 +27,35 @@ services:
 #      - VITE_LOGS_DIR=logs/
 #    depends_on: #This is a lie
 #      - postgres
+
+  frontend:
+    container_name: frontend
+    build: ./frontend/
+    restart: always
+    ports:
+      - "88:80" # We need to map here for convenience, 
+      # so we don't conflict with a potential possible local server
+    environment:
+      - VITE_BACKEND_IP=backend
+      - VITE_BACKEND_PORT=8080
+
+
+  # minio:
+  #   container_name: minio
+  #   image: docker.io/bitnami/minio:latest
+  #   ports:
+  #     - "9000:9000"
+  #     - "9001:9001"
+  #   environment:
+  #     - MINIO_DEFAULT_BUCKETS=hola:public
+  #     - MINIO_ROOT_USER=clickers
+  #     - MINIO_ROOT_PASSWORD=clickersPass
+  #     - MINIO_SERVER_ACCESS_KEY=clickers
+  #     - MINIO_SERVER_SECRET_KEY=clickersPass
+  #   volumes:
+  #     - minio_data:/data
 volumes:
+  # minio_data:
+  #   driver: local
   db:
     driver: local
