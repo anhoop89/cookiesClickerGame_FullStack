@@ -59,7 +59,8 @@ function About() {
 
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/2 flex justify-center">
-            <img className="rounded-full h-60 w-60 object-cover shadow-2xl" src="./src/img/nicholas.png" alt="Nicholas Nguyen" />
+            <div className="logoBanner" alt="aboutTwo"  alt="Nicholas Nguyen" ></div>
+            
           </div>
           <div className="md:w-1/2 px-4 py-2 contactFont descriptorText ">
             <h2 className="text-3xl mb-2"> <strong> Nicholas Nguyen (he/him) </strong></h2>
