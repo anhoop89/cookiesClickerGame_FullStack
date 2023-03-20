@@ -13,6 +13,12 @@
   transition: all 200ms;
   -webkit-backdrop-filter: blur(4px);
 }
+.clickersCookie{
+  background-image: url("../img/cookies_logo.png");
+  background-size: cover;
+  width: 250px;
+  height: 250px;
+}
 
 .bigbutton {
   border: none;

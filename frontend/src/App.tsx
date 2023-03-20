@@ -104,9 +104,9 @@ function App() {
                 <nav className='navbar flex flex-wrap items-center justify-between px-2 shadow-lg'>
                     <div ref={dispearMenu} className="flex items-center justify-between w-full" >
                         
-                        <div className="flex  items-center mr-auto" >
-                            <Link to="/" className="flex items-center mr-10">
-                                <img className="h-12" src="./src/img/logo.png" alt="cookies logo"></img>
+                        <div>
+                            <Link to="/">
+                                <div className="logoBanner" alt="cookies logo"></div>
                             </Link>
                         </div>
 

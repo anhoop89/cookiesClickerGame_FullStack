@@ -259,7 +259,7 @@ function clickerGame() {
   return (
     <div className=" boxGameContainer flex flex-col items-center pt-40 pb-40  ">
       <div className="bigbutton" onClick={onButtonClick} id="theButton">
-        <img src="./src/img/cookies_logo.png" />
+        <nav  className="clickersCookie"></nav>
       </div>
       <h1 className="titleCount pt-10">Click Count: {clickCounter}</h1>
       <p className="rewardText overflow-hidden  max-w-md pt-5 mx-auto">
