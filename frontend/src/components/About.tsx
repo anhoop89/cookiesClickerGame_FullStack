@@ -19,7 +19,6 @@ function About() {
   const { user, isAuthenticated } = useAuth0();
 
   return (
-
     <div className="container pt-20 mt-20 mx-auto">
       <h1 className="readFont mainHeader"> About Us</h1>
       <br></br>
