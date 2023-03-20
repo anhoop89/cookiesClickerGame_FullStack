@@ -1,37 +1,25 @@
 /** @module Models/suggestions */
-import {
-	BaseEntity,
-	Column,
-	CreateDateColumn,
-	DeleteDateColumn,
-	Entity,
-	JoinColumn,
-	OneToMany,
-	OneToOne,
-	PrimaryGeneratedColumn,
-	Relation,
-	UpdateDateColumn
-} from "typeorm";
 
+import TypeORM from "typeorm";
 
 /**
  *  Class representing suggestions table
  */
-@Entity({name: "suggestions"})
-export class Suggestions extends BaseEntity {
-	@PrimaryGeneratedColumn()
+@TypeORM.Entity({name: "suggestions"})
+export class Suggestions extends TypeORM.BaseEntity {
+	@TypeORM.PrimaryGeneratedColumn()
 	id: number;
 
-	@Column('text')
+	@TypeORM.Column('text')
 	name: string;
 
-	@Column('text')
+	@TypeORM.Column('text')
 	email: string;
 
-	@Column('text')
+	@TypeORM.Column('text')
 	comments: string; 
 
-	@CreateDateColumn()
+	@TypeORM.CreateDateColumn()
 	created_at: string;
 
 }

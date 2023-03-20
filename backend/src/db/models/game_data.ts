@@ -1,16 +1,6 @@
 /** @module Models/GameData */
-import {
-	BaseEntity,
-	Column,
-	CreateDateColumn,
-	Entity, JoinTable,
-	ManyToMany,
-	ManyToOne,
-	OneToOne,
-	PrimaryGeneratedColumn,
-	Relation,
-	UpdateDateColumn
-} from "typeorm";
+
+import TypeORM from "typeorm";
 import {User} from "./user";
 
 /**
@@ -18,26 +8,26 @@ import {User} from "./user";
  * Each game data entry corresponds to exactly 1 game instance owned by a single User.
  * This means only one user can have a single game entry account
  */
-@Entity()
-export class GameData extends BaseEntity {
-	@PrimaryGeneratedColumn()
+@TypeORM.Entity()
+export class GameData extends TypeORM.BaseEntity {
+	@TypeORM.PrimaryGeneratedColumn()
 	gameId: number;
 
-	@Column()
+	@TypeORM.Column()
 	num_of_clicks: number;
 
-	@Column()
+	@TypeORM.Column()
 	num_of_upgrade_one: number;
 
-	@Column()
+	@TypeORM.Column()
 	num_of_upgrade_two: number;
 
-	@OneToOne((type) => User, (user: User) => user.gameDataEntry)
-	user: Relation<User>;
+	@TypeORM.OneToOne((type) => User, (user: User) => user.gameDataEntry)
+	user: TypeORM.Relation<User>;
 
-	@CreateDateColumn({select: false})
+	@TypeORM.CreateDateColumn({select: false})
 	created_at: string;
 
-	@UpdateDateColumn({select: false})
+	@TypeORM.UpdateDateColumn({select: false})
 	updated_at: string;
 }

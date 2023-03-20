@@ -23,11 +23,10 @@ ENV VITE_IP_ADDR=0.0.0.0
 ENV VITE_PORT=8080
 ENV VITE_LOGS_DIR=logs/
 ENV VITE_DB_HOST=postgres
-ENV VITE_DB_PORT=5433
+ENV VITE_DB_PORT=5432
 ENV VITE_DB_USER=clickers
 ENV VITE_DB_PASS=clickers
 ENV VITE_DB_NAME=clickers
-
 
 # copy project definition/dependencies files, for better reuse of layers
 COPY --chown=nodejs:nodejs package*.json ./
@@ -40,16 +39,17 @@ COPY --chown=nodejs:nodejs . .
 
 # build/pack binaries from sources
 RUN pnpm build
-
+RUN pnpm buildJS
+RUN pnpm install typeorm
 # testing server purpose 
-# RUN while ! nc -z postgres 8080; do sleep 3; done
+RUN while ! nc -z postgres 5432; do sleep 3; done
 
 # failed at migration:run
- RUN pnpm migration:run
-# RUN pnpm seed
+RUN pnpm migration:run
+RUN pnpm seed
 
 # exposed port
 
 EXPOSE 8080
 
-CMD [ "node", "./build/index.js"]
+CMD ["node", "./build/index.js"]

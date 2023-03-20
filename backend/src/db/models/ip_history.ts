@@ -1,26 +1,25 @@
 /** @module Models/IPHistory */
-import {BaseEntity, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Relation} from "typeorm";
 import {User} from "./user";
-
+import TypeORM from "typeorm";
 /**
  * IPHistory model - holds all IPs a user has logged in with
  */
-@Entity()
-export class IPHistory extends BaseEntity {
-	@PrimaryGeneratedColumn()
+@TypeORM.Entity()
+export class IPHistory extends TypeORM.BaseEntity {
+	@TypeORM.PrimaryGeneratedColumn()
 	id: string;
 
-	@Column("text")
+	@TypeORM.Column("text")
 	ip: string;
 
-	@ManyToOne((type) => User, (user: User) => user.ips, {
+	@TypeORM.ManyToOne((type) => User, (user: User) => user.ips, {
 		//adding an IPHistory will also add associated User if it is new, somewhat useless in this example
 		cascade: true,
 		// if we delete a User, also delete their IP History
 		onDelete: "CASCADE"
 	})
-	user: Relation<User>;
+	user: TypeORM.Relation<User>;
 
-	@CreateDateColumn()
+	@TypeORM.CreateDateColumn()
 	created_at: string;
 }
