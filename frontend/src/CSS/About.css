@@ -29,9 +29,22 @@ img{
     width: 250px;
 }
 
-.aboutTwo{
-    background-image: url("./src/img/nicholas.png");
+/* add a profile photo */
+.aboutOne{
+    background-image: url("../img/ava.png");
     background-size: cover;
     width: 250px;
     height: 250px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(65, 7, 241, 0.757);
+}
+
+.aboutTwo{
+    margin-top: 10px;
+    background-image: url("../img/nicholas.png");
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(10, 22, 247, 0.739);
 }
