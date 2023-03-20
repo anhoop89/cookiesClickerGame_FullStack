@@ -197,7 +197,7 @@ export async function clickers_routes(app: FastifyInstance): Promise<void> {
 
 				return app.db.user.softRemove(theUser).then(() => {
 					// Set the Access-Control-Allow-Origin header
-					reply.header("Access-Control-Allow-Origin", "http://localhost:5173");
+					reply.header("Access-Control-Allow-Origin", "http://localhost:88");
 					reply.send("User Deleted.");
 				});
 			})

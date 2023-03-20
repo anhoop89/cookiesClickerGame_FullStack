@@ -26,8 +26,7 @@ body {
     min-width: 400px;
     min-height: 100vh;
 
-    /* background-image: url("../img/bgPhoto.jpg"); */
-    background-image: url("../img/cookies_logo.png");
+    background-image: url("../img/bgPhoto.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -89,12 +88,3 @@ a {
 a:hover {
     color: #535bf2;
 }
-
-
-
-.clickersCookie{
-    background-image: url("../img/cookies_logo.png");
-    background-size: cover;
-    width: 300px;
-    height: 300px;
- }

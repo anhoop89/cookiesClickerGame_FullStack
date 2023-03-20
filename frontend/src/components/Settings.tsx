@@ -51,15 +51,18 @@ function Settings() {
             .then((response) => {
                 setDelete(response.data);
                 console.log(response.data);
-                logout();
-                alert("Your account has been deleted!")
-                setTimeout(() => {
-                    navigate("/");
-                }, 4000);
+
             })
             .catch((error) => {
                 console.error(error);
             });
+
+
+        logout();
+        alert("Your account has been deleted!")
+        setTimeout(() => {
+            navigate("/");
+        }, 4000);
         console.log(username);
     };
 
