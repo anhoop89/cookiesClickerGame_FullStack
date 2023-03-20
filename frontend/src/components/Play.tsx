@@ -2,6 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../CSS/play.css";
+import "../CSS/index.css";
 
 type Upgrade = {
   cost: number;

@@ -1,18 +1,6 @@
 /** @module Models/User */
-import {
-	BaseEntity,
-	Column,
-	CreateDateColumn,
-	DeleteDateColumn,
-	Entity,
-	JoinColumn,
-	OneToMany,
-	OneToOne,
-	PrimaryGeneratedColumn,
-	Relation,
-	UpdateDateColumn
-} from "typeorm";
 
+import TypeORM from "typeorm";
 import { SoftDeleteQueryBuilder } from "typeorm/query-builder/SoftDeleteQueryBuilder";
 import { GameData } from "./game_data";
 import {IPHistory} from "./ip_history";
@@ -20,35 +8,35 @@ import {IPHistory} from "./ip_history";
 /**
  *  Class representing user table
  */
-@Entity({name: "users"})
-export class User extends BaseEntity {
-	@PrimaryGeneratedColumn()
+@TypeORM.Entity({name: "users"})
+export class User extends TypeORM.BaseEntity {
+	@TypeORM.PrimaryGeneratedColumn()
 	id: number;
 
-	@Column('text')
+	@TypeORM.Column('text')
 	name: string;
 
-	@Column('text')
+	@TypeORM.Column('text')
 	email: string;
 
 	// IPHistory
-	@OneToMany((type) => IPHistory, (ip: IPHistory) => ip.user)
-	ips: Relation<IPHistory[]>;
+	@TypeORM.OneToMany((type) => IPHistory, (ip: IPHistory) => ip.user)
+	ips: TypeORM.Relation<IPHistory[]>;
 
 	
 	// GameData
-	@OneToOne((type) => GameData, (g: GameData) => g.user)
-	@JoinColumn()
-	gameDataEntry: Relation<GameData>;
+	@TypeORM.OneToOne((type) => GameData, (g: GameData) => g.user)
+	@TypeORM.JoinColumn()
+	gameDataEntry: TypeORM.Relation<GameData>;
 	
 
-	@CreateDateColumn()
+	@TypeORM.CreateDateColumn()
 	created_at: string;
 
-	@UpdateDateColumn()
+	@TypeORM.UpdateDateColumn()
 	updated_at: string;
 
 	// for soft deletion
-	@DeleteDateColumn({select: false})
+	@TypeORM.DeleteDateColumn({select: false})
 	deleted_at?: string;
 }

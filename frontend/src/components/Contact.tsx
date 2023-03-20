@@ -27,6 +27,8 @@ function Contact() {
 
   const [showErr, setErr] = useState("");
 
+  const [checkSent, setSent] = useState("");
+  
   const postMessage = async () => {
     if (name.trim() === "" || email.trim() === "" || suggestion.trim() === "") {
       alert("Please fill in the form before sending message!");
@@ -49,6 +51,7 @@ function Contact() {
       .then((response) => {
         setPost(response.data);
         console.log(postResult);
+        
       })
       .catch((error) => {
         if (error.response && error.response.status === 409)
@@ -60,7 +63,6 @@ function Contact() {
   const handleSubmitForm = (event: any) => {
     postMessage();
     event.preventDefault();
-    alert("Message Sent! Thanks for the feedback!");
     window.location.reload();
   };
 
