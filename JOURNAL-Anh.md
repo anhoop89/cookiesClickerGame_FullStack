@@ -29,15 +29,19 @@
 After some investigation, we discovered that images posted through CSS worked without any issues. Therefore, we decided to create a class name for CSS and added the images from there. This solution proved successful, and the images were able to load properly when we accessed the website through localhost:88
 > The backend dockerfile: We spent a few days struggling with the backend Dockerfile issue that prevented us from running our final code using 'docker compose up'. After conducting tests, we discovered that the problem originated from the Dockerfile attempting to 'RUN pnpm migration:run' before the database was ready.
 
-Since we were unable to find a solution, we reached out to the class Discord for help. Fortunately, Kelsey had experienced the same issue and was able to provide some helpful resources. After discussing the problem with her, we were able to identify a solution.
+> Since we were unable to find a solution, we reached out to the class Discord for help. Fortunately, Kelsey had experienced the same issue and was able to provide some helpful resources. After discussing the problem with her, we were able to identify a solution.
 
-To resolve the issue, we created a .sh file that checked the health of the database and ensured that it was up and running before initiating migration and seeding. This approach proved successful, and we were finally able to run the final code using 'docker compose up'. Despite a few days on the challenge, we were grateful to have found a solution with the help of Kelsey and the class Discord community.
+> To resolve the issue, we created a .sh file that checked the health of the database and ensured that it was up and running before initiating migration and seeding. This approach proved successful, and we were finally able to run the final code using 'docker compose up'. Despite a few days on the challenge, we were grateful to have found a solution with the help of Kelsey and the class Discord community.
 
 # Outside of the frontend/backend/database: 
 > Clearning the code.
+
 > Testing each components again.
+
 > Formatting TailwindCSS/CSS.
+
 > Adding some animation, color, style. 
+
 > Commenting for code. 
 
 
