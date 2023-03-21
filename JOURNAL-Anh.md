@@ -55,4 +55,5 @@ While the project achieved our initial goals, there is still potential for impro
 Despite these challenges, we were able to successfully build a functional and visually appealing web-based clicker game. This project provided us with a valuable opportunity to apply and expand our knowledge in these areas, and we feel more confident in our ability to design and develop software applications. 
 
 Thank you for the term! 
+
 ~Anh Ho
