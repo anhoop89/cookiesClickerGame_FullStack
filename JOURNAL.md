@@ -1,18 +1,8 @@
-Profile Table -> convert to Game Data Table
+Personal Journals can be found inside of the project folder under:
+    - JOURNAL-Anh.md
+    - JOURNAL-Nicholas.md
 
-User Table needs to contain:
-    - User's Name
-    - User's Email
-    - Relation to Game Data Table (1:1)
-    - Created Date
-    - Soft Delete (delete_at)
-
-
-Game Data Table needs to contain:
-    - # of clicks
-    - # of upgrade for upgrade One
-    - # of upgrade for upgrade Two
-    - Relation to User Table
-    - ((( other game data yet to be added )))
-
+For a look at the brainstorming process and supplemental works referred to
+while developing the project, please visit:
+    - https://docs.google.com/document/d/1Y8Y6PIZYuDJwhOqf3vHFgC2QXlD890_AixRsVv76mjc/edit?usp=sharing
 
