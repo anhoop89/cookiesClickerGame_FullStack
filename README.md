@@ -20,7 +20,7 @@ Instructor: Casey Bailey
 ```
 
 ## When you are done all the steps above, the project should be starting at:
-``
+```
 ### http://localhost:88/
-``
+```
 
