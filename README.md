@@ -1,4 +1,4 @@
-# CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
+## CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
 
 Portland State University - Winter 2023
 
