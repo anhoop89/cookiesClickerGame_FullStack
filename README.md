@@ -5,18 +5,21 @@ Instructor: Casey Bailey
 
 # CLICKERS SETUP
 (All commands are with respect to the root directory of the project)
-
+```
 > Clone repository
 
-> Copy and configure .env file (cp backend/.env.example backend/.env)
+> Copy and configure .env file ** (cp backend/.env.example backend/.env) **
 
-> Install dependencies (cd backend/ && pnpm install)
+> Install dependencies ** (cd backend/ && pnpm install) **
 
-> Start the whole project (docker compose up)
+> Start the whole project ** (docker compose up) **
+```
 
 ** Since we got an issue with pnpm migration:run in the backend dockerfile, we need to run the backend and create the database manually** 
+```
 
-> Reset prior Typeorm setup, run migration tables and seed the data into the database (cd backend/ && pnpm gitSync)
+> Reset prior Typeorm setup, run migration tables and seed the data into the database ** (cd backend/ && pnpm gitSync) **
+```
 
 # When you are done all the steps above, the project should be starting at  http://localhost:88/
 
