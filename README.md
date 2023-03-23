@@ -26,7 +26,7 @@ Instructor: Casey Bailey
 
 ## A short introduction about our final product: https://youtu.be/gXjTtAHfMvM
 
-### Other videos (Project Proposal): 
+### Other projject proposal videos: 
 
 1. https://youtu.be/FGvck7D2wQw 
 2. https://youtu.be/ESU7fl71CxM
