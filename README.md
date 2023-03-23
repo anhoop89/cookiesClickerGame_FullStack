@@ -1,3 +1,8 @@
+CS465P - Full Stack Web Development - Final Project
+Portland State University - Winter 2023
+Students: Nicholas Nguyen & Anh Ho
+Instructor: Casey Bailey
+
 # CLICKERS SETUP
 (All commands are with respect to the root directory of the project)
 
@@ -7,17 +12,13 @@
 
 > Install dependencies (cd backend/ && pnpm install)
 
-> Start database (docker compose up postgres)
+> Start the whole project (docker compose up)
 
-> Reset prior Typeorm setup (cd backend/ && pnpm typeorm:drop)
+** Since we got an issue with pnpm migration:run in the backend dockerfile, we need to run the backend and create the database manually** 
 
-> Migrate database (cd backend/ && pnpm migration:run)
+> Reset prior Typeorm setup, run migration tables and seed the data into the database (cd backend/ && pnpm gitSync)
 
-> Seed Database (cd backend/ && pnpm seed)
-
-> Test backend ( cd backend/ && pnpm test)
-
-> Start backend (cd backend/ && pnpm dev)
+# When you are done all the steps above, the project should be starting at ** _ http://localhost:88/ _ **
 
 ### Auto-generating migration file from current Models
 
