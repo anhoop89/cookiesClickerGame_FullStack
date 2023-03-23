@@ -11,7 +11,7 @@ Our project has been done in the main branch.
 # CLICKERS SETUP
 (All commands are with respect to the ** ROOT directory ** of the project)
 
-Note:
+
 ```
 > 1. Clone repository 
 ```
