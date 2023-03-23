@@ -9,7 +9,7 @@ Instructor: Casey Bailey
 Our project has been done in the main branch. 
 
 # CLICKERS SETUP
-(All commands are with respect to the root directory of the project)
+(All commands are with respect to the ** ROOT directory ** of the project)
 ```
 > Clone repository 
 ```
