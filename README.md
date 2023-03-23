@@ -24,7 +24,7 @@ Instructor: Casey Bailey
 
 ## When you are done all the steps above, the project should be starting at: http://localhost:88/
 
-## A short introduction about our project: https://youtu.be/gXjTtAHfMvM
+## A short introduction about our final product: https://youtu.be/gXjTtAHfMvM
 
 ### Other videos (Project Proposal): 
 
