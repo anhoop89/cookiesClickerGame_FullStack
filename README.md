@@ -1,6 +1,9 @@
-CS465P - Full Stack Web Development - Final Project
+# CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
+
 Portland State University - Winter 2023
+
 Students: Nicholas Nguyen & Anh Ho
+
 Instructor: Casey Bailey
 
 # CLICKERS SETUP
