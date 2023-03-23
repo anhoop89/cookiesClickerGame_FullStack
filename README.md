@@ -6,7 +6,7 @@ Instructor: Casey Bailey
 # CLICKERS SETUP
 (All commands are with respect to the root directory of the project)
 ```
-> Clone repository
+> Clone repository 
 
 ** Since we got an issue with pnpm migration:run in the backend dockerfile, we need to run the backend and create the database manually** 
 
