@@ -6,6 +6,8 @@ Students: Nicholas Nguyen & Anh Ho
 
 Instructor: Casey Bailey
 
+Our project has been done in the main branch. 
+
 # CLICKERS SETUP
 (All commands are with respect to the root directory of the project)
 ```
