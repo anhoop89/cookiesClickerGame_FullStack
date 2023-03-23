@@ -19,8 +19,4 @@ Instructor: Casey Bailey
 > Reset prior Typeorm setup, run migration tables and seed the data into the database ** ( cd backend/ && pnpm gitSync ) **
 ```
 
-## When you are done all the steps above, the project should be starting at:
-```
-### http://localhost:88/
-```
-
+## When you are done all the steps above, the project should be starting at: http://localhost:88/
