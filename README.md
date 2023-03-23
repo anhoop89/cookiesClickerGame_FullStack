@@ -8,17 +8,15 @@ Instructor: Casey Bailey
 ```
 > Clone repository
 
-> Copy and configure .env file ** (cp backend/.env.example backend/.env) **
-
-> Install dependencies ** (cd backend/ && pnpm install) **
-
-> Start the whole project ** (docker compose up) **
-```
-
 ** Since we got an issue with pnpm migration:run in the backend dockerfile, we need to run the backend and create the database manually** 
-```
 
-> Reset prior Typeorm setup, run migration tables and seed the data into the database ** (cd backend/ && pnpm gitSync) **
+> Copy and configure .env file ** ( cp backend/.env.example backend/.env ) **
+
+> Install dependencies ** ( cd backend/ && pnpm install ) **
+
+> Start the whole project ** ( docker compose up ) **
+
+> Reset prior Typeorm setup, run migration tables and seed the data into the database ** ( cd backend/ && pnpm gitSync ) **
 ```
 
 # When you are done all the steps above, the project should be starting at  http://localhost:88/
