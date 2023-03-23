@@ -39,8 +39,7 @@ COPY --chown=nodejs:nodejs . .
 
 # build/pack binaries from sources
 RUN pnpm build
-# RUN pnpm buildJS
-# RUN pnpm install typeorm
+
 # testing server purpose 
 # RUN while ! nc -z postgres 5432; do sleep 3; done
 
