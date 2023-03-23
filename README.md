@@ -7,9 +7,9 @@ Instructor: Casey Bailey
 (All commands are with respect to the root directory of the project)
 ```
 > Clone repository 
-
+```
 ** Since we got an issue with pnpm migration:run in the backend dockerfile, we need to run the backend and create the database manually** 
-
+```
 > Copy and configure .env file ** ( cp backend/.env.example backend/.env ) **
 
 > Install dependencies ** ( cd backend/ && pnpm install ) **
