@@ -1,3 +1,5 @@
+Necessity to setup backend database.
+
 Local:
 
 1. Copy and configure .env.example to .env
@@ -13,27 +15,12 @@ From root (not /backend)
 
 > docker-compose up
 
-
-Adding migration process:
-
-> Create new model in src/db/models
-
-> pnpm typeorm:updateDatasource
-
-> pnpm migration:generate ./src/db/migrations/<NAMEHERE>
-
-> pnpm typeorm:updateDatasource //This will auto add to dev_datasource.ts
+Migration process:
 
 > pnpm migration:run
 
-> Add new model table to database plugin (database.ts)
-
-Adding seed process:
-> After running migration, create new seeder file in src/db/seeds
-
-> Add seed class to seeder options
-
-> execute `pnpm seed`
+Seed process:
+> After running migration, execute `pnpm seed`
 
 Updating your local version of clickers after Pulling changes from the Github repo:
 > pnpm gitSync
