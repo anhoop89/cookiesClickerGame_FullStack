@@ -1,6 +1,9 @@
-CS465P - Full Stack Web Development - Final Project
+## CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
+
 Portland State University - Winter 2023
+
 Students: Nicholas Nguyen & Anh Ho
+
 Instructor: Casey Bailey
 
 # CLICKERS SETUP
@@ -10,24 +13,20 @@ Instructor: Casey Bailey
 ```
 ** Since we got an issue with pnpm migration:run in the backend dockerfile, we need to run the backend and create the database manually** 
 ```
-> Copy and configure .env file ** ( cp backend/.env.example backend/.env ) **
+> Copy and configure .env file:   ( cp backend/.env.example backend/.env )  
 
-> Install dependencies ** ( cd backend/ && pnpm install ) **
+> Install dependencies:           ( cd backend/ && pnpm install ) 
 
-> Start the whole project ** ( docker compose up ) **
+> Start the whole project:        ( docker compose up )
 
-> Reset prior Typeorm setup, run migration tables and seed the data into the database ** ( cd backend/ && pnpm gitSync ) **
+> Reset prior Typeorm setup, run migration tables and seed the data into the database:    ( cd backend/ && pnpm gitSync )
 ```
 
-# When you are done all the steps above, the project should be starting at  http://localhost:88/
+## When you are done all the steps above, the project should be starting at: http://localhost:88/
 
-### Auto-generating migration file from current Models
+## A short introduction about our final product: https://youtu.be/gXjTtAHfMvM
 
-This is ONLY NEEDED during our initial development in-class!
-Once you clone the repository with the migrations already in it,
-you ONLY do the above!
+### Other project proposal videos: 
 
-> pnpm typeorm:drop
-
-> pnpm migration:generate ./src/db/migrations/initialize.ts
-
+1. https://youtu.be/FGvck7D2wQw 
+2. https://youtu.be/ESU7fl71CxM
