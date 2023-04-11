@@ -23,7 +23,8 @@ Our project has been done in the main branch.
 
 > 4. Start the whole project:        ( docker compose up )
 
-Wait until you see the line "backend | [04:14:49.570] INFO: Server listening at http://0.0.0.0:8080 ", then you need to 
+Wait until you see the line "backend | [04:14:49.570] INFO: Server listening at http://0.0.0.0:8080 ", then you need to
+ 
 open a new termial and run the next step (5).  
 
 > 5. Reset prior Typeorm setup, run migration tables and seed the data into the database:    ( cd backend/ && pnpm gitSync )
