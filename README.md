@@ -30,8 +30,24 @@ Wait until you see the line "backend   | [04:14:49.570] INFO: Server listening a
 
 ## When you are done all the steps above, the project should be starting at: http://localhost:88/
 
-## A short introduction about our final product: https://youtu.be/gXjTtAHfMvM
+# This is a fullstack application including: 
+## Front End: 
+```
+HTML/CSS
+Typescript 
+React.JS 
+TailwindCSS
+```
+## Back End: 
+```
+filling ...
+```
+## Datebase: 
+```
+TypeORM
+```
 
+## A short introduction about our final product: https://youtu.be/gXjTtAHfMvM
 ### Other project proposal videos: 
 
 1. https://youtu.be/FGvck7D2wQw 
