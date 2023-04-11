@@ -41,12 +41,17 @@ TailwindCSS
 ```
 ## Back End: 
 ```
-filling ...
+Framework:
 ```
 ## Datebase: 
 ```
 TypeORM
 ```
+## Test: 
+```
+
+```
+
 
 ## A short introduction about our final product: https://youtu.be/gXjTtAHfMvM
 ### Other project proposal videos: 
