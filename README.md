@@ -2,7 +2,7 @@
 
 Portland State University - Winter 2023
 
-Students: Nicholas Nguyen & Anh Ho
+Students: Anh Ho && Nicholas Nguyen 
 
 Instructor: Casey Bailey
 
