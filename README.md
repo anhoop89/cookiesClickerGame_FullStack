@@ -1,6 +1,6 @@
-![Image Title](https://iili.io/Hv5YVgn.png "Game Clicker")
-
-<img src="https://iili.io/Hv5YVgn.png" alt="Image Title" width="300"/>
+<div style="text-align:center">
+  <img src="https://iili.io/Hv5YVgn.png" alt="Image Title" width="500"/>
+</div>
 
 ## CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
 
