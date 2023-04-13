@@ -39,6 +39,7 @@ HTML/CSS
 Typescript 
 React.JS 
 TailwindCSS
+Nginx
 ```
 ## Back End: 
 ```
