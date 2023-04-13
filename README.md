@@ -1,5 +1,7 @@
 ![Image Title](https://iili.io/Hv5YVgn.png "Game Clicker")
 
+<img src="https://iili.io/Hv5YVgn.png" alt="Image Title" width="300"/>
+
 ## CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
 
 Portland State University - Winter 2023
