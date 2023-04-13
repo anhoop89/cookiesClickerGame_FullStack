@@ -31,7 +31,7 @@ Our project has been done in the main branch.
 
 then you need to open a new termial and run the next step (5). **
 
-> 5. Reset prior Typeorm setup, run migration tables and seed the data into the database:    ( cd backend/ && pnpm gitSync )
+> 5. Reset prior Typeorm setup, run migration tables and seed the data into the database: ( cd backend/ && pnpm gitSync )
 ```
 
 ## When you are done all the steps above, the project should be starting at: http://localhost:88/
