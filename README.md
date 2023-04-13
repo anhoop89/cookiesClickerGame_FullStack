@@ -42,7 +42,10 @@ TailwindCSS
 ```
 ## Back End: 
 ```
-Framework:
+Typescript
+NodeSJ / Pnpm 
+Fastify
+CORS
 ```
 ## Datebase: 
 ```
@@ -50,7 +53,7 @@ TypeORM
 ```
 ## Test: 
 ```
-
+Vitest
 ```
 
 
