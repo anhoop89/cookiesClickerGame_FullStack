@@ -1,6 +1,6 @@
-<div style="text-align:center">
-  <img src="https://iili.io/Hv5YVgn.png" alt="Image Title" width="500"/>
-</div>
+<p align="center">
+  <img width="600" src="https://iili.io/Hv5YVgn.png" alt="Game Clicker">
+</p>
 
 ## CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
 
