@@ -1,4 +1,4 @@
-![Image Title](https://iili.io/Hv5YVgn.png "Image Description")
+![Image Title](https://iili.io/Hv5YVgn.png "Game Clicker")
 
 ## CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
 
