@@ -1,3 +1,5 @@
+![Image Title](https://iili.io/Hv5YVgn.png "Image Description")
+
 ## CS465P - Full Stack Web Development - Final Project - Web Based Clicker Game
 
 Portland State University - Winter 2023
